@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Structure of a Node</a>
+        <a href="#2" onclick="toggleSidebar()">Operations in a Linked List</a>
+        <a href="#3" onclick="toggleSidebar()">Example Usage</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+<h1 id="LinkedList">Linked List</h1>
+
+<p>A linked list is a linear data structure in which elements (nodes) are connected using pointers.</p>
+<ul>
+    <li>Always read the question as they can often hint or guide you on what you have to do.</li>
+    <li>Questions may also ask you to come up with new functions.</li>
+    <li>Hence it is crucial to understand how the code works and be able to adapt and modify it.</li>
+</ul>
+<p>Below are key operations and examples:</p>
+
+<h2 id='1'>1. Structure of a Node</h2>
+<ul>
+    <li>A <strong>Node</strong> contains two parts:
+        <ul>
+            <li><strong>Data:</strong> Stores the actual data of the node.</li>
+            <li><strong>Pointer:</strong> Stores the reference to the next node.</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>class Node:
+    def __init__(self, data, pointer=None):
+        self.__data = data
+        self.__pointer = pointer
+
+    def getPointer(self):
+        return self.__pointer
+
+    def setPointer(self, pointer):
+        self.__pointer = pointer
+
+    def getData(self):
+        return self.__data
+
+    def setData(self, data):
+        self.__data = data</code></div>
+<br>
+
+<h2 id='2'>2. Operations in a Linked List</h2>
+<ul>
+    <li>The <strong>LinkedList</strong> class provides methods to manipulate and traverse the list.</li>
+    <li>Below are examples of operations like inserting, deleting, and displaying elements.</li>
+</ul>
+
+<h3>a) Inserting at the Head</h3>
+<p>Adds a new node at the beginning of the list.</p>
+<div class="dark-box"><code>class LinkedList:
+    def insertHead(self, data):
+        newnode = Node(data)
+        if self.isEmpty():
+            self.__head = newnode
+        else:
+            newnode.setPointer(self.__head)
+            self.__head = newnode</code></div>
+<br>
+
+<h3>b) Inserting at the Tail</h3>
+<p>Adds a new node at the end of the list.</p>
+<div class="dark-box"><code>def insertTail(self, data):
+    newnode = Node(data)
+    if self.isEmpty():
+        self.__head = newnode
+    else:
+        curr = self.__head
+        while curr.getPointer() != None:
+            curr = curr.getPointer()
+        curr.setPointer(newnode)</code></div>
+<br>
+
+<h3>c) Deleting the Head</h3>
+<p>Removes the first node in the list.</p>
+<div class="dark-box"><code>def deleteHead(self):
+    if self.isEmpty():
+        print(f'Nothing to delete')
+    else:
+        self.__head = self.__head.getPointer()</code></div>
+<br>
+
+<h3>d) Calculating the Length</h3>
+<p>Counts the number of nodes in the list.</p>
+<div class="dark-box"><code>def length(self):
+    count = 0
+    curr = self.__head
+    while curr != None:
+        count += 1
+        curr = curr.getPointer()
+    return count</code></div>
+<br>
+
+<h3>e) Displaying the List</h3>
+<p>Traverses and prints all nodes in the list.</p>
+<div class="dark-box"><code>def display(self):
+    if self.isEmpty():
+        print(f'List is Empty')
+    else:
+        curr = self.__head
+        while curr != None:
+            print(f'{curr.getData()}')
+            curr = curr.getPointer()</code></div>
+<br>
+
+<h2 id='3'>3. Example Usage</h2>
+<p>Below is an example demonstrating how to use the LinkedList class:</p>
+<div class="dark-box"><code># Main
+linked_list = LinkedList()
+
+# Insert nodes
+linked_list.insertHead(10)
+linked_list.insertTail(20)
+linked_list.insertTail(30)
+
+# Display list
+linked_list.display()
+
+# Delete head
+linked_list.deleteHead()
+linked_list.display()
+
+# Length of list
+print(f'Length: {linked_list.length()}')</code>
+---------------------------------------
+<code>10
+20
+30
+20
+30
+Length: 2</code></div>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

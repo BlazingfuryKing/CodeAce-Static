@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cubicle Availability {{date}}</title>
+		<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+	</head>
+	<body>
+		<h1>Cubicle Availability on {{date}}</h1>
+		<table>
+			{% for cubicle in cubicles %}
+			
+			<tr>
+				<td>
+					{{cubicle}}
+				</td>
+				{% if cubicle in available %}
+				<th>
+					Available
+				</th>
+				{% else %}
+				<th>
+					Unavailable
+				</th>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

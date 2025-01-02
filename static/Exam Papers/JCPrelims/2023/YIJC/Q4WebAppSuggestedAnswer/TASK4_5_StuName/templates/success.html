@@ -1,0 +1,27 @@
+<html>
+    <head><title>Message</title></head>
+    <body>
+    <h2>{{message}}</h2>
+	
+		<h4>Current Rental Records</h4>
+		<table border=1>
+		<tr>
+		<th>Date</th><th>Vehicle Model</th><th>Rental</th><th>Paid</th>
+		</tr>
+			{% for row in results %}
+			<tr>
+			<td>{{row[0]}}</td><td>{{row[1]}}</td><td>{{row[2]}}</td><td>{{row[3]}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br>
+		Outstanding amount of rental owed: {{total}}
+		<br>
+
+	<a href = '{{ url_for('index') }}'>Main Menu</a>
+</body>
+</html>
+
+<!--[1m] present in table with border-->
+<!--[1m] use jinja for for-loop-->
+<!--[1m] display total cost-->

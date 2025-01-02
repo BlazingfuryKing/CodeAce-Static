@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Vote Breakdown</title>
+		<link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+	</head>
+	<body>
+		<h1>Breakdown of Votes</h1>
+		<form action="{{url_for('vote_breakdown')}}" method="post"> <!-- 1 mark(TASK 4.5) - created html form with right action & POST method -->
+			
+			<p>Candidate:</p>
+			<input type="radio" id="all" name="candidate" value="all" checked = "checked"> <!-- 1 mark(TASK 4.5) - created all radio buttons correctly -->
+			<label for="all">All</label>
+			<input type="radio" id="He Xuan Ying" name="candidate" value="He Xuan Ying">
+			<label for="He Xuan Ying">He Xuan Ying</label>
+			<input type="radio" id="Lai Kok Soon" name="candidate" value="Lai Kok Soon">
+			<label for="Lai Kok Soon">Lai Kok Soon</label>
+			<input type="radio" id="Poon Yi Hao" name="candidate" value="Poon Yi Hao">
+			<label for="Poon Yi Hao">Poon Yi Hao</label>
+			
+			<input type="submit">
+		
+		</form>
+		
+		<table border='1' style='border-collapse:collapse'>
+			<tr>
+				<th>Voter Name</th>
+				<th>Class</th>
+				<th>Voted for</th>
+			</tr>
+			{% for record in html_records %}
+				<tr>
+					<td>{{record[0]}}</td>
+					<td>{{record[1]}}</td>
+					<td>{{record[2]}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+	</body>
+</html>

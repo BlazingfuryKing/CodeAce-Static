@@ -1,0 +1,16 @@
+<!doctype html>
+
+<html>
+	<head>
+		<title>Bento List</title>
+	</head>
+	
+	<body>
+		<p>You may wish to purchase the following bento boxes:</p>
+		<ul>
+		{%for bento in result%}
+			<li>{{bento[0]}} (${{bento[1]}})</li>
+		{%endfor%}
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prelim Papers</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h1 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1F1F1F; /* Dark gray header */
+            color: #FFD700; /* Gold text for header */
+            padding: 1rem 0;
+            text-align: center;
+        }
+    
+        header h1 {
+            color: #FFD700; /* Gold for header title */
+        }
+    
+        header p {
+            color: #CDC7D9; /* Muted gray for subtitle */
+        }
+
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+        .hero h1 {
+            margin: 0;
+            color: #FFD700; /* Gold for hero header */
+        }
+    
+        /* Course Section */
+        .course {
+            padding: 2rem 20px;
+            text-align: center;
+        }
+
+        .course h2 {
+            margin-bottom: 20px;
+            text-align: center; /* Centers the text horizontally */
+            color: white;
+        }
+        
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: left;
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            width: 150px;
+            text-align: left;
+            height: 80px;
+            text-align: center; 
+        }
+
+        .course-card h3 {
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
+
+        .course-card button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .course-card button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">2018</a>
+        <a href="#2" onclick="toggleSidebar()">2019</a>
+        <a href="#3" onclick="toggleSidebar()">2020</a>
+        <a href="#4" onclick="toggleSidebar()">2021</a>
+        <a href="#5" onclick="toggleSidebar()">2022</a>
+        <a href="#6" onclick="toggleSidebar()">2023</a>
+        <a href="#7" onclick="toggleSidebar()">2024</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+ <section class="course">
+    <h1 id="1">2018</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2018\DHS\2018_9597_PrelimP1_DHS.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\Prelim Papers\2018\DHS\2018_9597_PrelimP2_DHS.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2018\HCI\Prelim P1\HCI Prelim P1_2018.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2018\HCI\Prelim P2\HCI_Prelim_P2_2018.pdf" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>IJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2018\IJC\9597 Prelim Paper 1.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2018\IJC\9597 Prelim Paper 2.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2018\RVHS\RV2018PrelimP1.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2018\RVHS\RV2018PrelimP2.pdf" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="course">
+    <h1 id="2">2019</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\DHS 2019 JC2 Prelim Exam (Practical Paper) with ms.zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\HCI Prelim P1_2019.zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>JPJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\JPJC 2019 JC2 Prelim Exam (Practical Paper).zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\NJC\NJC 2019 Prelim.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2019\NJC\2019_NJC_H2_Computing_9597_TheoryQuestionPaper.pdf" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NYJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\NYJC 2019 JC2 Prelim Exam (Practical Paper).zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\RVHS JC2 Prelim Exam (Practical) 2019.zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>YIJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\YIJC 2019 JC2 Prelim Exam (Practical Paper).zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2019\YIJC 2019 Prelim Paper 2.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>  
+
+<section class="course">
+    <h1 id="3">2020</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>ACJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2020\ACJC\Paper 1.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\ACJC\Paper 2.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2020\DHS\2020 Y6CP Prelim Paper 1.pdf" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\DHS.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2020\HCI Practical.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\HCI Theory.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>JPJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2020\JPJC\Paper 2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\JPJC\Paper 1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2020\NJC\Paper2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\NJC\Paper1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NYJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2020\NYJC\Paper 2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\NYJC\Paper 1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2019\YIJC 2019 JC2 Prelim Exam (Practical Paper).zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>YIJC</h3>  
+            <a href="..\static\Exam Papers\JCPrelims\2020\YIJC\Practical.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2020\YIJC\Theory.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>     
+
+<section class="course">
+    <h1 id="4">2021</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>ACJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\ACJC\2021 JC2 Computing Prelim Paper 2 (Practical).zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\ACJC\2021 JC2 Computing Prelim P1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\DHS\DHS P2 Prelims 2021.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\DHS\P1 Y6 Prelim 2021_print w ans updated.pdf" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\HCI\2021_JC2Prelim_P2_QP.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\HCI\2021 JC2 Prelim Paper 1 Question.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>JPJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\JPJC\JPJC 2021 JC2 Prelim Exam Paper 2.zip" download>
+                <button>Practical</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\NJC\NJC_2021_H2_Computing_Prelim_P2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\NJC\NJC_2021_H2_Computing_Prelim_P1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NYJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\NYJC\NYJC PRELIM 2021 P2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\NYJC\NYJC PRELIM 2021 P1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2021\RVHS\RVHS PRELIM 2021 P2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\RVHS\RVHS PRELIM 2021 P1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>YIJC</h3>  
+            <a href="..\static\Exam Papers\JCPrelims\2021\YIJC\2021 YIJC JC2 Prelim P2 (Practical).zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2021\YIJC\2021 YIJC JC2 Prelim P1 (Written).zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>     
+
+<section class="course">
+    <h1 id="5">2022</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>ACJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\ACJC\Prelim2022ACJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\ACJC\Prelim2022ACJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\DHS\Prelim2022DHSP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\DHS\Prelim2022DHSP1QP&SuggestedAnswers.pdf" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\HCI\Prelim2022HCIP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\HCI\Prelim2022HCIP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>JPJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\JPJC\Prelim2022JPJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\JPJC\Prelim2022JPJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\NJC\Prelim2022NJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\NJC\Prelim2022NJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NYJC-TJC-VJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\NYJC-TJC-VJC\Prelim2022NYJCTJCVJCP2.pdf" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\NYJC-TJC-VJC\Prelim2022NYJCTJCVJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2022\RVHS\Prelim2022RVHSP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\RVHS\Prelim2022RVHSP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>YIJC</h3>  
+            <a href="..\static\Exam Papers\JCPrelims\2022\YIJC\Prelim2022YIJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2022\YIJC\Prelim2022YIJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>     
+
+<section class="course">
+    <h1 id="6">2023</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>ACJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\ACJC\Prelim2023ACJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\ACJC\Prelim2023ACJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\DHS\Prelim2023DHSP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\DHS\Prelim2023DHSP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\HCI\Prelim2023HCIP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\HCI\Prelim2023HCIP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>JPJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\JPJC\Prelim2023JPJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\JPJC\Prelim2023JPJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\NJC\Prelim2023NJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\NJC\Prelim2023NJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NYJC-TJC-VJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\NYJC-TJC-VJC\Prelim2023NYJCTJCVJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\NYJC-TJC-VJC\Prelim2023NYJCTJCVJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\RI\Prelim2023RIP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\RI\Prelim2023RIP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2023\RVHS\Prelim2023RVHSP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\RVHS\Prelim2023RVHSP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>YIJC</h3>  
+            <a href="..\static\Exam Papers\JCPrelims\2023\YIJC\Prelim2023YIJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2023\YIJC\Prelim2023YIJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>     
+
+<section class="course">
+    <h1 id="7">2024</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>ACJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\ACJC\Prelim2024ACJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\ACJC\Prelim2024ACJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>DHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\DHS\Prelim2024DHSP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\DHS\Prelim2024DHSP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>HCI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\HCI\Prelim2024HCIP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\HCI\Prelim24P1HCI.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>JPJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\JPJC\Prelim2024JPJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\JPJC\Prelim24P1JPJC.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\NJC\Prelim2024NJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\NJC\Prelim2024NJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>NYJC-TJC-VJC</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\NYJC-TJC-VJC\Prelim2024NYJCTJCVJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\NYJC-TJC-VJC\Prelim2024NYJCTJCVJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RI</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\RI\Prelim2024RIP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\RI\Prelim2024RIP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>RVHS</h3>
+            <a href="..\static\Exam Papers\JCPrelims\2024\RVHS\Prelim2024RVHSP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\RVHS\Prelim2024RVHSP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>YIJC</h3>  
+            <a href="..\static\Exam Papers\JCPrelims\2024\YIJC\Prelim2024YIJCP2.zip" download>
+                <button>Practical</button>
+            </a>
+            <a href="..\static\Exam Papers\JCPrelims\2024\YIJC\Prelim2024YIJCP1.zip" download>
+                <button>Theory</button>
+            </a>
+        </div>
+    </div>
+</section>     
+
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

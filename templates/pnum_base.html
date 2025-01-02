@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Base Conversions</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+                /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+<div class="main-menu">
+    <div class="menu-left">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <div class="menu-links">
+        <a href="/">Home</a>
+        <a href="theory.html">Theory</a>
+        <a href="practical.html">Practical</a>
+        <a href="papers.html">Papers</a>
+    </div>
+</div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#Num-Base" onclick="toggleSidebar()">Iterative Conversions</a>
+        <a href="#Recursive-Conversions" onclick="toggleSidebar()">Recursive Conversions</a>
+        <br>
+    </div>
+
+    
+<!-- Content -->    
+<div class="content">
+<h2 id="Num-Base">Iterative Number Base Conversions</h2>
+<h3>1. Decimal to Binary</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a decimal number to binary by repeatedly dividing by 2 and storing the remainders in reverse order.</li>
+    <li><strong>Steps:</strong>
+        <ul>
+            <li>Divide the decimal number by 2.</li>
+            <li>Store the remainder as a binary digit.</li>
+            <li>Repeat until the quotient is 0.</li>
+            <li>Read the remainders in reverse order.</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def decimal_to_binary(dec_num):
+    bin_num = ''
+    while dec_num > 0:
+        remainder = dec_num % 2
+        bin_num = str(remainder) + bin_num
+        dec_num = dec_num // 2
+    return bin_num
+
+# main
+print(decimal_to_binary(1114))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code></div>
+<br>
+
+<h3>2. Decimal to Hexadecimal</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a decimal number to hexadecimal by repeatedly dividing by 16 and storing the remainders in reverse order.</li>
+    <li><strong>Steps:</strong>
+        <ul>
+            <li>Divide the decimal number by 16.</li>
+            <li>Map the remainder to its hexadecimal equivalent.</li>
+            <li>Repeat until the quotient is 0.</li>
+            <li>Read the remainders in reverse order.</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def decimal_to_hexadecimal(dec_num):
+    dec_hex_map = {1:'1', 2:'2', 3:'3', 4:'4', 5:'5', 6:'6', 7:'7', 8:'8', 9:'9', \
+    10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+    hex_num = ''
+    while dec_num > 0:
+        remainder = dec_num % 16
+        hex_num = str(dec_hex_map[remainder]) + hex_num
+        dec_num = dec_num // 16
+    return hex_num
+
+# main
+print(decimal_to_hexadecimal(1114))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code></div>
+<br>
+
+<h3>3. Decimal to Base n, where n is an integer</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a decimal number to base n by repeatedly dividing by n and storing the remainders in reverse order.</li>
+    <li><strong>Steps:</strong>
+        <ul>            
+            <li>If the base is less than 10.</li>
+            <li>Divide the decimal number by n.</li>
+            <li>Store the remainder as a base n digit.</li>
+            <li>Repeat until the quotient is 0.</li>
+            <li>Read the remainders in reverse order.</li>
+            <li>If the base is more than 10.</li>
+            <li>You would need a hex_map similar to decimal to hexadecimal</li>
+            <li>Do read the question for more information</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def decimal_to_base(dec_num, n):
+    num = ''
+    while dec_num > 0:
+        remainder = dec_num % n
+        num = str(remainder) + num
+        dec_num = dec_num // n
+    return num
+
+# main
+print(decimal_to_base(1114, 8))  # Output: 2132</code>
+---------------------------------------
+<code>2132</code>
+</div>
+<br>
+
+<h3>4. Binary to Decimal</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a binary number to decimal by summing the products of binary digits and positional powers of 2.</li>
+</ul>
+<div class="dark-box"><code>def binary_to_decimal(bin_num):
+    dec_num = 0
+    for i in range(len(bin_num)):
+        digit = bin_num[len(bin_num) - 1 - i]
+        dec_num += int(digit) * (2 ** i)
+    return dec_num
+
+# main
+print(binary_to_decimal('10001011010'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<h3>5. Hexadecimal to Decimal</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a hexadecimal number to decimal by summing the products of hexadecimal digits and positional powers of 16.</li>
+</ul>
+<div class="dark-box"><code>def hexadecimal_to_decimal(hex_num):
+    hex_dec_map = {'1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, \
+    'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15}
+    dec_num = 0
+    for i in range(len(hex_num)):
+        digit = hex_num[len(hex_num) - 1 - i]
+        dec_num += int(hex_dec_map[digit]) * (16 ** i)
+    return dec_num
+
+# main
+print(hexadecimal_to_decimal('45A'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<p>You only need these 5 as you can use it to convert from one base to denary to another base. 
+For example: binary to decimal to hexadecimal</p>
+
+<h3>6. Binary to Hexadecimal (OPTIONAL)</h3>
+<ul>
+    <li><strong>Definition:</strong> Group binary digits into groups of 4 from right to left and map directly to hexadecimal.</li>
+</ul>
+<div class="dark-box"><code>def binary_to_hexadecimal(bin_num):
+    bin_hex_map = {'0000': '0', '0001': '1', '0010': '2', '0011': '3', \
+    '0100': '4', '0101': '5', '0110': '6', '0111': '7', \
+    '1000': '8', '1001': '9', '1010': 'A', '1011': 'B', \
+    '1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
+    bin_num = bin_num.zfill((len(bin_num) + 3) // 4 * 4)
+    hex_num = ''
+    for i in range(0, len(bin_num), 4):
+        hex_num += bin_hex_map[bin_num[i:i+4]]
+    return hex_num
+
+# main
+print(binary_to_hexadecimal('10001011010'))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>7. Hexadecimal to Binary (OPTIONAL)</h3>
+<ul>
+    <li><strong>Definition:</strong> Map each hexadecimal digit directly to its 4-bit binary equivalent.</li>
+</ul>
+<div class="dark-box"><code>def hexadecimal_to_binary(hex_num):
+    hex_bin_map = {'0': '0000', '1': '0001', '2': '0010', '3': '0011', \
+    '4': '0100', '5': '0101', '6': '0110', '7': '0111', \
+    '8': '1000', '9': '1001', 'A': '1010', 'B': '1011', \
+    'C': '1100', 'D': '1101', 'E': '1110', 'F': '1111'}
+    bin_num = ''.join(hex_bin_map[digit.upper()] for digit in hex_num)
+    return bin_num
+
+# main
+print(hexadecimal_to_binary('45A'))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+<br>
+
+<h2 id="Recursive-Conversions">Recursive Number Base Conversions</h2>
+
+<h3>1. Decimal to Binary (Recursive)</h3>
+<div class="dark-box"><code>def decimal_to_binary_recursive(dec_num):
+    if dec_num == 0:
+        return ''
+    else:
+        return decimal_to_binary_recursive(dec_num // 2) + str(dec_num % 2)
+
+# main
+print(decimal_to_binary_recursive(1114))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+<br>
+
+<h3>2. Decimal to Hexadecimal (Recursive)</h3>
+<div class="dark-box"><code>dec_hex_map = {1:'1', 2:'2', 3:'3', 4:'4', 5:'5', 6:'6', 7:'7', 8:'8', 9:'9', \
+10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+
+def decimal_to_hexadecimal_recursive(dec_num):
+    if dec_num == 0:
+        return ''
+    else:
+        remainder = dec_num % 16
+        return decimal_to_hexadecimal_recursive(dec_num // 16) + str(dec_hex_map[remainder])
+
+# main
+print(decimal_to_hexadecimal_recursive(1114))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>3. Binary to Decimal (Recursive)</h3>
+<div class="dark-box"><code>def binary_to_decimal_recursive(bin_num):
+    if len(bin_num) == 0:
+        return 0
+    else:
+        digit = bin_num[0]
+        return int(digit) * (2 ** (len(bin_num) - 1)) + binary_to_decimal_recursive(bin_num[1:])
+
+# main
+print(binary_to_decimal_recursive('10001011010'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<h3>4. Hexadecimal to Decimal (Recursive)</h3>
+<div class="dark-box"><code>hex_dec_map = {'1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, \
+'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15}
+
+def hexadecimal_to_decimal_recursive(hex_num):
+    if len(hex_num) == 0:
+        return 0
+    else:
+        digit = hex_num[0]
+        return int(hex_dec_map[digit]) * (16 ** (len(hex_num) - 1)) + hexadecimal_to_decimal_recursive(hex_num[1:])
+
+# main
+print(hexadecimal_to_decimal_recursive('45A'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<h3>5. Binary to Hexadecimal (Recursive)</h3>
+<div class="dark-box"><code>bin_hex_map = {'0000': '0', '0001': '1', '0010': '2', '0011': '3', \
+'0100': '4', '0101': '5', '0110': '6', '0111': '7', \
+'1000': '8', '1001': '9', '1010': 'A', '1011': 'B', \
+'1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
+
+def binary_to_hexadecimal_recursive(bin_num):
+    padding = len(bin_num) % 4
+    if padding != 0:
+        bin_num = '0' * (4 - padding) + bin_num
+
+    if len(bin_num) == 0:
+        return ''
+    else:
+        group = bin_num[-4:]
+        return binary_to_hexadecimal_recursive(bin_num[:-4]) + bin_hex_map[group]
+
+# main
+print(binary_to_hexadecimal_recursive('10001011010'))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>6. Hexadecimal to Binary (Recursive)</h3>
+<div class="dark-box"><code>hex_to_bin_map = {'0': '0000', '1': '0001', '2': '0010', '3': '0011', \
+'4': '0100', '5': '0101', '6': '0110', '7': '0111', \
+'8': '1000', '9': '1001', 'A': '1010', 'B': '1011', \
+'C': '1100', 'D': '1101', 'E': '1110', 'F': '1111'}
+
+def hexadecimal_to_binary_recursive(hex_num):
+    if len(hex_num) == 0:
+        return ''
+    else:
+        return hex_to_bin_map[hex_num[0].upper()] + hexadecimal_to_binary_recursive(hex_num[1:])
+
+# main
+print(hexadecimal_to_binary_recursive('45A'))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+</div>
+
+    <footer>
+        <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+    </footer>
+</body>
+</html>

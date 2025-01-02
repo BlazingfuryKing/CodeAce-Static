@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alevel Papers</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1F1F1F; /* Dark gray header */
+            color: #FFD700; /* Gold text for header */
+            padding: 1rem 0;
+            text-align: center;
+        }
+    
+        header h1 {
+            color: #FFD700; /* Gold for header title */
+        }
+    
+        header p {
+            color: #CDC7D9; /* Muted gray for subtitle */
+        }
+
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+        .hero h1 {
+            margin: 0;
+            color: #FFD700; /* Gold for hero header */
+        }
+    
+        /* Course Section */
+        .course {
+            padding: 2rem 20px;
+            text-align: center;
+        }
+
+        .course h2 {
+            margin-bottom: 20px;
+            text-align: center; /* Centers the text horizontally */
+            color: white;
+        }
+        
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: left;
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            width: 150px;
+            text-align: left;
+            height: 80px;
+            text-align: center; 
+        }
+
+        .course-card h3 {
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
+
+        .course-card button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .course-card button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+        </div>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+<!-- Content -->
+<div class="content">
+    <h1> Do note that Paper 1 is Practical and Paper 2 is Theory except for 2018 and 2019.</h1>
+
+<section class="course">
+    <h1>Paper 1</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>2015</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2015 A-Level Paper 1\9597_2015_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2015 A-Level Paper 1\9597_2015_P1.pdf" download>
+                <button>Download</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>2016</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2016 A-Level Paper 1\9597_2016_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2016 A-Level Paper 1\9597_2016_P1.pdf" download>
+                <button>Download</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>2017</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2017 A-level Paper 1\9597_2017_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2017 A-level Paper 1\9597_2017_P1.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2018</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2018 A-Level Paper 1\9597_2018_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2018 A-Level Paper 1\9597_2018_P1.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2019</h3>
+            <a href="..\static/Exam Papers/Alevel Papers/2019 A-Level Paper 1/9597_2019_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static/Exam Papers/Alevel Papers/2019 A-Level Paper 1/9597_2019_P1.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2020</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2020 A-Level Paper 1\9569_2020_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2020 A-Level Paper 1\9569_2020_P1.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2021</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2021 A-Level Paper 1\9569_2021_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2021 A-Level Paper 1\9569_2021_P1.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2022</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2022 A-Level Paper 1\9569_2022_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2022 A-Level Paper 1\9569_2022_P1.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2023</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2023 A-Level Paper 1\9569_2023_P1.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2023 A-Level Paper 1\9569_2023_P1.pdf" download>
+                <button>Download</button>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="course">
+    <h1>Paper 2</h1>
+    <div class="course-container">
+        <div class="course-card">
+            <h3>2015</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2015 A-Level Paper 2\9597_2015_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2015 A-Level Paper 2\9597_2015_P2.pdf" download>
+                <button>Download</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>2016</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2016 A-Level Paper 2\9597_2016_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2016 A-Level Paper 2\9597_2016_P2.pdf" download>
+                <button>Download</button>
+            </a>
+        </div>
+        <div class="course-card">
+            <h3>2017</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2017 A-level Paper 2\9597_2017_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2017 A-level Paper 2\9597_2017_P2.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2018</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2018 A-Level Paper 2\9597_2018_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2018 A-Level Paper 2\9597_2018_P2.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2019</h3>
+            <a href="..\static/Exam Papers/Alevel Papers/2019 A-Level Paper 2/9597_2019_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static/Exam Papers/Alevel Papers/2019 A-Level Paper 2/9597_2019_P2.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2020</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2020 A-Level Paper 2\9569_2020_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2020 A-Level Paper 2\9569_2020_P2.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2021</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2021 A-Level Paper 2\9569_2021_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2021 A-Level Paper 2\9569_2021_P2.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2022</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2022 A-Level Paper 2\9569_2022_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2022 A-Level Paper 2\9569_2022_P2.pdf" download>
+                <button>Download</button>
+            </a>        </div>
+        <div class="course-card">
+            <h3>2023</h3>
+            <a href="..\static\Exam Papers\Alevel Papers\2023 A-Level Paper 2\9569_2023_P2.pdf" target="_blank">
+                <button>View</button>
+            </a>
+            <a href="..\static\Exam Papers\Alevel Papers\2023 A-Level Paper 2\9569_2023_P2.pdf" download>
+                <button>Download</button>
+            </a>
+        </div>
+    </div>
+</section>     
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

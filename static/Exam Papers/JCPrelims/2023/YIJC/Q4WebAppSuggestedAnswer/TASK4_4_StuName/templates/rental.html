@@ -1,0 +1,32 @@
+<html>
+    <head><title>Taxi Rental</title></head>
+    <body>
+	<h2>Taxi Rental:</h2><br>
+        <fieldset>
+            <legend>Details:</legend>
+			<form action = '/rental' method = 'POST'>
+			Driver ID: <input name = 'driverid' type = 'text' value='{{driverID}}'> <br>
+			Driver Name: {{name}} <br>
+			Date of Rental: <input name = 'date' type = 'date' required> <br>
+			Vehicle: 
+			
+			
+			<select name = 'license' required>
+			<option value = ''>Please select</option>
+			{% for taxi in taxis %}
+			<option value = '{{taxi[1]}}'>{{taxi[0]}}. {{taxi[1]}}, {{taxi[2]}}, ({{taxi[3]}} Passengers)</option>
+			{% endfor %}
+			</select>			
+			<br>
+			
+			<button>Submit</button> <br>
+			</form>
+        </fieldset>
+		<br>
+        <a href = '/'>Main Menu</a>
+    </body>
+</html>
+
+<!--[1m] for display driver id and name-->
+<!--[1m] date type form element-->
+<!--[1m] drop-down menu for vehicle info-->

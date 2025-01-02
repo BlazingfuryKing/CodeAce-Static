@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Table</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Pigeonhole Principle</a>
+        <a href="#2" onclick="toggleSidebar()">What is a Hash Table?</a>
+        <a href="#3" onclick="toggleSidebar()">Collisions and Resolution Strategies</a>
+        <a href="#4" onclick="toggleSidebar()">Hash Table with Linear Probing</a>
+        <a href="#5" onclick="toggleSidebar()">Hash Table with Quadratic Probing</a>
+        <a href="#6" onclick="toggleSidebar()">Hash Table with Chaining</a>
+        <a href="#7 " onclick="toggleSidebar()">Hashing Function for Strings</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+
+<h1 id="Hash">Hash Table</h1>
+
+<h2 id="1">1. Pigeonhole Principle</h2>
+<p>
+    The <strong>Pigeonhole Principle</strong> states that if <code>n</code> pigeons are placed into <code>m</code> pigeonholes, with <code>n > m</code>, at least one pigeonhole must hold more than one pigeon.
+</p>
+<p>A hash table is an application of this principle.</p>
+
+<br>
+<h2 id="2">2. What is a Hash Table?</h2>
+<p>
+    A <strong>Hash Table</strong> is a data structure that maps keys to values using a hash function. It condenses a large address space into a smaller, manageable index range, enabling efficient data retrieval.
+</p>
+<p>An example of a hashing function:</p>
+<div class="dark-box"><code>def hash(key):
+    ''' transform/map key to value (index) '''
+    total = 0
+    for char in key:
+        total += ord(char)
+    return total % N</code></div>
+<p><code>% N</code> confines the index within a valid range. The choice of <code>N</code> should consider the growth of the hash table.</p>
+<br>
+<h2 id="3">3. Collisions and Resolution Strategies</h2>
+<p>
+    A <strong>collision</strong> occurs when two different keys hash to the same index. This can lead to non-optimal performance and requires strategies to handle collisions:
+</p>
+<ul>
+    <li><strong>Linear Probing:</strong> Add to the next available <code>+i</code> location.</li>
+    <li><strong>Quadratic Probing:</strong> Add to the next available <code>+i^2</code> location.</li>
+    <li><strong>Chaining:</strong> Create a linked list for each hash table location; add collided records to the appropriate list.</li>
+</ul>
+
+<br>
+<h2 id="4">4. Hash Table with Linear Probing</h2>
+<p>This implementation resolves collisions using linear probing.</p>
+<div class="dark-box"><code>def hash(key):
+    return key % N
+
+def insert(key, value):
+    index = hash(key)
+    if hash_table[index] == -1: # available
+        hash_table[index] = value # no collision
+    else: # collision
+        i = (index + 1) % N
+        while hash_table[i] != -1: # find next free slot
+            i = (i + 1) % N # linear probing
+        hash_table[i] = value # insert collided record
+
+def search(key, target):
+    index = hash(key)
+    if hash_table[index] == -1:
+        return "Record not found"
+    elif hash_table[index] != target: # collided record
+        i = (index + 1) % N
+        while hash_table[i] != -1:
+            if hash_table[i] == target:
+                return "Found in collided records"
+            i = (i + 1) % N
+        return "Not found in collided records"
+    else:
+        return hash_table[index] # non-collided record
+
+# main
+N = 10
+hash_table = [-1 for i in range(N)]
+records = {1234: 'Tom', 651: 'Mary', 238: 'Ali'}
+for key, value in records.items():
+    insert(key, value)
+print(hash_table)</code></div>
+<p>Output after inserting and searching records will demonstrate linear probing.</p>
+<br>
+<h2 id="5">5. Hash Table with Quadratic Probing</h2>
+<p>This implementation resolves collisions using quadratic probing.</p>
+<div class="dark-box"><code>def hash(key):
+    return key % N
+
+def insert(key, value):
+    index = hash(key)
+    if hash_table[index] == -1: # available
+        hash_table[index] = value # no collision
+    else: # collision
+        i = (index + 1) % N
+        k = 2
+        while hash_table[i] != -1 and k < N:
+            i = (i + k**2) % N # quadratic probing
+            k += 1
+        hash_table[i] = value # insert collided record
+
+# main
+N = 10
+hash_table = [-1 for i in range(N)]
+records = {1234: 'Tom', 651: 'Mary', 238: 'Ali'}
+for key, value in records.items():
+    insert(key, value)
+print(hash_table)</code></div>
+<p>Quadratic probing helps reduce primary clustering.</p>
+
+<br>
+<h2 id="6">6. Hash Table with Chaining</h2>
+<p>This implementation resolves collisions by using linked lists.</p>
+<div class="dark-box"><code>class Node:
+    def __init__(self, data=None):
+        self.data = None
+        self.next = None
+
+def chain_insert(key, value):
+    index = hash(key)
+    if hash_table[index].data is None:
+        hash_table[index].data = value
+    else:
+        curr = hash_table[index]
+        while curr.next:
+            curr = curr.next
+        curr.next = Node(value)
+
+# main
+N = 10
+hash_table = [Node() for i in range(N)]
+records = {1234: 'Tom', 651: 'Mary', 238: 'Ali'}
+for key, value in records.items():
+    chain_insert(key, value)
+print(chain_search(1234, 'Tom')) # Original record
+print(chain_search(7654, 'Alex')) # Collided record</code></div>
+<p>Chaining provides a flexible way to handle collisions but uses additional memory.</p>
+<br>
+<h2 id="7">7. Hashing Function for Strings</h2>
+<p>A hashing function that computes the sum of ASCII values modulo a number.</p>
+<div class="dark-box"><code>def hash(key):
+    total = 0
+    for char in key:
+        total += ord(char)
+    return total % 13
+
+# main
+print(hash("Good morning!"))
+print(hash("How are you?"))</code></div>
+<p>This demonstrates how strings can be hashed effectively.</p>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

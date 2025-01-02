@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Index Page</title> <!-- 1 mark(TASK 4.3) - html title (give the mark if any of the html file has this) -->
+	<!--<link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">-->
+  </head>
+  <body>
+    
+	<a href="{{ url_for('vote_count') }}">Vote Count</a> <!-- 1 mark(TASK 4.3) - created anchor tags for both Vote Count and Vote Breakdown --> <!-- 1 mark (TASK 4.4) - link to the correct web page for both Vote Count and Vote Breakdown-->
+	<br>
+	<a href="{{ url_for('vote_breakdown') }}">Vote Breakdown</a>
+  </body>
+</html>

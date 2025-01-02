@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Operations</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">String Creation</a>
+        <a href="#2" onclick="toggleSidebar()">Accessing Characters</a>
+        <a href="#3" onclick="toggleSidebar()">String Slicing</a>
+        <a href="#4" onclick="toggleSidebar()">String Concatenation</a>
+        <a href="#5" onclick="toggleSidebar()">String Multiplication</a>
+        <a href="#6" onclick="toggleSidebar()">String Length</a>
+        <a href="#7" onclick="toggleSidebar()">Using Loops</a>
+        <a href="#8" onclick="toggleSidebar()">Changing Case</a>
+        <a href="#9" onclick="toggleSidebar()">Stripping Whitespace</a>
+        <a href="#10" onclick="toggleSidebar()">Splitting and Joining Strings</a>
+        <a href="#11" onclick="toggleSidebar()">Replacing Substrings</a>
+        <a href="#12" onclick="toggleSidebar()">Finding Substrings</a>
+        <a href="#13" onclick="toggleSidebar()">String Formatting</a>
+        <a href="#14" onclick="toggleSidebar()">String Validation</a>
+        <a href="#15" onclick="toggleSidebar()">Reversing a String</a>
+        <br>
+        <br>
+    </div>
+    
+<!-- Content -->
+<div class="content"> 
+<h1>String Operations</h1>
+
+<h2 id="1">1. String Creation</h2>
+<ul>
+    <li>Strings can be created using single, double, or triple quotes for multiline strings.</li>
+</ul>
+<div class="dark-box"><code>string1 = 'Hello'
+string2 = "World"
+string3 = '''This is
+a multiline string'''
+print(string1)
+print(string2)
+print(string3)</code>
+---------------------------------------
+<code>Hello
+World
+This is
+a multiline string</code>
+</div>
+<br>
+<h2 id="2">2. Accessing Characters</h2>
+<ul>
+    <li>Individual characters in a string can be accessed using indexing.</li>
+    <li>Negative indexing starts from the end of the string.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(string[0])  # Output: P
+print(string[-1]) # Output: n</code>
+---------------------------------------
+<code>P
+n</code>
+</div>
+<br>
+
+<h2 id="3">3. String Slicing</h2>
+<ul>
+    <li>Substrings can be extracted using slicing.</li>
+    <li>Use <code>string[start:end]</code> to get characters from start to end (not inclusive).</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(string[0:3])  # Output: Pyt
+print(string[:3])   # Output: Pyt
+print(string[3:])   # Output: hon</code>
+---------------------------------------
+<code>Pyt
+Pyt
+hon</code>
+</div>
+<br>
+
+<h2 id="4">4. String Concatenation</h2>
+<ul>
+    <li>Combine strings using the <code>+</code> operator.</li>
+</ul>
+<div class="dark-box"><code>string1 = "Hello"
+string2 = "World"
+result = string1 + " " + string2
+print(result)  # Output: Hello World</code>
+---------------------------------------
+<code>Hello World</code>
+</div>
+<br>
+
+<h2 id="5">5. String Multiplication</h2>
+<ul>
+    <li>Repeat strings using the <code>*</code> operator.</li>
+</ul>
+<div class="dark-box"><code>string = "Hello"
+print(string * 3)  # Output: HelloHelloHello</code>
+---------------------------------------
+<code>HelloHelloHello</code>
+</div>
+<br>
+
+<h2 id="6">6. String Length</h2>
+<ul>
+    <li>Get the length of a string using <code>len()</code>.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(len(string))  # Output: 6</code>
+---------------------------------------
+<code>6</code>
+</div>
+<br>
+
+<h2 id="7">7. Using Loops</h2>
+<ul>
+    <li>Use a <code>for</code> loop to iterate through each character in a string.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+for char in string:
+    print(char)</code>
+---------------------------------------
+<code>P
+y
+t
+h
+o
+n</code>
+</div>
+<br>
+
+<h2 id="8">8. Changing Case</h2>
+<ul>
+    <li>Change the case of strings using methods like <code>upper()</code>, <code>lower()</code>, <code>title()</code>, etc.</li>
+</ul>
+<div class="dark-box"><code>string = "Python Programming"
+print(string.upper())        # Output: PYTHON PROGRAMMING
+print(string.lower())        # Output: python programming
+print(string.title())        # Output: Python Programming
+print(string.capitalize())   # Output: Python programming
+print(string.swapcase())     # Output: pYTHON pROGRAMMING</code>
+---------------------------------------
+<code>PYTHON PROGRAMMING
+python programming
+Python Programming
+Python programming
+pYTHON pROGRAMMING</code>
+</div>
+<br>
+
+<h2 id="9">9. Stripping Whitespace</h2>
+<ul>
+    <li>Remove leading, trailing, or both whitespace using <code>strip()</code>, <code>lstrip()</code>, and <code>rstrip()</code>.</li>
+</ul>
+<div class="dark-box"><code>string = "  Hello World  "
+print(string.strip())  # Output: Hello World
+
+#Optional
+print(string.lstrip()) # Output: Hello World  
+print(string.rstrip()) # Output:   Hello World</code>
+---------------------------------------
+<code>Hello World
+Hello World  
+  Hello World</code>
+</div>
+<br>
+
+<h2 id="10">10. Splitting and Joining Strings</h2>
+<ul>
+    <li>Use <code>split()</code> to break a string into parts.</li>
+    <li>Use <code>join()</code> to combine a list of strings into a single string.</li>
+</ul>
+<div class="dark-box"><code>string = "Python,Java,C++"
+print(string.split(","))  # Output: ['Python', 'Java', 'C++']
+
+words = ["Python", "is", "fun"]
+print(" ".join(words))  # Output: Python is fun</code>
+---------------------------------------
+<code>
+['Python', 'Java', 'C++']
+Python is fun</code>
+</div>
+<br>
+
+<h2 id="11">11. Replacing Substrings</h2>
+<ul>
+    <li>Use <code>replace()</code> to replace parts of a string with another string.</li>
+</ul>
+<div class="dark-box"><code>string = "I like Java"
+print(string.replace("Java", "Python"))  # Output: I like Python</code>
+---------------------------------------
+<code>I like Python</code>
+</div>
+<br>
+
+<h2 id="12">12. Finding Substrings</h2>
+<ul>
+    <li>Find the position of a substring using <code>find()</code>. Returns <code>-1</code> if not found.</li>
+</ul>
+<div class="dark-box"><code>string = "Python Programming"
+print(string.find("Programming"))  # Output: 7
+print(string.find("Java"))         # Output: -1</code>
+---------------------------------------
+<code>7
+-1</code>
+</div>
+<br>
+
+<h2 id="13">13. String Formatting</h2>
+<ul>
+    <li>Format strings using <code>f-strings</code> or the <code>format()</code> method.</li>
+</ul>
+<div class="dark-box"><code>name = "Alice"
+age = 25
+print(f"My name is {name} and I am {age} years old.")  
+print("My name is {} and I am {} years old.".format(name, age))</code>
+---------------------------------------
+<code>My name is Alice and I am 25 years old.
+My name is Alice and I am 25 years old.</code>
+</div>
+<br>
+
+<h2 id="14">14. String Validation</h2>
+<ul>
+    <li>Check properties of strings using methods like <code>isalpha()</code>, <code>isdigit()</code>, <code>isalnum()</code>, etc.</li>
+</ul>
+<div class="dark-box"><code>string = "Python123"
+print(string.isalpha())  # Output: False
+print(string.isdigit())  # Output: False
+print(string.isalnum())  # Output: True</code>
+---------------------------------------
+<code>False
+False
+True</code>
+</div>
+<br>
+
+<h2 id="15">15. Reversing a String</h2>
+<ul>
+    <li>Reverse a string using slicing <code>[::-1]</code>.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(string[::-1])  # Output: nohtyP</code>
+---------------------------------------
+<code>nohtyP</code>
+</div>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

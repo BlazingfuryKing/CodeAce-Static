@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /* Links */
+        .a-links {
+            color: #1e90ff; /* Link text color */
+            text-decoration: none; /* Remove underline */
+        }
+
+        /* Hover state */
+        .a-links:hover {
+            color: #3467B0; /* Change color on hover */
+            text-decoration: underline; /* Optional: underline on hover */
+        }
+
+        /* Visited state */
+        .a-links:visited {
+            color: #63A4FF; /* Color for visited links */
+        }
+
+        /* Active state */
+        .a-links:active {
+            color: #3BAFFD; /* Color when the link is clicked */
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Basic Elements</a>
+        <a href="#2" onclick="toggleSidebar()">Headings</a>
+        <a href="#3" onclick="toggleSidebar()">Text Formatting</a>
+        <a href="#4" onclick="toggleSidebar()">Lists</a>
+        <a href="#5" onclick="toggleSidebar()">Tables</a>
+        <a href="#6" onclick="toggleSidebar()">Images & Hyperlinks</a>
+        <a href="#7" onclick="toggleSidebar()">Forms</a>
+        <a href="#8" onclick="toggleSidebar()">Special Characters</a>
+        <a href="#9" onclick="toggleSidebar()">Refering to Insert</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+    <h1>HTML Basics</h1>
+    <p>This page covers the fundamental elements, tags, and attributes in HTML, along with examples for better understanding.</p>
+
+    <h2 id="1">1. Basic Elements</h2>
+    <ul>
+        <li><code>&lt;!DOCTYPE html&gt;</code>: Declares the type and version of the document (HTML5).</li>
+        <li><code>&lt;html&gt;</code>: Root element of the document, contains all HTML content.</li>
+        <li><code>&lt;head&gt;</code>: Contains metadata and links to external resources.</li>
+        <li><code>&lt;title&gt;</code>: Specifies the document's title, displayed in the browser tab.</li>
+        <li><code>&lt;body&gt;</code>: Contains all visible content of the webpage.</li>
+    </ul>
+    <div class="dark-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My First Webpage&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Welcome to HTML&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+---------------------------------------
+<h1>Welcome to HTML</h1></div>
+
+    <h2 id="2">2. Headings</h2>
+    <ul>
+        <li>HTML provides six levels of headings, from <code>&lt;h1&gt;</code> (largest) to <code>&lt;h6&gt;</code> (smallest).</li>
+    </ul>
+    <div class="dark-box">&lt;h1>Main Heading&lt;/h1&gt;
+&lt;h2&gt;Subheading&lt;/h2&gt;
+&lt;h3&gt;Section Heading&lt;/h3&gt;
+---------------------------------------
+<h1>Main Heading</h1><h2>Subheading</h2><h3>Section Heading</h3></div>
+
+    <h2 id="3">3. Text Formatting</h2>
+    <ul>
+        <li><code>&lt;p&gt;</code>: Defines a paragraph.</li>
+        <li><code>&lt;b&gt;</code>: Bold text.</li>
+        <li><code>&lt;i&gt;</code>: Italicized text.</li>
+        <li><code>&lt;u&gt;</code>: Underlined text.</li>
+        <li><code>&lt;br&gt;</code>: Line break.</li>
+        <li><code>&lt;hr&gt;</code>: Horizontal line.</li>
+    </ul>
+    <div class="dark-box">&lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;b&gt;This text is bold.&lt;/b&gt;&lt;br&gt;
+&lt;i&gt;This text is italicized.&lt;/i&gt;&lt;br&gt;
+&lt;u&gt;This text is underlined.&lt;/u&gt;&lt;br&gt;
+Break between&lt;br&gt;the text&lt;br&gt;
+Horizontal line between&lt;hr&gt;the text
+---------------------------------------
+<p>This is a paragraph.</p><b>This text is bold.</b>
+<i>This text is italicized.</i>
+<u>This text is underlined.</u>
+Break between<br>the text 
+Horizontal line between<hr>the text</div>
+
+    <h2 id="4">4. Lists</h2>
+    <ul>
+        <li><code>&lt;ul&gt;</code>: Creates an unordered list.</li>
+        <li><code>&lt;ol&gt;</code>: Creates an ordered list.</li>
+        <li><code>&lt;li&gt;</code>: Defines a list item.</li>
+    </ul>
+    <div class="dark-box">&lt;ul&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+    &lt;li&gt;First&lt;/li&gt;
+    &lt;li&gt;Second&lt;/li&gt;
+&lt;/ol&gt;
+---------------------------------------
+<ul><li>Item 1</li><li>Item 2</li></ul><ol><li>First</li><li>Second</li></ol></div>
+
+    <h2 id="5">5. Tables</h2>
+    <ul>
+        <li><code>&lt;table&gt;</code>: Defines a table.</li>
+        <li><code>&lt;th&gt;</code>: Table header cell.</li>
+        <li><code>&lt;tr&gt;</code>: Table row.</li>
+        <li><code>&lt;td&gt;</code>: Table data cell.</li>
+        <li>To get a border and change the colours in table check out <a class='a-links' href="CSS.html">Table CSS</a></li>
+
+    </ul>
+    <div class="dark-box">&lt;ul&gt;
+    &lt;li&gt;&lt;code&gt;&lt;table&gt;&lt;/code&gt;: Defines a table.&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;&lt;th&gt;&lt;/code&gt;: Table header cell.&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;&lt;tr&gt;&lt;/code&gt;: Table row.&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;&lt;td&gt;&lt;/code&gt;: Table data cell.&lt;/li&gt;
+&lt;/ul&gt;
+---------------------------------------
+<table>
+ <tr>
+  <th>Subject</th>
+  <th>Grade</th>
+ </tr>
+ <tr>
+  <td>Math</td>
+  <td>A</td>
+ </tr>
+ <tr>
+  <td>Science</td>
+  <td>B</td>
+ </tr>
+</table></div>
+
+    <h2 id="6">6. Images & Hyperlinks</h2>
+    <h3>Images</h3>
+    <ul>
+        <li><code>&lt;img&gt;</code>: Displays an image.</li>
+        <li>Attributes:
+            <ul>
+                <li><code>src</code>: Path to the image file.</li>
+                <li><code>alt</code>: Alternate text if the image cannot be displayed.</li>
+            </ul>
+        </li>
+    </ul>
+    <div class="dark-box">&lt;img src=&#34;Fake.jpg&#34; alt=&#34;Image does not exist&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://cdn.avero-tech.com/asrjc/img/logo.png&#34; alt=&#34;ASRJC Portal&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;&#123;&#123;  url_for(&#39;static&#39;, filename=&#39;HelloWorld.jpg&#39;)  &#125;&#125;&#34; alt=&#34;Hello World&#34;&gt;
+---------------------------------------
+<img src="Fake.jpg" alt="Image does not exist"><br>
+<img src="https://cdn.avero-tech.com/asrjc/img/logo.png" alt="ASRJC Portal"><br>
+<img src="../static/HelloWorld.jpg" alt="Hello World"></div>
+
+    <h3>Hyperlinks</h3>
+    <ul>
+        <li><code>&lt;a&gt;</code>: Creates a hyperlink.</li>
+        <li>Attributes:
+            <ul>
+                <li><code>href</code>: URL or file path for the link destination.</li>
+            </ul>
+        </li>
+    </ul>
+    <div class="dark-box">&lt;a href=&#34;&#123;&#123;  url_for(&#39;CSS&#39;)  &#125;&#125;&#34;&gt;Go to CSS Page&lt;/a&gt;
+&lt;a href=&#34;https://www.google.com&#34;&gt;Visit Google&lt;/a&gt;
+---------------------------------------
+<a href="CSS.html">Go to CSS Page</a>
+<a href="https://www.google.com">Visit Google</a></div>
+
+    <h2 id="7">7. Forms</h2>
+    <ul>
+        <li><code>&lt;form&gt;</code>: Creates a form for user input.</li>
+        <li>Input types:
+            <ul>
+                <li><code>text</code>: Single-line text field.</li>
+                <li><code>checkbox</code>: Checkbox input.</li>
+                <li><code>radio</code>: Radio button input.</li>
+                <li><code>file</code>: File upload field.</li>
+                <li><code>submit</code>: Submit button.</li>
+            </ul>
+        </li>
+    </ul>
+    <div class="dark-box">&lt;form action=&#34;/submit&#34; method=&#34;POST&#34;&gt;
+    &lt;label for=&#34;name&#34;&gt;Name:&lt;/label&gt;
+    &lt;input type=&#34;text&#34; id=&#34;name&#34; name=&#34;name&#34;&gt;
+    &lt;br&gt;
+    &lt;label for=&#34;House&#34;&gt;Choose a House:&lt;/label&gt;
+    &lt;select name=&#34;House&#34; id=&#34;House&#34;&gt;
+        &lt;option value=&#34;Artemis&#34;&gt;Artemis&lt;/option&gt;
+        &lt;option value=&#34;Helios&#34;&gt;Helios&lt;/option&gt;
+        &lt;option value=&#34;Poseidon&#34;&gt;Poseidon&lt;/option&gt;
+        &lt;option value=&#34;Athena&#34;&gt;Athena&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;br&gt;
+    &lt;label&gt;Choose your favorite programming language:&lt;/label&gt;
+        &lt;input type=&#34;radio&#34; id=&#34;python&#34; name=&#34;language&#34; value=&#34;Python&#34;&gt;
+        &lt;label for=&#34;python&#34;&gt;Python&lt;/label&gt;
+        &lt;input type=&#34;radio&#34; id=&#34;javascript&#34; name=&#34;language&#34; value=&#34;JavaScript&#34;&gt;
+        &lt;label for=&#34;javascript&#34;&gt;JavaScript&lt;/label&gt;
+        &lt;input type=&#34;radio&#34; id=&#34;java&#34; name=&#34;language&#34; value=&#34;Java&#34;&gt;
+        &lt;label for=&#34;java&#34;&gt;Java&lt;/label&gt;
+    &lt;br&gt;
+    &lt;label&gt;Select your hobbies:&lt;/label&gt;
+        &lt;input type=&#34;checkbox&#34; id=&#34;reading&#34; name=&#34;hobby&#34; value=&#34;Reading&#34;&gt;
+        &lt;label for=&#34;reading&#34;&gt;Reading&lt;/label&gt;
+        &lt;input type=&#34;checkbox&#34; id=&#34;traveling&#34; name=&#34;hobby&#34; value=&#34;Traveling&#34;&gt;
+        &lt;label for=&#34;traveling&#34;&gt;Traveling&lt;/label&gt;
+        &lt;input type=&#34;checkbox&#34; id=&#34;gaming&#34; name=&#34;hobby&#34; value=&#34;Gaming&#34;&gt;
+        &lt;label for=&#34;gaming&#34;&gt;Gaming&lt;/label&gt;
+        &lt;br&gt;
+        &lt;label&gt;Upload your profile picture:&lt;/label&gt;
+        &lt;input type=&#34;file&#34; id=&#34;profile-pic&#34; name=&#34;profile-pic&#34;&gt;
+        &lt;br&gt;
+    &lt;input type=&#34;submit&#34; value=&#34;Submit&#34;&gt;
+&lt;/form&gt;
+---------------------------------------
+<form action="submit.html"><label for="name">Name:</label><input type="text" id="name" name="name">
+<label for="House">Choose a House:</label><select name="House" id="House">
+        <option value="Artemis">Artemis</option>
+        <option value="Helios">Helios</option>
+        <option value="Poseidon">Poseidon</option>
+        <option value="Athena">Athena</option>
+    </select>
+<label>Choose your favorite programming language:</label><input type="radio" id="python" name="language" value="Python"><label for="python">Python</label><input type="radio" id="javascript" name="language" value="JavaScript"><label for="javascript">JavaScript</label><input type="radio" id="java" name="language" value="Java"><label for="java">Java</label>
+<label>Select your hobbies:</label><input type="checkbox" id="reading" name="hobby" value="Reading"><label for="reading">Reading</label><input type="checkbox" id="traveling" name="hobby" value="Traveling"><label for="traveling">Traveling</label><input type="checkbox" id="gaming" name="hobby" value="Gaming"><label for="gaming">Gaming</label>
+<label>Upload your profile picture:</label><input type="file" id="profile-pic" name="profile-pic">
+<input type="submit" value="Submit"></form></div>
+
+    <h2 id="8">8. Special Characters</h2>
+    <ul>
+        <li><code>&lt;</code> : <code>&amp;lt;</code></li>
+        <li><code>&gt;</code> : <code>&amp;gt;</code></li>
+        <li><code>&amp;</code> : <code>&amp;amp;</code></li>
+        <li><code>&quot;</code> : <code>&amp;quot;</code></li>
+        <li><code>&apos;</code> : <code>&amp;apos;</code></li>
+        <li><code>&lbrace;</code> : <code>&amp;lbrace;</code></li>
+        <li><code>&rbrace;</code> : <code>&amp;rbrace;</code></li>
+    </ul>
+    <h2 id="9">9. Refering to Insert</h2>
+    <p>This insert is provided during your exams and do use it <strong>only</strong> for reference</p>
+    <img src="../static/HTML reference.jpg" alt="HTML Reference" width="800">
+
+</body>
+</html>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

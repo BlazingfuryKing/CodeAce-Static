@@ -1,0 +1,42 @@
+<html>
+<title> Customer Details & Menu </title>
+
+<body>
+<fieldset>
+<legend> Customer Details </legend>
+
+
+<p> <img src="{{data[3]}}" height = 150 width = 120 </p>
+<p> UserID: {{data[0]}} </p>
+<p> Username: {{data[1]}} </p>
+<p> Email: {{data[2]}} </p>
+
+</fieldset>
+
+<br>
+
+<fieldset>
+<legend> Menu Options </legend>
+
+
+<form action={{url_for('menu')}} method="POST">
+
+<p> <input type="radio" name="option" value="update_profile">Click here to update your profile picture. </p>
+<p> <input type="radio" name="option" value="check_cart">Click here to check your shopping cart. </p>
+
+
+<input type="hidden" name="username" value={{data[1]}}>
+
+<input type="hidden" name="userid" value={{data[0]}}>
+
+<p> <input type=submit> </p>
+</form>
+
+</fieldset>
+
+<br>
+
+<a href="\.."> Return to Login Page </a>
+
+</body>
+</html>

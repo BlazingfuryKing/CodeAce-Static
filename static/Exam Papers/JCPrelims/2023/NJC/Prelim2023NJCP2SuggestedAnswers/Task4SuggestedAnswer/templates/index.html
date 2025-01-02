@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+<table>
+  <tr>
+  <th>
+    Event Name
+  </th>
+  <th>
+    Artist
+  </th>
+  <th>
+    Type of Event
+  </th>
+  <th>
+    
+  </th>
+
+  </tr>
+
+  {% for row in rows %}
+  <tr>
+    <td>
+      {{ row[1] }}
+    </td>
+    <td>
+      {{row[2]}}
+    </td>
+    <td>
+      {{row[3]}}
+    </td>
+    <td>
+      <a href="{{ url_for('select', id=row[0] )}}">
+        See performance dates
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+  
+</table>
+
+</body>
+</html>

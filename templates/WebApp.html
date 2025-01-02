@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App Examples</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Flask Web Applications with SQLite3</a>
+        <a href="#2" onclick="toggleSidebar()">Image Upload and View Example
+        </a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+
+
+<h2 id="1">Flask Web Applications with SQLite3</h2>
+<p>
+    Flask is a lightweight web framework in Python. It provides powerful tools for building web applications, including routing, template rendering, and integration with databases like SQLite3. It allows for the use of SQLite3 to store data manually or data read from files. Alevel often has questions where you are expected to create a web app with sqlite3 to store data and display it in a table format.
+</p>
+<br>
+
+<h2>1. Library Management Example</h2>
+<h3>Python Backend (main.py)</h3>
+<div class="dark-box"><code>import sqlite3
+import flask
+
+app = flask.Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+db = sqlite3.connect('LIBRARY.db')
+cur = db.execute("""SELECT FamilyName, GivenName, Title from
+                    Book, Member, Loan
+                    WHERE Book.BookID = Loan.BookID and
+                    Member.MemberNumber = Loan.MemberNumber and
+                    Loan.Returned = 'FALSE'""")
+data = cur.fetchall()
+return flask.render_template('index.html', data=data)
+
+app.run()</code></div>
+<br>
+<h3>HTML Template (index.html):</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Library System&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Family Name&lt;/th&gt;
+                &lt;th&gt;Given Name&lt;/th&gt;
+                &lt;th&gt;Book Title&lt;/th&gt;
+            &lt;/tr&gt;
+            &#123;% for item in data %&#125;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123; item[0] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[1] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[2] &#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+            &#123;% endfor %&#125;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></div>
+<h3>Explanation:</h3>
+<ul>
+    <li>The Python code fetches unreturned loan records from the SQLite3 database and passes them to the HTML template.</li>
+    <li>The HTML template uses Jinja2 syntax to dynamically populate a table with loan data.</li>
+</ul>
+
+<h2>2. Sanitiser Management Example</h2>
+<h3>Python Backend (main.py)</h3>
+<div class="dark-box"><code>import sqlite3
+import flask
+
+app = flask.Flask(__name__)
+
+@app.route('/')
+def home():
+conn = sqlite3.connect('sanitisers.db')
+cur = conn.cursor()
+cur.execute('''SELECT product_name, active_ingredient, alcohol_based FROM sanitisers''')
+data = cur.fetchall()
+return flask.render_template('index.html', data=data)
+
+@app.route('/process_form/', methods=["POST"])
+def process_home():
+ingredient = flask.request.form['ingredient']
+conn = sqlite3.connect('sanitisers.db')
+cur = conn.cursor()
+cur.execute('''SELECT product_name, alcohol_based FROM sanitisers WHERE active_ingredient = ?''', (ingredient,))
+sanitisers = cur.fetchall()
+return flask.render_template('result.html', sanitisers=sanitisers)
+
+app.run()</code></div>
+<br>
+<h3>HTML Template (index.html)</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Sanitisers&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Product Name&lt;/th&gt;
+                &lt;th&gt;Active Ingredient&lt;/th&gt;
+                &lt;th&gt;Alcohol Based&lt;/th&gt;
+            &lt;/tr&gt;
+            &#123;% for item in data %&#125;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123; item[0] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[1] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[2] &#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+            &#123;% endfor %&#125;
+        &lt;/table&gt;
+        &lt;form action="/process_form/" method="POST"&gt;
+            &lt;p&gt;
+                Active Ingredient: &lt;input type="text" name="ingredient"&gt;
+            &lt;/p&gt;
+            &lt;p&gt;
+                &lt;input type="submit" value="Search"&gt;
+            &lt;/p&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</div>
+<h3>Explanation:</h3>
+<ul>
+    <li>The home route displays all sanitiser data in a table.</li>
+    <li>A form allows users to search for sanitisers by active ingredient.</li>
+    <li>The result is displayed using a different template, dynamically populated with matching data.</li>
+</ul>
+<br>
+<h2 id="2">Image Upload and View Example</h2>
+<h3>Python Backend (main.py)</h3>
+<div class="dark-box"><code>import os
+from flask import Flask, render_template, request, send_from_directory
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+if request.method == 'POST' and request.files and 'image' in request.files:
+    image = request.files['image']
+    filename = secure_filename(image.filename)
+    path = os.path.join('uploads', filename)
+    image.save(path)
+    with open('all.txt', 'a') as file:
+        file.write(filename + '\n')
+    return render_template('index.html', status='ok')
+return render_template('index.html')
+
+@app.route('/view')
+def view():
+with open('all.txt', 'r') as file:
+    filenames = file.readlines()
+images = [filename.strip() for filename in filenames]
+return render_template('view.html', images=images)
+
+@app.route('/images/<filename>')
+def get_file(filename):
+return send_from_directory('uploads', filename)
+
+app.run()</code></div>
+<h3>Explanation:</h3>
+<ol>
+    <li><strong>Import Statements:</strong></li>
+        <ul>
+            <li><code>os</code>: Handles file system operations like creating paths.</li>
+            <li><code>Flask</code>: The core Flask web application class.</li>
+            <li><code>render_template</code>: Renders HTML templates for the web pages.</li>
+            <li><code>request</code>: Handles HTTP requests (e.g., POST for file uploads).</li>
+            <li><code>send_from_directory</code>: Serves static files like images.</li>
+            <li><code>secure_filename</code>: Sanitizes uploaded file names to prevent malicious uploads.</li>
+        </ul>
+    <li><strong>Flask Application Setup:</strong></li>
+        <ul>
+            <li><code>app = Flask(__name__)</code>>: Initializes the Flask app.</li>
+        </ul>
+    <li><strong>Route: <code>/</code> (Home Page)</strong></li>
+        <ul>
+            <li><strong>GET Request:</strong></li>
+                <ul><li>Renders the <code>index.html</code> page to allow users to upload an image.</li></ul>
+            <li><strong>POST Request:</strong></li>
+                <ul>
+                    <li>Checks if a file named <code>image</code> is in the request.</li>
+                    <li>Saves the uploaded file in the <code>uploads</code> directory using a secure filename.</li>
+                    <li>Appends the file name to <code>all.txt</code> for tracking.</li>
+                    <li>Renders the <code>index.html</code> page with a <code>status='ok'</code> message to indicate success.</li>
+                </ul>
+        </ul>
+    <li><strong>Route: <code>/view</code> (Gallery Page)</strong></li>
+        <ul>
+            <li>Reads the <code>all.txt</code> file, which contains the list of uploaded image filenames.</li>
+            <li>Loads all filenames into a list and passes them to the <code>view.html</code> template for display.</li>
+            <li>The template renders each image in a gallery format using <code>&lt;img&gt;</code> tags.</li>
+        </ul>
+    <li><strong>Route: <code>/images/&lt;filename&gt;</code> (Serve Images)</strong></li>
+        <ul>
+            <li>Uses <code>send_from_directory</code> to serve image files from the <code>uploads</code> directory.</li>
+        </ul>
+    <li><strong>Run the App:</strong></li>
+        <ul>
+            <li><code>app.run()</code>: Starts the Flask development server, making the app accessible.</li>
+        </ul>
+</ol>
+<br>
+<h3>HTML template (index.html)</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Upload&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;form method="post" enctype="multipart/form-data"&gt;
+        Image: &lt;input name="image" type="file"&gt;&lt;br/&gt;
+        &lt;/form&gt;
+        &lt;p&gt;&lt;a href="&#123;&#123; url_for('view') &#125;&#125;"&gt;View&lt;/a&gt;&lt;/p&gt;
+        &#123;% if status %&#125;
+          &#123;&#123; status &#125;&#125;
+        &#123;% endif %&#125;
+      &lt;/body&gt;
+    &lt;/html&gt;</code></div>
+<br>
+<h3>Explanation:</h3>
+<ol>
+    <li><strong>Purpose:</strong></li>
+        <ul><li>Provides the interface for image uploads.</li></ul>
+    <li><strong>Structure:</strong></li>
+        <ul>
+            <li>A form with <code>method="post"</code> and <code>enctype="multipart/form-data"</code> allows file uploads.</li>
+            <li>A file input field named image accepts image uploads.</li>
+            <li>A link (&lt;code&gt;&lt;a href="&#123;&#123; url_for('view') &#125;&#125;"&gt;View&lt;/a&gt;&lt;/code&gt;) leads to the gallery page.</li>
+            <li>If <code>status</code> is set, it displays the upload status.</li>
+        </ul>
+</ol>
+<h3>HTML template (view.html)</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;View&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &#123;% for image in images %&#125;
+        &lt;img src="&#123;&#123; url_for('get_file', filename=image) &#125;&#125;" alt="&#123;&#123; image &#125;&#125;"&gt;
+        &#123;% endfor %&#125;
+        &lt;p&gt;&lt;a href="&#123;&#123; url_for('home') &#125;&#125;"&gt;Home&lt;/a&gt;&lt;/p&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></div>
+<h3>Explanation:</h3>
+<ol>
+    <li><strong>Purpose:</strong></li>
+        <ul>
+            <li>Displays uploaded images in a gallery.</li>
+        </ul>
+    <li><strong>Structure:</strong></li>
+        <ul>
+            <li>Iterates through the <code>images</code> list (passed from the <code>/view</code> route).</li>
+            <li>Renders an <code>&lt;img&gt;</code> tag for each filename, using <code>url_for</code> to generate the file URL dynamically.</li>
+            <li>A link (<code>&lt;a href="&#123;&#123; url_for('home') &#125;&#125;"&gt;Home&lt;/a&gt;</code>) leads back to the home page.</li>
+        </ul>
+</ol>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

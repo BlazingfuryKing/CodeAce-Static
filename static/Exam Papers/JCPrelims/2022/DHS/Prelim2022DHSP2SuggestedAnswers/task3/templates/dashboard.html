@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>NDP balloting</title>
+ 
+    <link 
+        rel="stylesheet" 
+        href="{{ url_for('static', filename='styles.css') }}?q={{randcss}}">
+     </head>
+<body>
+
+	Your NDP balloting results: <span id="red"> {{ info }} </span>
+<br><br><br>
+Results of members in your group:
+
+
+      <table   border='1' style='border-collapse:collapse' >
+
+<th>Name</th>
+<th>Balloting Results</th>
+      {% for line in rows %}
+
+      <tr>
+
+          
+
+            <td >
+
+                    {{line[0]}}
+
+
+
+            </td>
+			
+            <td >
+
+                  <span id="red">  {{line[1]}} </span>
+
+
+
+            </td>
+			
+
+          
+
+      </tr>
+
+      {% endfor %}
+
+
+
+    </table>
+
+
+
+
+
+</body>
+</html>

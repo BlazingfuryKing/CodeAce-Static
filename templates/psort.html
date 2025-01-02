@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+                /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+<div class="main-menu">
+    <div class="menu-left">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <div class="menu-links">
+        <a href="/">Home</a>
+        <a href="theory.html">Theory</a>
+        <a href="practical.html">Practical</a>
+        <a href="papers.html">Papers</a>
+    </div>
+</div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Bubble Sort</a>
+        <a href="#2" onclick="toggleSidebar()">Insertion Sort</a>
+        <a href="#3" onclick="toggleSidebar()">Quick Sort</a>
+        <a href="#4" onclick="toggleSidebar()">Merge Sort</a>
+        <br>
+    </div>
+
+
+    
+<!-- Content -->    
+<div class="content">
+<h1>Sort Algorithms</h1>
+<h2 id="1">1. Bubble Sort</h2>
+<ul>
+    <li><strong>Definition:</strong> A sorting algorithm that repeatedly swaps adjacent elements if they are in the wrong order.</li>
+    <li><strong>Time Complexity:</strong> O(n²).</li>
+</ul><br>
+<h3>Non-Optimized Bubble Sort</h3>
+<div class="dark-box"><code>def bubble_sort(A):
+    n = len(A)
+    for i in range(n):
+        for j in range(n-1):
+            if A[j] > A[j+1]:
+                A[j], A[j+1] = A[j+1], A[j]
+    return A
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(bubble_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<h3>Optimized Bubble Sort</h3>
+<div class="dark-box"><code>def bubble_sort(A):
+    n = len(A)
+    for i in range(n):
+        swapped = False
+        for j in range(n-1):
+            if A[j] > A[j+1]:
+                A[j], A[j+1] = A[j+1], A[j]
+                swapped = True
+        if not swapped: # no swaps -> already sorted
+            break
+    return A
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(bubble_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h2 id="2">2. Insertion Sort</h2>
+<ul>
+    <li><strong>Definition:</strong> A sorting algorithm that builds the sorted list one element at a time by inserting elements into their correct positions.</li>
+    <li><strong>Time Complexity:</strong> O(n²).</li>
+</ul>
+<h3>Insertion Sort With key</h3>
+<div class="dark-box"><code>def insertion_sort(A):
+    for i in range(1, len(A)):
+        key = A[i]
+        j = i - 1
+        while j >= 0 and key < A[j]:
+            A[j+1] = A[j]
+            j -= 1
+        A[j+1] = key
+    return A
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(insertion_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+<h3>Alternative Insertion Sort</h3>
+<div class="dark-box"><code>def insertion_sort(A):
+    for i in range(1, len(A)):
+      j = i
+      while A[j-1] > A[j] and j > 0:
+        A[j-1], A[j] = A[j], A[j-1]
+        j -= 1
+    return A  
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(insertion_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h2 id="3">3. Quick Sort</h2>
+<ul>
+    <li><strong>Definition:</strong> A divide-and-conquer algorithm that selects a pivot and partitions the list into smaller and larger elements, then recursively sorts the sublists.</li>
+    <li><strong>Time Complexity:</strong> O(n log n) on average.</li>
+</ul>
+<h3>With List Comprehension</h3>
+<div class="dark-box"><code>def quicksort(A):
+    if len(A) <= 1:
+        return A
+    pivot = A[len(A) // 2]
+    left = [x for x in A if x < pivot]
+    middle = [x for x in A if x == pivot]
+    right = [x for x in A if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3]
+print(quicksort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h3>Without List Comprehension</h3>
+<div class="dark-box"><code>def quicksort(A):
+    if len(A) <= 1: # terminating cases (0 or 1 item)
+        return A
+
+    pivot = A[len(A) // 2] # midpoint
+    left = []
+    middle = []
+    right = []
+
+    for element in A:
+        if element < pivot:
+            left.append(element)
+        elif element == pivot:
+            middle.append(element)
+        else:
+            right.append(element)
+
+    return quicksort(left) + middle + quicksort(right) # recursive cases
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3]
+print(quicksort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h3>Without List Comprehension Simplified</h3>
+<div class="dark-box"><code>def quicksort(A):
+    if len(A) <= 1: # terminating cases (0 or 1 item)
+        return A
+
+    pivot = A[len(A) // 2] # midpoint
+    left = [] # items less than pivot
+    right = [] # items more than pivot
+
+    for element in A:
+        if element < pivot:
+            left.append(element)
+        elif element > pivot:
+            right.append(element)
+
+    return quicksort(left) + [pivot] + quicksort(right) # recursive cases
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3]
+print(quicksort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h2 id="4">4. Merge Sort</h2>
+<ul>
+    <li><strong>Definition:</strong> A divide-and-conquer algorithm that splits the list into halves, sorts each half, and merges them.</li>
+    <li><strong>Time Complexity:</strong> O(n log n).</li>
+</ul>
+<h3>Iterative Merge Sort</h3>
+<div class="dark-box"><code>def merge_sorti(A):
+    n = len(A)
+    if n <= 1:
+    return A
+
+    left = merge_sorti(A[:n//2])
+    right = merge_sorti(A[n//2:])
+
+    i = j = k = 0
+    sorted_list = [None] * n
+
+    while i < len(left) and j < len(right):
+    if left[i] < right[j]:
+        sorted_list[k] = left[i]
+        i += 1
+    else:
+        sorted_list[k] = right[j]
+        j += 1
+    k += 1
+
+    while i < len(left):
+    sorted_list[k] = left[i]
+    i += 1
+    k += 1
+
+    while j < len(right):
+    sorted_list[k] = right[j]
+    j += 1
+    k += 1
+
+    return sorted_list
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(merge_sorti(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+
+<br>
+<h3>Recursive Merge Sort</h3>
+<div class="dark-box"><code>def merge_sortr(A):
+    if len(A) <= 1:
+        return A
+    mid = len(A) // 2
+    left = merge_sortr(A[:mid])
+    right = merge_sortr(A[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    merged_list = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            merged_list.append(left[i])
+            i += 1
+        else:
+            merged_list.append(right[j])
+            j += 1
+    merged_list += left[i:]
+    merged_list += right[j:]
+    return merged_list
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(merge_sortr(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+</div>
+
+    <footer>
+        <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+    </footer>
+</body>
+</html>

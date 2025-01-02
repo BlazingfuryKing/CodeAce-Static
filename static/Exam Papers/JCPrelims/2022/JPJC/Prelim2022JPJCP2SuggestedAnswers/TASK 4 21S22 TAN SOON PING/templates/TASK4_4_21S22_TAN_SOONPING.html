@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+	<title>Display</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>Rental ID</th>
+			<th>Catalogue Number</th>
+			<th>Email</th>
+			<th>Contact Number</th>
+		</tr>
+		{%for item in result%}
+		<tr>
+			<td>{{item[0]}}</td>
+			<td>{{item[1]}}</td>
+			<td>{{item[2]}}</td>
+			<td>{{item[3]}}</td>
+		</tr>
+		{%endfor%}
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>NDP balloting</title>
+ 
+<link 
+        rel="stylesheet" 
+        href="{{ url_for('static', filename='styles.css') }}?q={{ randcss }}">
+</head>
+<body>
+
+
+    <form method="post" action="{{url_for('dashboard')}}">
+      <br>
+
+        <p><b>NRIC:</b>
+      <br><input name="nric_id" type="text"></p>
+<input type="submit" value="Submit">
+
+
+    </form>
+
+  </div>
+
+
+
+
+</body>
+</html>

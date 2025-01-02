@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Linking an External Style Sheet</a>
+        <a href="#2" onclick="toggleSidebar()">CSS Syntax</a>
+        <a href="#3" onclick="toggleSidebar()">Basic CSS Properties</a>
+        <a href="#4" onclick="toggleSidebar()">Classes and IDs</a>
+        <a href="#5" onclick="toggleSidebar()">Descendant Selectors</a>
+        <a href="#6" onclick="toggleSidebar()">CSS for Tables</a>
+        <a href="#7" onclick="toggleSidebar()">Example of a Webpage with CSS</a>
+        <a href="#8" onclick="toggleSidebar()">Refering to Insert</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+    <h1>CSS Basics</h1>
+    <p>Cascading Style Sheets (CSS) allow you to style and format HTML elements. Here's a detailed guide with dark-boxs:</p>
+    <br>
+    <h2 id="1">1. Linking an External Style Sheet</h2>
+    <p>To apply styles from an external CSS file, use the <code>&lt;link&gt;</code> tag inside the <code>&lt;head&gt;</code> element:</p>
+    <div class="dark-box">&lt;head&gt; 
+    &lt;link rel="stylesheet" href="&#123;&#123;  url_for('static', filename='style.css')  &#125;&#125;"&gt; 
+&lt;/head&gt;</div>
+<br>
+    <h2 id="2">2. CSS Syntax</h2>
+    <p>The basic structure of CSS involves selecting an element and defining its style properties:</p>
+    <div class="dark-box">h1 { 
+  color: red; 
+  font-size: 12px; 
+}</div>
+    <ul>
+        <li><strong>color</strong>: Sets the text color.</li>
+        <li><strong>font-size</strong>: Specifies the size of the text.</li>
+    </ul>
+    <br>
+    <h2 id="3">3. Basic CSS Properties</h2>
+    <ul>
+        <li><strong>color</strong>: Sets the text color.</li>
+        <li><strong>font-size</strong>: Specifies the font size.</li>
+        <li><strong>font-weight</strong>: Sets the boldness of text.</li>
+        <li><strong>font-family</strong>: Specifies the font style.</li>
+        <li><strong>text-align</strong>: Aligns text horizontally.</li>
+        <li><strong>border</strong>: Defines border style, color, and width.</li>
+        <li><strong>margin</strong>: Sets the space outside an element.</li>
+        <li><strong>padding</strong>: Sets the space inside an element.</li>
+    </ul>
+    <br>
+    <h2 id="4">4. Classes and IDs</h2>
+    <p>Classes and IDs help target specific elements for styling:</p>
+<div class="dark-box">/* CSS */
+p { 
+    color: blue; 
+} 
+#about_me { 
+    color: red; 
+} 
+.main { 
+    color: green; 
+}
+
+/* HTML */
+&lt;p id="about_me"&gt;About Me&lt;/p&gt;
+&lt;p&gt;I enjoy coding.&lt;/p&gt;
+&lt;p class="main"&gt;Good morning.&lt;/p&gt;
+&lt;p class="main"&gt;Good afternoon.&lt;/p&gt;
+
+---------------------------------------
+<style>
+#enjoy_code { 
+    color: blue; 
+  } 
+#about_me { 
+color: red; 
+  } 
+.main { 
+color: green; 
+  }
+</style><p id="about_me">About Me</p><p id="enjoy_code">I enjoy coding.</p><p class="main">Good morning.</p><p class="main">Good afternoon.</p></div>
+<br>
+<h2 id="5">5. Descendant Selectors</h2>
+<p>Style elements based on their nesting structure:</p>
+<div class="dark-box">/* CSS */
+div p { 
+  color: yellow; 
+} 
+p { 
+  color: orange; 
+}
+
+/* HTML */
+&lt;div&gt; 
+    &lt;p&gt;Hello&lt;/p&gt; 
+&lt;/div&gt;
+&lt;p&gt;Goodbye&lt;/p&gt;
+---------------------------------------
+<style>#Hello { 
+  color: yellow; 
+} 
+#Goodbye { 
+  color: orange; 
+}</style><p id="Hello">Hello</p><p id="Goodbye">Goodbye</p></div>
+    <p>In this dark-box, <code>div p</code> targets paragraphs inside a <code>&lt;div&gt;</code>, while <code>p</code> applies to all other paragraphs.</p>
+    <br>
+<h2 id="6">6. CSS for Tables</h2>
+<p>Using CSS, you can make tables visually appealing by customizing borders, colors, padding, and more.</p>
+<h3>Table with HTML and CSS</h3>
+<div class="dark-box">/* CSS */
+table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 20px;
+}
+th, td {
+border: 2px solid #ddd;
+padding: 8px;
+text-align: left;
+}
+th {
+background-color: magenta;
+font-weight: bold;
+}
+tr {
+background-color: grey;
+}
+tr:hover {
+background-color: red;
+}    
+
+/* HTML */
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Subject&lt;/th&gt;
+        &lt;th&gt;Grade&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Math&lt;/td&gt;
+        &lt;td&gt;A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Science&lt;/td&gt;
+        &lt;td&gt;B&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+---------------------------------------
+<div class="dark-box"><style>
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    }
+    th, td {
+    border: 2px solid white;
+    padding: 8px;
+    text-align: left;
+    }
+    th {
+    background-color: magenta;
+    font-weight: bold;
+    }
+    tr {
+    background-color: grey;
+    }
+    tr:hover {
+    background-color: red;
+    }    
+</style><table>
+    <tr>
+        <th>Subject</th>
+        <th>Grade</th>
+    </tr>
+    <tr>
+        <td>Math</td>
+        <td>A</td>
+    </tr>
+    <tr>
+        <td>Science</td>
+        <td>B</td>
+    </tr>
+    </table>    
+</div></div>
+
+    <h3>Explanation:</h3>
+    <ol>
+    <li><code>table {}</code>: Applies styles to all table elements.</li>
+    <ul>
+        <li><strong>width: 100%;</strong> The table spans the full width of its container.</li>
+        <li><strong>border-collapse: collapse;</strong> Borders between cells are merged.</li>
+        <li><strong>margin-bottom: 20px;</strong> Adds spacing below the table.</li>
+    </ul>
+    <li><code>th, td {}</code>: Applies styles to both table headers and data cells.</li>
+    <ul>
+        <li><strong>border: 2px solid white;</strong> Creates a solid white border around cells.</li>
+        <li><strong>padding: 8px;</strong> Adds padding inside cells for spacing.</li>
+        <li><strong>text-align: left;</strong> Aligns cell content to the left.</li>
+    </ul>
+    <li><code>th {}</code>: Adds additional styles to table headers.</li>
+    <ul>
+        <li><strong>background-color: magenta;</strong> Gives headers a magenta background.</li>
+        <li><strong>font-weight: bold;</strong> Makes header text bold.</li>
+    </ul>
+    <li><code>tr {}</code>: Styles applied to table rows.</li>
+    <ul>
+        <li><strong>background-color: grey;</strong> Sets a default grey background for rows.</li>
+    </ul>
+    <li><code>tr:hover {}</code>: Adds a hover effect to rows.</li>
+    <ul>
+        <li><strong>background-color: red;</strong> Highlights the row in red when hovered.</li>
+    </ul>
+</ol>
+<br>
+<h2 id="7">7. Example of a Webpage with CSS</h2>
+<p>Below is an dark-box of a complete HTML file styled with CSS:</p>
+<div class="dark-box">/* HTML */
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;&#123;&#123;  url_for('static', filename='style.css')  &#125;&#125;&#34;&gt;
+    &lt;title&gt;Styled Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to CSS&lt;/h1&gt;
+    &lt;p class=&#34;main&#34;&gt;This paragraph is styled using a class.&lt;/p&gt;
+    &lt;p id=&#34;unique&#34;&gt;This paragraph is styled using an ID.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+/* CSS */
+h1 {
+  color: purple;
+  text-align: center;
+}
+
+.main {
+  color: green;
+  font-size: 16px;
+}
+
+#unique {
+  color: red;
+  font-weight: bold;
+}
+---------------------------------------
+<style>
+#c1 {
+    color: purple;
+    text-align: center;
+}
+
+.main {
+    color: green;
+    font-size: 20px;
+}
+
+#unique {
+    color: red;
+    font-weight: bold;
+}
+</style><h1 id="c1">Welcome to CSS</h1><p class="main">This paragraph is styled using a class.</p><p id="unique">This paragraph is styled using an ID.</p></div>
+<br>
+<h2 id="8">8. Refering to Insert</h2>
+<p>This insert is provided during your exams and do use it <strong>only</strong> for reference</p>
+<img src="..\static\CSS.jpg" alt="CSS Reference" width="800">
+
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

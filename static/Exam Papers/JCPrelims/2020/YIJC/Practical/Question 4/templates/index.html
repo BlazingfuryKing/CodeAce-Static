@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<h1>Check-in</h1>
+</head>
+
+<body>
+
+<img src='/static/IN.JPG'>                              
+
+<fieldset>
+	<div style=color:red>{{warning}}</div> <br><br>
+	<form action={{url_for('checkin')}} method='POST'>
+		Postal Code: <input type='text' name='postal_code'> <br><br>
+		Date (yyyymmdd): <input type='text' name='date'> <br><br>
+		Check-in Time (hh:mm): <input type='text' name='check_in_time'> <br><br>
+		NRIC: <input type='text' name='nric'> <br><br>
+		Handphone No. : <input type='text' name='phone'> <br><br>
+		
+		<input type='submit' name='submit' value='submit'>  
+	</form>
+</fieldset>
+
+
+</body>
+
+
+</html>

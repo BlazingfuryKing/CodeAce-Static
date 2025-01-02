@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Framework</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">What is Flask?</a>
+        <a href="#2" onclick="toggleSidebar()">Core Features</a>
+        <a href="#3" onclick="toggleSidebar()">Basic Flask Application</a>
+        <a href="#4" onclick="toggleSidebar()">Routing in Flask</a>
+        <a href="#5" onclick="toggleSidebar()">Dynamic Routing and Template Rendering</a>
+        <a href="#6" onclick="toggleSidebar()">Handling HTTP Methods</a>
+        <a href="#7" onclick="toggleSidebar()">Running the Application</a>
+        <a href="#8" onclick="toggleSidebar()">Advantages of Flask</a>
+
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+
+
+<h1 id="Flask">Flask Framework</h1>
+
+<h2 id="1">1. What is Flask?</h2>
+<p>
+    Flask is a lightweight and versatile Python web framework used to build web applications. It provides tools for routing, handling HTTP requests, and rendering templates. Flask is known for its simplicity, flexibility, and modular design.
+</p>
+<br>
+<h2 id="2">2. Core Features</h2>
+<ul>
+    <li><strong>Lightweight:</strong> Minimalistic, allowing developers to add only the components they need.</li>
+    <li><strong>Routing:</strong> Built-in support for mapping URLs to functions.</li>
+    <li><strong>Template Rendering:</strong> Uses the Jinja2 template engine for creating dynamic HTML content.</li>
+    <li><strong>Extensible:</strong> Allows easy integration with extensions like Flask-SQLAlchemy and Flask-WTF.</li>
+</ul>
+<br>
+<h2 id="3">3. Basic Flask Application</h2>
+<p>A simple example of a Flask app that responds to requests at the root URL:</p>
+
+<div class="dark-box"><code># Flask Basic App
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, Flask!"
+
+if __name__ == '__main__':
+    app.run()</code></div>
+
+<h3>Explanation:</h3>
+<ul>
+    <li><code>Flask(__name__)</code>: Creates the Flask application object.</li>
+    <li><code>@app.route()</code>: A decorator that maps a URL to the specified function.</li>
+    <li><code>app.run()</code>: Starts the server.</li>
+</ul>
+<br>
+<h2 id="4">4. Routing in Flask</h2>
+<p>Routing allows mapping of URLs to specific functions in the application.</p>
+
+<div class="dark-box"><code>@app.route('/about')
+def about():
+    return "This is the About page."
+
+@app.route('/contact')
+def contact():
+    return "This is the Contact page."</code></div>
+
+<h3>Explanation:</h3>
+<ul>
+    <li><code>@app.route('/about')</code>: Maps the URL <code>/about</code> to the <code>about</code> function.</li>
+    <li><code>@app.route('/contact')</code>: Maps the URL <code>/contact</code> to the <code>contact</code> function.</li>
+</ul>
+<br>
+<h2 id="5">5. Dynamic Routing and Template Rendering</h2>
+<p>Flask supports dynamic URLs and renders templates using Jinja2.</p>
+
+<div class="dark-box"><code>from flask import render_template
+
+@app.route('/greet/<name>')
+def greet(name):
+    return render_template('greet.html', name=name)</code></div>
+
+<h3>Template (greet.html):</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Greeting&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello, &#123;&#123; name &#125;&#125;!&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</div>
+
+<h3>Explanation:</h3>
+<ul>
+    <li><code>/greet/&lt;name&gt;</code>: A dynamic URL where <code>&lt;name&gt;</code> is a variable passed to the function.</li>
+    <li><code>render_template()</code>: Renders the <code>greet.html</code> template, passing <code>name</code> as a context variable.</li>
+    <li><code>{{ name }}</code>: A Jinja2 placeholder replaced by the actual value of <code>name</code>.</li>
+</ul>
+<br>
+<h2 id="6">6. Handling HTTP Methods</h2>
+<p>Flask supports HTTP methods like GET and POST to handle user input and form submissions.</p>
+
+<div class="dark-box"><code>from flask import request
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = request.form['data']
+    return f"Received: {data}"</code></div>
+
+<h3>Explanation:</h3>
+<ul>
+    <li><code>@app.route('/submit', methods=['POST'])</code>: Specifies that this route handles POST requests.</li>
+    <li><code>request.form</code>: Accesses form data submitted by the user.</li>
+</ul>
+<br>
+<h2 id="7">7. Running the Application</h2>
+<ol>
+    <li>Save the Flask application in a Python file (e.g., <code>app.py</code>).</li>
+    <li>Run the application using <code>python app.py</code>.</li>
+    <li>Access the application in a web browser at <code>http://localhost:5000</code>.</li>
+</ol>
+<br>
+<h2 id="8">8. Advantages of Flask</h2>
+<ul>
+    <li>Simple and easy to use, making it great for beginners.</li>
+    <li>Highly flexible and supports extensions for advanced features.</li>
+    <li>Suitable for both small-scale and large-scale applications.</li>
+</ul>
+<br>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

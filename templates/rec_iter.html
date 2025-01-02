@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursive vs Iterative</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">What is Recursion?</a>
+        <a href="#2" onclick="toggleSidebar()">What is Iteration?</a>
+        <a href="#3" onclick="toggleSidebar()">Comparison: Factorial Calculation</a>
+        <a href="#4" onclick="toggleSidebar()">Comparison: Fibonacci Calculation</a>
+        <a href="#5" onclick="toggleSidebar()">Key Differences</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+<h1>Recursive vs Iterative Approaches</h1>
+
+<h2 id="1">1. What is Recursion?</h2>
+<p>
+    Recursion is a method where a function calls itself to solve a problem. It breaks the problem into smaller sub-problems until reaching a base case.
+</p>
+<ul>
+    <li><strong>Advantages:</strong>
+        <ul>
+            <li>Simplifies code for problems that have a recursive structure (e.g., factorial, Fibonacci, tree traversal).</li>
+        </ul>
+    </li>
+    <li><strong>Disadvantages:</strong>
+        <ul>
+            <li>Consumes more memory due to recursive function calls.</li>
+            <li>Risk of stack overflow for deep recursion.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+<h2 id="2">2. What is Iteration?</h2>
+<p>
+    Iteration uses loops (e.g., <code>for</code>, <code>while</code>) to repeatedly execute a block of code until a condition is met.
+</p>
+<ul>
+    <li><strong>Advantages:</strong>
+        <ul>
+            <li>Consumes less memory compared to recursion.</li>
+            <li>No stack overflow risk.</li>
+        </ul>
+    </li>
+    <li><strong>Disadvantages:</strong>
+        <ul>
+            <li>Can be harder to implement for problems with recursive structures.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+<h2 id="3">3. Comparison: Factorial Calculation</h2>
+
+<h3>Recursive Implementation</h3>
+<div class="dark-box"><code>def factorial_recursive(n):
+    if n == 0 or n == 1:
+        return 1  # Base case
+    else:
+        return n * factorial_recursive(n - 1)  # Recursive case
+
+# main
+print(factorial_recursive(5))  # Output: 120</code>
+---------------------------------------
+<code>120</code></div>
+<br>
+<h3>Iterative Implementation</h3>
+<div class="dark-box"><code>def factorial_iterative(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+# main
+print(factorial_iterative(5))  # Output: 120</code>
+---------------------------------------
+<code>120</code>
+</div>
+<br>
+<h2 id="4">4. Comparison: Fibonacci Calculation</h2>
+
+<h3>Recursive Implementation</h3>
+<div class="dark-box"><code>def fibonacci_recursive(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+
+# main
+print(fibonacci_recursive(6))  # Output: 8</code>
+---------------------------------------
+<code>8</code>
+</div>
+
+<h3>Iterative Implementation</h3>
+<div class="dark-box"><code>def fibonacci_iterative(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+# main
+print(fibonacci_iterative(6))  # Output: 8</code>
+---------------------------------------
+<code>8</code>
+</div>
+<br>
+<h2 id="5">5. Key Differences</h2>
+<ul>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Aspect</th>
+            <th>Recursion</th>
+            <th>Iteration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Definition</td>
+            <td>A function calls itself.</td>
+            <td>Repeated execution using loops.</td>
+        </tr>
+        <tr>
+            <td>Memory Usage</td>
+            <td>Higher due to recursive calls and stack frames.</td>
+            <td>Lower as no additional stack is used.</td>
+        </tr>
+        <tr>
+            <td>Performance</td>
+            <td>Can be slower due to overhead of function calls.</td>
+            <td>Faster as no function call overhead.</td>
+        </tr>
+        <tr>
+            <td>Suitability</td>
+            <td>Best for problems with recursive structures.</td>
+            <td>Best for iterative tasks.</td>
+        </tr>
+    </tbody>
+</table> </ul>
+    
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

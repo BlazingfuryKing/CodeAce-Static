@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#Create" onclick="toggleSidebar()">Create</a>
+        <a href="#Read" onclick="toggleSidebar()">Read</a>
+        <a href="#Update" onclick="toggleSidebar()">Update</a>
+        <a href="#Delete" onclick="toggleSidebar()">Delete</a>
+        <a href="#Insert" onclick="toggleSidebar()">Insert</a>
+        <br>
+    </div>
+    
+<!-- Content -->    
+<div class="content">
+<h1>CRUD Operations on a Dictionary</h1>
+
+<h2 id="Create">Create</h2>
+<ul>
+    <li>A dictionary is created with key-value pairs.</li>
+    <li>Keys include <strong>name</strong>, <strong>age</strong>, <strong>class</strong>, and <strong>subjects</strong>.</li>
+</ul>
+<div class="dark-box"><code>student = {'name': 'Tom', 'age': 17, 'class': '24/12', 'subjects': ['math', 'computing', 'physics', 'economics']}
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'age': 17, 'class': '24/12', 'subjects': ['math', 'computing', 'physics', 'economics']}</code>
+</div>
+<br>
+
+<h2 id="Read">Read</h2>
+<ul>
+    <li>Access dictionary values using <code>get()</code> or direct indexing.</li>
+    <li><code>get()</code> is safer as it does not throw an error for missing keys.</li>
+</ul>
+<div class="dark-box"><code>print(student.get('age'))  # Output: 17
+print(student.get('id'))   # Output: None</code>
+---------------------------------------
+<code>17
+None</code>
+</div>
+<br>
+
+<h2 id="Update">Update</h2>
+<ul>
+    <li>Update values of keys or modify nested elements (e.g., a list inside the dictionary).</li>
+</ul>
+<div class="dark-box"><code>student['class'] = '24/13'  # Update class
+student['subjects'][1] = 'biology'  # Update subject
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'age': 17, 'class': '24/13', 'subjects': ['math', 'biology', 'physics', 'economics']}</code></div>
+<br>
+
+<h2 id="Delete">Delete</h2>
+<ul>
+    <li>Use <code>del</code> or <code>pop()</code> to remove key-value pairs.</li>
+</ul>
+<div class="dark-box"><code>del student['age']
+student.pop('subjects')
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'class': '24/13'}</code></div>
+<br>
+
+<h2 id="Insert">Insert</h2>
+<ul>
+    <li>Add new key-value pairs to the dictionary.</li>
+</ul>
+<div class="dark-box"><code>student['teacher'] = 'Mr Tan'
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'class': '24/13', 'teacher': 'Mr Tan'}</code></div>
+<br>
+
+<h3>Dictionary Operations Summary</h3>
+<ul>
+    <li><strong>Keys:</strong> Use <code>student.keys()</code> to display all keys.</li>
+    <li><strong>Values:</strong> Use <code>student.values()</code> to display all values.</li>
+    <li><strong>Items:</strong> Use <code>student.items()</code> to get key-value pairs.</li>
+    <li><strong>Length:</strong> Use <code>len()</code> to get the size of the dictionary.</li>
+</ul>
+<div class="dark-box"><code>print(student.keys())
+print(student.values())
+print(student.items())
+print(len(student))</code>
+---------------------------------------
+<code>dict_keys(['name', 'class', 'teacher'])
+dict_values(['Tom', '24/13', 'Mr Tan'])
+dict_items([('name', 'Tom'), ('class', '24/13'), ('teacher', 'Mr Tan')])
+3</code></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+    </footer>
+</body>
+</html>

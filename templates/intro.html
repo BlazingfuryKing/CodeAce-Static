@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Python</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+<div class="main-menu">
+    <div class="menu-left">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <div class="menu-links">
+        <a href="index.html">Home</a>
+        <a href="theory.html">Theory</a>
+        <a href="practical.html">Practical</a>
+        <a href="papers.html">Papers</a>
+    </div>
+</div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#Basic">Basic Syntax and Structure</a>
+        <a href="#Variables">Variables</a>
+        <a href="#If-Else">If-Else Conditions</a>
+        <a href="#Loops">Loops</a>
+        <a href="#Functions">Functions</a>
+        <a href="#Libraries">Modules and Libraries</a>
+        <a href="#Common-Modules"> Commonly used Modules</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Welcome to the Introduction of Python</h1>
+        <p>
+            Python is a beginner-friendly programming language with simple syntax and powerful libraries, making it ideal for tasks like data analysis, web development, and automation. It’s perfect for new learners to focus on creativity and problem-solving while exploring endless possibilities.
+        </p>
+        <h2 id="Basic">Basic Syntax and Structure</h2>
+        <ul>
+            <li>Python uses <strong>indentation</strong> to define blocks of code (e.g., loops, functions).</li>
+            <li>Statements in Python <strong>end without a semicolon</strong>.</li>
+            <li>Python code is <strong>clean and straightforward</strong> to write and read.</li>
+            <li>People use a style guide for writing clean, readable, and consistent Python code.</li>
+            <li>It improve <strong>readability and maintainability</strong> of Python projects.</li>
+            <li>It provides <strong>recommendations</strong> for formatting Python code, such as indentation, naming conventions, and line length.</li>
+            <li>For more <a href='https://peps.python.org/pep-0008/' target="_blank">details</a></li>
+            <br>
+            <li><strong>Basic Arithmetic Operators</strong></li>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                        <th>Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Relational Operators -->
+                    <tr>
+                        <td>></td>
+                        <td>Relational</td>
+                        <td>Greater than</td>
+                        <td>5 > 3</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td><</td>
+                        <td>Relational</td>
+                        <td>Less than</td>
+                        <td>3 < 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>>=</td>
+                        <td>Relational</td>
+                        <td>Greater than or equal to</td>
+                        <td>5 >= 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td><=</td>
+                        <td>Relational</td>
+                        <td>Less than or equal to</td>
+                        <td>3 <= 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>==</td>
+                        <td>Relational</td>
+                        <td>Equal to</td>
+                        <td>5 == 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>!=</td>
+                        <td>Relational</td>
+                        <td>Not equal to</td>
+                        <td>5 != 3</td>
+                        <td>True</td>
+                    </tr>
+                    <!-- Logical Operators -->
+                    <tr>
+                        <td>and</td>
+                        <td>Logical</td>
+                        <td>Returns True if both conditions are True</td>
+                        <td>(5 > 3) and (4 > 2)</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>or</td>
+                        <td>Logical</td>
+                        <td>Returns True if at least one condition is True</td>
+                        <td>(5 > 3) or (4 < 2)</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>not</td>
+                        <td>Logical</td>
+                        <td>Reverses the Boolean value</td>
+                        <td>not (5 > 3)</td>
+                        <td>False</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <li><strong>Relational and Logical Operators</strong></li>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                        <th>Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>></td>
+                        <td>Relational</td>
+                        <td>Greater than</td>
+                        <td>5 > 3</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td><</td>
+                        <td>Relational</td>
+                        <td>Less than</td>
+                        <td>3 < 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>>=</td>
+                        <td>Relational</td>
+                        <td>Greater than or equal to</td>
+                        <td>5 >= 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td><=</td>
+                        <td>Relational</td>
+                        <td>Less than or equal to</td>
+                        <td>3 <= 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>==</td>
+                        <td>Relational</td>
+                        <td>Equal to</td>
+                        <td>5 == 5</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>!=</td>
+                        <td>Relational</td>
+                        <td>Not equal to</td>
+                        <td>5 != 3</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>and</td>
+                        <td>Logical</td>
+                        <td>Returns True if both conditions are True</td>
+                        <td>(5 > 3) and (4 > 2)</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>or</td>
+                        <td>Logical</td>
+                        <td>Returns True if at least one condition is True</td>
+                        <td>(5 > 3) or (4 < 2)</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <td>not</td>
+                        <td>Logical</td>
+                        <td>Reverses the Boolean value</td>
+                        <td>not (5 > 3)</td>
+                        <td>False</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ul>            
+
+        <h2 id="Variables">Variables</h2>
+        <ul>
+            <li><strong>Integers</strong> (int): 10, -5</li>
+            <li><strong>Floats</strong> (float): 3.14, -0.5</li>
+            <li><strong>Strings</strong> (str): "Hello", 'World'</li>
+            <li><strong>Booleans</strong> (bool): True, False</li>
+        </ul>
+
+        <h2 id="If-Else">If-Else Conditions</h2>
+        <ul>
+            <li>The <code>if</code> statement checks a condition. If the condition is true, the code inside it runs.</li>
+            <li>If it's false, the program skips the if block.</li>
+        </ul>
+
+If x is greater than 5, it will print "x is greater than 5".
+<div class="dark-box"><code>x = 10
+if x > 5:
+    print("x is greater than 5")</code>
+---------------------------------------
+<code>>> x is greater than 5</code></div>
+<br>
+If it's not, nothing happens.
+<div class="dark-box"><code>x = 1
+    if x > 5:
+        print("x is greater than 5")</code>
+---------------------------------------
+<code>>>  </code></div>
+
+    <ul>
+        <li>The <code>if-else</code> statement adds a backup plan.</li>
+        <li>If the condition in if is false, the code in the <code>else</code> block runs.</li>
+    </ul>
+
+<div class="dark-box"><code>x = 1
+    if x > 5:
+        print("x is greater than 5")</code>
+---------------------------------------
+<code>>>  </code></div>
+    
+
+If y mod 2 equals 0, it will print "y is even".
+<div class="dark-box"><code>y = 2
+    if y % 2 == 0:
+        print("y is even")
+    else:
+        print("y is odd")</code>
+---------------------------------------
+<code>>> y is even</code></div>
+
+<br>
+Else y mod 2 not equals 0, it will print "y is odd".
+<div class="dark-box"><code>y = 3
+if y % 2 == 0:
+    print("y is even")
+else:
+    print("y is odd")</code>
+---------------------------------------
+<code>>> y is odd</code></div>
+<ul>
+    <li>The <code>if-elif-else</code> statement checks multiple conditions in order.</li>
+    <li>Once it finds a condition that is true, it runs the matching block of code and skips the rest.</li>
+    <li>If none of the conditions are true, the <code>else</code> block runs.</li>
+</ul>
+
+If the grade is more than 90, the program prints "A".
+<div class="dark-box"><code>grade = 100
+if grade >= 90:
+    print("A")
+elif grade >= 70:
+    print("B")
+else:
+    print("Fail")</code>
+---------------------------------------
+<code>>> A</code>
+</div>
+<br>
+
+Else-if (Elif) the grade is more than 70 but less than or equal to 90, the program prints "B".
+<div class="dark-box"><code>grade = 85
+if grade >= 90:
+    print("A")
+elif grade >= 70:
+    print("B")
+else:
+    print("Fail")</code>
+---------------------------------------
+<code>>> B</code>
+</div>
+<br>
+
+Else the grade is less than 70, the program prints "Fail".
+<div class="dark-box"><code>grade = 50
+if grade >= 90:
+    print("A")
+elif grade >= 70:
+    print("B")
+else:
+    print("Fail")</code>
+---------------------------------------
+<code>>> Fail</code>
+</div>
+<br>
+    
+        <h2 id="Loops">Loops</h2>
+        <h3>For Loops</h3>
+        <ul>
+            <li>A for loop repeats code for each item in a collection (like a list, range, or string).</li>
+            <li>It picks one item at a time and runs the code block for each.</li>
+        </ul>
+
+
+<div class="dark-box"><code>for number in range(1, 4):
+    print(number)</code>
+---------------------------------------
+<code>>> 1
+>> 2
+>> 3</code></div>
+<br>
+
+<div class="dark-box"><code>fruits = ["apple", "banana"]
+for fruit in fruits:
+    print(fruit)</code>
+---------------------------------------
+<code>>> apple
+>> banana</code></div>
+<br>
+
+<div class="dark-box"><code>word = 'Hello'
+    for letter in word:
+    print(letter)</code>
+---------------------------------------
+<code>>> H
+>> e
+>> l
+>> l
+>> o</code></div>
+<br>
+    <h3>While Loops</h3>
+    <ul>
+        <li>A while loop repeats code as long as a condition is true.</li>
+        <li>It checks the condition before running the code block.</li>
+        <li>Make sure to update variables inside the loop to avoid infinite loops!</li>
+    </ul>
+    
+<div class="dark-box"><code>count = 1
+while count <= 3:
+    print(count)
+    count += 1</code>
+---------------------------------------
+<code>>> 1
+>> 2
+>> 3</code>
+</div>
+<br>
+
+<div class="dark-box"><code>number = 5
+while number > 0:
+    print(number)
+    number -= 1</code>
+---------------------------------------
+<code>>> 5
+>> 4
+>> 3
+>> 2
+>> 1</code>
+</div>
+<br>
+
+<div class="dark-box"><code>word = "Python"
+index = 0
+while index < len(word):
+    print(word[index])
+    index += 1</code>
+---------------------------------------
+<code>>> P
+>> y
+>> t
+>> h
+>> o
+>> n</code>
+</div>
+<br>    
+
+        <h2 id="Functions">Functions</h2>
+        <ul>
+            <li>A function is a block of code that runs when it is called.</li>
+            <li>Functions can accept input through parameters and return output.</li>
+            <li>They help organize code and avoid repetition.</li>
+        </ul> 
+<h3>Defining and Calling Functions</h3>
+If a function is called, it executes its code block.
+<div class="dark-box"><code>def greet():
+    print("Hello, world!")
+    
+greet()</code>
+---------------------------------------
+<code>>> Hello, world!</code>
+</div>
+<br>
+
+<h3>Functions with Parameters</h3>
+Functions can take arguments as input to customize their behavior.
+<div class="dark-box"><code>def greet(name):
+    print(f"Hello, {name}!")
+    
+greet("Alice")</code>
+---------------------------------------
+<code>>> Hello, Alice!</code>
+</div>
+<br>
+
+<h3>Functions with Return Values</h3>
+A function can return a value using the `return` keyword.
+<div class="dark-box"><code>def add(a, b):
+    return a + b
+    
+result = add(5, 3)
+print(result)</code>
+---------------------------------------
+<code>>> 8</code>
+</div>
+<br>
+
+<h3>Using Default Parameters</h3>
+Functions can have default values for parameters.
+<div class="dark-box"><code>def greet(name="Guest"):
+    print(f"Hello, {name}!")
+    
+greet()
+greet("Alice")</code>
+---------------------------------------
+<code>>> Hello, Guest!
+>> Hello, Alice!</code>
+</div>
+<br>
+
+<h3>Using Functions in Loops</h3>
+Functions can be used inside loops for repeated actions.
+<div class="dark-box"><code>def square(num):
+    return num * num
+
+for i in range(1, 4):
+    print(square(i))
+</code>
+---------------------------------------
+<code>>> 1
+>> 4
+>> 9</code>
+</div>
+<br>
+        <h2 id="Libraries">Modules and Libraries</h2>
+<ul>
+    <li>A module is a file containing Python code that can be reused in other programs.</li>
+    <li>A library is a collection of pre-written modules for performing specific tasks.</li>
+    <li>You can use the <code>import</code> statement to access a module or library.</li>
+</ul>
+<br>
+<h3>Using Built-in Modules</h3>
+Modules like <code>math</code> provide additional functionality.
+<div class="dark-box"><code>import math
+
+print(math.sqrt(16))
+print(math.pi)</code>
+---------------------------------------
+<code>>> 4.0
+>> 3.141592653589793</code>
+</div>
+<br>
+
+<h3>Using Custom Modules (OPTIONAL)</h3>
+You can create your own modules and import them.
+<div class="dark-box"><code># In file mymodule.py
+def greet(name):
+    return f"Hello, {name}!"
+
+# In your main program
+import mymodule
+
+print(mymodule.greet("Alice"))</code>
+---------------------------------------
+<code>>> Hello, Alice!</code>
+</div>
+<br>
+
+<h3>Installing and Using Libraries (OPTIONAL)</h3>
+Third-party libraries can be installed using <code>pip</code>.
+<div class="dark-box"><code># Install requests library
+# pip install requests
+
+import requests
+
+response = requests.get("https://api.github.com")
+print(response.status_code)
+</code>
+---------------------------------------
+<code>>> 200</code>
+</div>
+<br>
+
+<h3>Using Aliases</h3>
+You can use an alias to simplify module names.
+<div class="dark-box"><code>import math as m
+
+print(m.sqrt(25))
+</code>
+---------------------------------------
+<code>>> 5.0</code>
+</div>
+<br>
+
+<h3>Importing Specific Functions</h3>
+You can import only specific functions from a module.
+<div class="dark-box"><code>from math import sqrt, pi
+
+print(sqrt(49))
+print(pi)
+</code>
+---------------------------------------
+<code>>> 7.0
+>> 3.141592653589793</code>
+</div>
+<br>
+
+<h3>Combining Modules</h3>
+Modules can work together for more complex tasks.
+<div class="dark-box"><code>import math
+import random
+
+radius = random.randint(1, 10)
+area = math.pi * radius ** 2
+print(f"Radius: {radius}, Area: {area}")</code>
+---------------------------------------
+<code>>> Radius: 7, Area: 153.93804002589985</code>
+</div>
+<br>
+
+<h2 id="Common-Modules">Commonly used Modules</h2>
+<ul>
+<li>Some modules like <code>math</code>, <code>csv</code>, and <code>json</code> are built into Python.</li>
+<li>Others, like third-party libraries, can be installed with <code>pip</code>.</li>
+<li>However, during your practicals you would only be using built in modules</li>
+<li>The <code>flask</code> and <code>sqlite3</code> modules will be discssed in practical</li>
+</ul>
+
+<h3>Using the <code>math</code> Module</h3>
+The <code>math</code> module provides mathematical functions.
+<div class="dark-box"><code>import math
+
+print(math.sqrt(16))  # Square root
+print(math.factorial(5))  # Factorial
+print(math.pi)  # Value of pi</code>
+---------------------------------------
+<code>>> 4.0
+>> 120
+>> 3.141592653589793</code>
+</div>
+<br>
+
+<h3>Using the <code>random</code> Module</h3>
+The <code>random</code> module generates random numbers and selects random items.
+<div class="dark-box"><code>import random
+
+print(random.randint(1, 10))  # Random integer between 1 and 10
+print(random.choice(["apple", "banana", "cherry"]))  # Random choice</code>
+---------------------------------------
+<code>>> 7
+>> banana</code>
+</div>
+<br>
+
+<h3>Using <code>split</code> to Break Strings</h3>
+The <code>split()</code> method splits a string into parts based on a delimiter.
+<div class="dark-box"><code>text = "apple,banana,cherry"
+fruits = text.split(",")  # Split by comma
+print(fruits)
+
+line = "Hello World"
+words = line.split()  # Split by whitespace
+print(words)</code>
+---------------------------------------
+<code>>> ['apple', 'banana', 'cherry']
+>> ['Hello', 'World']</code>
+</div>
+<br>
+
+<h3>Using <code>readlines</code> to Read Files</h3>
+The <code>readlines()</code> method reads all lines from a file into a list.
+<div class="dark-box"><code>with open("example.txt", "w") as file:
+    file.write("Hello\nWorld\nPython")
+    
+with open("example.txt", "r") as file: #write - w, read - r, ammend - a
+    lines = file.readlines()
+    print(lines)</code>
+---------------------------------------
+<code>>> ['Hello\n', 'World\n', 'Python']</code>
+</div>
+<br>
+
+The <code>csv</code> module helps in reading and writing CSV files.
+<div class="dark-box"><code>import csv
+
+with open("data.csv", "w") as file: #write - w, read - r, ammend - a
+    writer = csv.writer(file)
+    writer.writerow(["Name", "Age"])
+    writer.writerow(["Alice", 25])
+    
+with open("data.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)</code>
+---------------------------------------
+<code>>> ['Name', 'Age']
+>> ['Alice', '25']</code>
+</div>
+<br>
+
+<h3>Using a Custom Delimiter in CSV</h3>
+The <code>csv</code> module allows you to set a custom delimiter for separating fields.
+<div class="dark-box"><code>import csv
+
+# Writing a CSV with a semicolon delimiter
+with open("data_semicolon.csv", "w", newline="") as file:
+    writer = csv.writer(file, delimiter=";")
+    writer.writerow(["Name", "Age"])
+    writer.writerow(["Alice", 25])
+    writer.writerow(["Bob", 30])
+    
+# Reading the CSV with a semicolon delimiter
+with open("data_semicolon.csv", "r") as file:
+    reader = csv.reader(file, delimiter=";")
+    for row in reader:
+        print(row)</code>
+---------------------------------------
+<code>>> ['Name', 'Age']
+>> ['Alice', '25']
+>> ['Bob', '30']</code>
+</div>
+<br>
+
+<h3>Using the <code>json</code> Module</h3>
+The <code>json</code> module is used to work with JSON data.
+<div class="dark-box"><code>import json
+
+data = {"name": "Alice", "age": 25}
+json_string = json.dumps(data)  # Convert to JSON string
+print(json_string)
+
+parsed_data = json.loads(json_string)  # Convert back to dictionary
+print(parsed_data["name"])</code>
+---------------------------------------
+<code>>> {"name": "Alice", "age": 25}
+>> Alice</code>
+</div></div>
+<br>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

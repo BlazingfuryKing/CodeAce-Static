@@ -1,0 +1,3328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Code</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        .video-container {
+            display: flex;
+            gap: 10px; /* Adjust spacing between videos */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+<div class="main-menu">
+    <div class="menu-left">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <div class="menu-links">
+        <a href="index.html">Home</a>
+        <a href="theory.html">Theory</a>
+        <a href="practical.html">Practical</a>
+        <a href="papers.html">Papers</a>
+    </div>
+</div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#List" onclick="toggleSidebar()">CRUD List</a>
+        <a href="#Array" onclick="toggleSidebar()">CRUD Array</a>
+        <a href="#Dict" onclick="toggleSidebar()">CRUD Dictionary</a>
+        <a href="#String-opperation" onclick="toggleSidebar()">String Opperations</a>
+        <a href="#Recursion-Iterative" onclick="toggleSidebar()">Recursion and Iterative</a>
+        <a href="#File-io" onclick="toggleSidebar()">File i/o</a>
+        <a href="#Num-Base" onclick="toggleSidebar()">Number Base Conversion (Iterative)</a>
+        <a href="#Recursive-Conversions" onclick="toggleSidebar()">Number Base Conversion (Recursive)</a>
+        <a href="#Data-Validation" onclick="toggleSidebar()">Data Validation</a>
+        <a href="#Search" onclick="toggleSidebar()">Search Algorithms</a>
+        <a href="#Sort" onclick="toggleSidebar()">Sort Algorithms</a>
+        <a href="#OOP" onclick="toggleSidebar()">Object Oriented Programming</a>
+        <a href="#LinkedList" onclick="toggleSidebar()">Linked List</a>
+        <a href="#Stack-Queue" onclick="toggleSidebar()"> Stack and Queue</a>
+        <a href="#BST" onclick="toggleSidebar()">Binary Search Tree</a>
+        <a href="#Hash" onclick="toggleSidebar()">Hash Tables</a>
+        <a href="#SQL" onclick="toggleSidebar()">SQL workflow</a>
+        <a href="#NoSQL" onclick="toggleSidebar()">NoSQL (MongoDB) workflow</a>
+        <a href="#Socket" onclick="toggleSidebar()">Socket Programming</a>
+        <a href="#Flask" onclick="toggleSidebar()">Flask workflow</a>
+        <br>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Practical Notes for Alevels</h1>
+        <p>I have compiled all the code into a single page for quick viewing of chapters</p>
+        </ul>
+        <br>            
+        <h2 id="List">CRUD Operations on a List</h2>
+        <ul>
+            <li><strong>Create:</strong> Use a <code>for</code> loop to add numbers from 1 to 10 into the list.</li>
+            <li><strong>Read:</strong> Print the list to view its contents.</li>
+            <li><strong>Update:</strong> Modify the value at a specific index (e.g., set the value at index 0 to 2).</li>
+            <li><strong>Delete:</strong> Use <code>pop()</code> to remove the last element or <code>pop(index)</code> to remove an element at a specific index.</li>
+        </ul>
+        
+<div class="dark-box"><code>listA = []
+#create items 1 - 10 in listA using for loop
+for i in range(10):
+    listA.append(i+1)
+
+#read - find index of 3 in listA
+print(listA)
+
+#update - change value at an index in listA
+listA[0] = 2
+print(listA)
+
+#delete - remove a value from the list
+listA.pop() #deletes last value by default
+print(listA)
+
+listA.pop(0) #deletes a value at an index
+print(listA)</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[2, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[2, 2, 3, 4, 5, 6, 7, 8, 9]
+[2, 3, 4, 5, 6, 7, 8, 9]</code>
+</div>
+<br>
+
+<h2 id="Array">CRUD Operations on a Fixed-Size Array</h2>
+
+<ul>
+    <li>In <strong>A-Levels</strong>, we do not use a real array data structure as seen in other programming contexts.</li>
+    <li>Instead, we <strong>simulate arrays</strong> using Python's <code>list</code> data type.</li>
+    <li>The <strong>fixed size</strong> of an array is represented by initializing a list with a specific number of <code>None</code> elements.</li>
+    <li>Operations like <strong>inserting</strong>, <strong>reading</strong>, <strong>updating</strong>, and <strong>deleting</strong> values can be performed on this simulated array.</li>
+    <li>This approach helps in understanding the basic functionality of arrays without relying on external libraries or native array structures.</li>
+</ul>
+
+<ul>
+
+    <li><strong>Create:</strong> Initialize an array with a fixed size (5) filled with <code>None</code>.</li>
+    <li><strong>Insert:</strong> Use a <code>for</code> loop to add values 1 to 5 into the array.</li>
+    <li><strong>Read:</strong> Print the array to view its current contents.</li>
+    <li><strong>Update:</strong> Modify the value at a specific index (e.g., set index 0 to <code>99</code>).</li>
+    <li><strong>Delete:</strong> Simulate removal by setting the last or specific index to <code>None</code>.</li>
+</ul>
+
+<div class="dark-box"><code># Create an array
+size = 5  # the array can only store 5 variables
+arr = [None] * size
+
+# Create items 1 - 5 in arr using a for loop
+for i in range(5):
+    arr[i] = i + 1
+
+# Read - Print the array
+print(arr)
+
+# Update - Change value at index 0
+arr[0] = 99
+print(arr)
+
+# Delete - Remove the last element by setting it to None
+arr[-1] = None
+print(arr)
+
+# Delete - Remove the value at index 0
+arr[0] = None
+print(arr)</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5]
+[99, 2, 3, 4, 5]
+[99, 2, 3, 4, None]
+[None, 2, 3, 4, None]</code>
+</div>
+<br>
+
+<h2 id="Dict">CRUD Operations on a Dictionary</h2>
+
+<h3>Create</h3>
+<ul>
+    <li>A dictionary is created with key-value pairs.</li>
+    <li>Keys include <strong>name</strong>, <strong>age</strong>, <strong>class</strong>, and <strong>subjects</strong>.</li>
+</ul>
+<div class="dark-box"><code>student = {'name': 'Tom', 'age': 17, 'class': '24/12', 'subjects': ['math', 'computing', 'physics', 'economics']}
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'age': 17, 'class': '24/12', 'subjects': ['math', 'computing', 'physics', 'economics']}</code>
+</div>
+<br>
+
+<h3>Read</h3>
+<ul>
+    <li>Access dictionary values using <code>get()</code> or direct indexing.</li>
+    <li><code>get()</code> is safer as it does not throw an error for missing keys.</li>
+</ul>
+<div class="dark-box"><code>print(student.get('age'))  # Output: 17
+print(student.get('id'))   # Output: None</code>
+---------------------------------------
+<code>17
+None</code>
+</div>
+<br>
+
+<h3>Update</h3>
+<ul>
+    <li>Update values of keys or modify nested elements (e.g., a list inside the dictionary).</li>
+</ul>
+<div class="dark-box"><code>student['class'] = '24/13'  # Update class
+student['subjects'][1] = 'biology'  # Update subject
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'age': 17, 'class': '24/13', 'subjects': ['math', 'biology', 'physics', 'economics']}</code>
+</div>
+<br>
+
+<h3>Delete</h3>
+<ul>
+    <li>Use <code>del</code> or <code>pop()</code> to remove key-value pairs.</li>
+</ul>
+<div class="dark-box"><code>del student['age']
+student.pop('subjects')
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'class': '24/13'}</code>
+</div>
+<br>
+
+<h3>Insert</h3>
+<ul>
+    <li>Add new key-value pairs to the dictionary.</li>
+</ul>
+<div class="dark-box"><code>student['teacher'] = 'Mr Tan'
+print(student)</code>
+---------------------------------------
+<code>{'name': 'Tom', 'class': '24/13', 'teacher': 'Mr Tan'}</code>
+</div>
+<br>
+
+<h3>Dictionary Operations Summary</h3>
+<ul>
+    <li><strong>Keys:</strong> Use <code>student.keys()</code> to display all keys.</li>
+    <li><strong>Values:</strong> Use <code>student.values()</code> to display all values.</li>
+    <li><strong>Items:</strong> Use <code>student.items()</code> to get key-value pairs.</li>
+    <li><strong>Length:</strong> Use <code>len()</code> to get the size of the dictionary.</li>
+</ul>
+<div class="dark-box"><code>print(student.keys())
+print(student.values())
+print(student.items())
+print(len(student))</code>
+---------------------------------------
+<code>dict_keys(['name', 'class', 'teacher'])
+dict_values(['Tom', '24/13', 'Mr Tan'])
+dict_items([('name', 'Tom'), ('class', '24/13'), ('teacher', 'Mr Tan')])
+3</code>
+</div>
+<br>
+<h2 id="String-opperation">String Operations</h2>
+
+<h3>1. String Creation</h3>
+<ul>
+    <li>Strings can be created using single, double, or triple quotes for multiline strings.</li>
+</ul>
+<div class="dark-box"><code>string1 = 'Hello'
+string2 = "World"
+string3 = '''This is
+a multiline string'''
+print(string1)
+print(string2)
+print(string3)</code>
+---------------------------------------
+<code>Hello
+World
+This is
+a multiline string</code>
+</div>
+<br>
+
+<h3>2. Accessing Characters</h3>
+<ul>
+    <li>Individual characters in a string can be accessed using indexing.</li>
+    <li>Negative indexing starts from the end of the string.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(string[0])  # Output: P
+print(string[-1]) # Output: n</code>
+---------------------------------------
+<code>P
+n</code>
+</div>
+<br>
+
+<h3>3. String Slicing</h3>
+<ul>
+    <li>Substrings can be extracted using slicing.</li>
+    <li>Use <code>string[start:end]</code> to get characters from start to end (not inclusive).</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(string[0:3])  # Output: Pyt
+print(string[:3])   # Output: Pyt
+print(string[3:])   # Output: hon</code>
+---------------------------------------
+<code>Pyt
+Pyt
+hon</code>
+</div>
+<br>
+
+<h3>4. String Concatenation</h3>
+<ul>
+    <li>Combine strings using the <code>+</code> operator.</li>
+</ul>
+<div class="dark-box"><code>string1 = "Hello"
+string2 = "World"
+result = string1 + " " + string2
+print(result)  # Output: Hello World</code>
+---------------------------------------
+<code>Hello World</code>
+</div>
+<br>
+
+<h3>5. String Multiplication</h3>
+<ul>
+    <li>Repeat strings using the <code>*</code> operator.</li>
+</ul>
+<div class="dark-box"><code>string = "Hello"
+print(string * 3)  # Output: HelloHelloHello</code>
+---------------------------------------
+<code>HelloHelloHello</code>
+</div>
+<br>
+
+<h3>6. String Length</h3>
+<ul>
+    <li>Get the length of a string using <code>len()</code>.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(len(string))  # Output: 6</code>
+---------------------------------------
+<code>6</code>
+</div>
+<br>
+
+<h3>7. Using Loops</h3>
+<ul>
+    <li>Use a <code>for</code> loop to iterate through each character in a string.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+for char in string:
+    print(char)</code>
+---------------------------------------
+<code>P
+y
+t
+h
+o
+n</code>
+</div>
+<br>
+
+<h3>8. Changing Case</h3>
+<ul>
+    <li>Change the case of strings using methods like <code>upper()</code>, <code>lower()</code>, <code>title()</code>, etc.</li>
+</ul>
+<div class="dark-box"><code>string = "Python Programming"
+print(string.upper())        # Output: PYTHON PROGRAMMING
+print(string.lower())        # Output: python programming
+print(string.title())        # Output: Python Programming
+print(string.capitalize())   # Output: Python programming
+print(string.swapcase())     # Output: pYTHON pROGRAMMING</code>
+---------------------------------------
+<code>PYTHON PROGRAMMING
+python programming
+Python Programming
+Python programming
+pYTHON pROGRAMMING</code>
+</div>
+<br>
+
+<h3>9. Stripping Whitespace</h3>
+<ul>
+    <li>Remove leading, trailing, or both whitespace using <code>strip()</code>, <code>lstrip()</code>, and <code>rstrip()</code>.</li>
+</ul>
+<div class="dark-box"><code>string = "  Hello World  "
+print(string.strip())  # Output: Hello World
+
+#Optional
+print(string.lstrip()) # Output: Hello World  
+print(string.rstrip()) # Output:   Hello World</code>
+---------------------------------------
+<code>Hello World
+Hello World  
+  Hello World</code>
+</div>
+<br>
+
+<h3>10. Splitting and Joining Strings</h3>
+<ul>
+    <li>Use <code>split()</code> to break a string into parts.</li>
+    <li>Use <code>join()</code> to combine a list of strings into a single string.</li>
+</ul>
+<div class="dark-box"><code>string = "Python,Java,C++"
+print(string.split(","))  # Output: ['Python', 'Java', 'C++']
+
+words = ["Python", "is", "fun"]
+print(" ".join(words))  # Output: Python is fun</code>
+---------------------------------------
+<code>
+['Python', 'Java', 'C++']
+Python is fun</code>
+</div>
+<br>
+
+<h3>11. Replacing Substrings</h3>
+<ul>
+    <li>Use <code>replace()</code> to replace parts of a string with another string.</li>
+</ul>
+<div class="dark-box"><code>string = "I like Java"
+print(string.replace("Java", "Python"))  # Output: I like Python</code>
+---------------------------------------
+<code>I like Python</code>
+</div>
+<br>
+
+<h3>12. Finding Substrings</h3>
+<ul>
+    <li>Find the position of a substring using <code>find()</code>. Returns <code>-1</code> if not found.</li>
+</ul>
+<div class="dark-box"><code>string = "Python Programming"
+print(string.find("Programming"))  # Output: 7
+print(string.find("Java"))         # Output: -1</code>
+---------------------------------------
+<code>7
+-1</code>
+</div>
+<br>
+
+<h3>13. String Formatting</h3>
+<ul>
+    <li>Format strings using <code>f-strings</code> or the <code>format()</code> method.</li>
+</ul>
+<div class="dark-box"><code>name = "Alice"
+age = 25
+print(f"My name is {name} and I am {age} years old.")  
+print("My name is {} and I am {} years old.".format(name, age))</code>
+---------------------------------------
+<code>My name is Alice and I am 25 years old.
+My name is Alice and I am 25 years old.</code>
+</div>
+<br>
+
+<h3>14. String Validation</h3>
+<ul>
+    <li>Check properties of strings using methods like <code>isalpha()</code>, <code>isdigit()</code>, <code>isalnum()</code>, etc.</li>
+</ul>
+<div class="dark-box"><code>string = "Python123"
+print(string.isalpha())  # Output: False
+print(string.isdigit())  # Output: False
+print(string.isalnum())  # Output: True</code>
+---------------------------------------
+<code>False
+False
+True</code>
+</div>
+<br>
+
+<h3>15. Reversing a String</h3>
+<ul>
+    <li>Reverse a string using slicing <code>[::-1]</code>.</li>
+</ul>
+<div class="dark-box"><code>string = "Python"
+print(string[::-1])  # Output: nohtyP</code>
+---------------------------------------
+<code>nohtyP</code>
+</div>
+<br>
+
+<h2 id="Recursion-Iterative">Recursive vs Iterative Approaches</h2>
+
+<h3>1. What is Recursion?</h3>
+<p>
+    Recursion is a method where a function calls itself to solve a problem. It breaks the problem into smaller sub-problems until reaching a base case.
+</p>
+<ul>
+    <li><strong>Advantages:</strong>
+        <ul>
+            <li>Simplifies code for problems that have a recursive structure (e.g., factorial, Fibonacci, tree traversal).</li>
+        </ul>
+    </li>
+    <li><strong>Disadvantages:</strong>
+        <ul>
+            <li>Consumes more memory due to recursive function calls.</li>
+            <li>Risk of stack overflow for deep recursion.</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>2. What is Iteration?</h3>
+<p>
+    Iteration uses loops (e.g., <code>for</code>, <code>while</code>) to repeatedly execute a block of code until a condition is met.
+</p>
+<ul>
+    <li><strong>Advantages:</strong>
+        <ul>
+            <li>Consumes less memory compared to recursion.</li>
+            <li>No stack overflow risk.</li>
+        </ul>
+    </li>
+    <li><strong>Disadvantages:</strong>
+        <ul>
+            <li>Can be harder to implement for problems with recursive structures.</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>3. Comparison: Factorial Calculation</h3>
+
+<h4>Recursive Implementation</h4>
+<div class="dark-box"><code>def factorial_recursive(n):
+    if n == 0 or n == 1:
+        return 1  # Base case
+    else:
+        return n * factorial_recursive(n - 1)  # Recursive case
+
+# main
+print(factorial_recursive(5))  # Output: 120</code>
+---------------------------------------
+<code>120</code>
+</div>
+
+<h4>Iterative Implementation</h4>
+<div class="dark-box"><code>def factorial_iterative(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+# main
+print(factorial_iterative(5))  # Output: 120</code>
+---------------------------------------
+<code>120</code>
+</div>
+
+<h3>4. Comparison: Fibonacci Calculation</h3>
+
+<h4>Recursive Implementation</h4>
+<div class="dark-box"><code>def fibonacci_recursive(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+
+# main
+print(fibonacci_recursive(6))  # Output: 8</code>
+---------------------------------------
+<code>8</code>
+</div>
+
+<h4>Iterative Implementation</h4>
+<div class="dark-box"><code>def fibonacci_iterative(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+# main
+print(fibonacci_iterative(6))  # Output: 8</code>
+---------------------------------------
+<code>8</code>
+</div>
+
+<h3>5. Key Differences</h3>
+<ul>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Aspect</th>
+            <th>Recursion</th>
+            <th>Iteration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Definition</td>
+            <td>A function calls itself.</td>
+            <td>Repeated execution using loops.</td>
+        </tr>
+        <tr>
+            <td>Memory Usage</td>
+            <td>Higher due to recursive calls and stack frames.</td>
+            <td>Lower as no additional stack is used.</td>
+        </tr>
+        <tr>
+            <td>Performance</td>
+            <td>Can be slower due to overhead of function calls.</td>
+            <td>Faster as no function call overhead.</td>
+        </tr>
+        <tr>
+            <td>Suitability</td>
+            <td>Best for problems with recursive structures.</td>
+            <td>Best for iterative tasks.</td>
+        </tr>
+    </tbody>
+</table> </ul>
+<br>
+
+<h2 id="File-io">File I/O Operations</h2>
+
+<h3>1. Reading from a Text File</h3>
+<ul>
+    <li>Open a <code>.txt</code> file in read mode using <code>open('filename', 'r')</code>.</li>
+    <li>Use <code>readlines()</code> to read all lines into a list.</li>
+    <li>Iterate through the list to process each line.</li>
+</ul>
+<div class="dark-box"><code>with open('filename.txt', 'r') as infile:
+    lines = infile.readlines()
+    for line in lines:
+        print(line)</code>
+</div>
+<br>
+
+<h3>2. Reading from a CSV File</h3>
+<ul>
+    <li>Open a <code>.csv</code> file in read mode using <code>open('filename', 'r')</code>.</li>
+    <li>Use the <code>csv.reader()</code> module to read rows as lists.</li>
+    <li>Use <code>next()</code> to skip the header row if present.</li>
+</ul>
+<div class="dark-box"><code>import csv
+
+with open('filename.csv', 'r') as infile:
+    lines = csv.reader(infile)
+    next(lines)  # Skip the header row
+    for line in lines:
+        print(line)</code>
+</div>
+<br>
+
+<h3>3. Reading from a JSON File</h3>
+<ul>
+    <li>Open a <code>.json</code> file in read mode using <code>open('filename', 'r')</code>.</li>
+    <li>Use <code>json.load()</code> to parse the JSON file into a Python dictionary or list.</li>
+</ul>
+<div class="dark-box"><code>import json
+
+with open('filename.json', 'r') as infile:
+    data = json.load(infile)
+    for item in data:
+        print(item)</code>
+</div>
+<br>
+
+<h3>4. Reading Text File Data</h3>
+<ul>
+    <li>Use slicing to read specific fields from each line in a text file.</li>
+    <li>For example, read <strong>student_id</strong>, <strong>name</strong>, and <strong>class_id</strong> based on their positions in the line.</li>
+</ul>
+<div class="dark-box"><code>people.txt
+
+1.  01John Doe           24/12
+2.  02Jane Smith         25/13</code>
+</div>
+<br>
+<div class="dark-box"><code>with open('people.txt', 'r') as infile:
+    lines = infile.readlines()
+    print(lines)
+    for line in lines:
+        student_id = line[0:2]
+        name = line[2:22]
+        classid = line[22:].strip()
+        print(student_id)
+        print(name)
+        print(classid)</code>
+---------------------------------------
+<code>01
+John Doe           
+24/12
+02
+Jane Smith         
+25/13</code>
+</div>
+<br>
+
+<h3>5. Writing to a Text File</h3>
+<ul>
+    <li>Open a file in write mode using <code>open('filename', 'w')</code>.</li>
+    <li>Use <code>write()</code> to add formatted data to the file.</li>
+    <li>Format the output using <code>f-strings</code> or other string formatting methods.</li>
+</ul>
+<div class="dark-box"><code>with open('result.txt', 'w') as outfile:
+    student_id = "03"
+    name = 'Ali'
+    classid = '24/12'
+    outfile.write(f'{student_id}{name:20}{classid}\n')</code>
+</div>
+<br>
+<div class="dark-box"><code>result.txt
+
+1.  03Ali                 24/12</code>
+</div>
+<br>
+<h3>6. Appending to a Text File</h3>
+<ul>
+    <li>Open a file in append mode using <code>open('filename', 'a')</code>.</li>
+    <li>Use <code>append()</code> to add formatted data to a new line at the end of the file.</li>
+    <li>Format the output using <code>f-strings</code> or other string formatting methods.</li>
+</ul>
+<div class="dark-box"><code>with open('result.txt', 'a') as outfile:
+    student_id = "04"
+    name = 'Jack'
+    classid = '25/12'
+    outfile.write(f'{student_id}{name:20}{classid}\n')</code>
+</div>
+<br>
+<div class="dark-box"><code>result.txt
+
+1.  03Ali                 24/12
+2.  04Jack                25/12</code>
+</div>
+<br>
+
+<h2 id="Num-Base">Iterative Number Base Conversions</h2>
+
+<h3>1. Decimal to Binary</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a decimal number to binary by repeatedly dividing by 2 and storing the remainders in reverse order.</li>
+    <li><strong>Steps:</strong>
+        <ul>
+            <li>Divide the decimal number by 2.</li>
+            <li>Store the remainder as a binary digit.</li>
+            <li>Repeat until the quotient is 0.</li>
+            <li>Read the remainders in reverse order.</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def decimal_to_binary(dec_num):
+    bin_num = ''
+    while dec_num > 0:
+        remainder = dec_num % 2
+        bin_num = str(remainder) + bin_num
+        dec_num = dec_num // 2
+    return bin_num
+
+# main
+print(decimal_to_binary(1114))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+<br>
+
+<h3>2. Decimal to Hexadecimal</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a decimal number to hexadecimal by repeatedly dividing by 16 and storing the remainders in reverse order.</li>
+    <li><strong>Steps:</strong>
+        <ul>
+            <li>Divide the decimal number by 16.</li>
+            <li>Map the remainder to its hexadecimal equivalent.</li>
+            <li>Repeat until the quotient is 0.</li>
+            <li>Read the remainders in reverse order.</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def decimal_to_hexadecimal(dec_num):
+    dec_hex_map = {1:'1', 2:'2', 3:'3', 4:'4', 5:'5', 6:'6', 7:'7', 8:'8', 9:'9', \
+    10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+    hex_num = ''
+    while dec_num > 0:
+        remainder = dec_num % 16
+        hex_num = str(dec_hex_map[remainder]) + hex_num
+        dec_num = dec_num // 16
+    return hex_num
+
+# main
+print(decimal_to_hexadecimal(1114))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>3. Decimal to Base n, where n is an integer</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a decimal number to base n by repeatedly dividing by n and storing the remainders in reverse order.</li>
+    <li><strong>Steps:</strong>
+        <ul>            
+            <li>If the base is less than 10.</li>
+            <li>Divide the decimal number by n.</li>
+            <li>Store the remainder as a base n digit.</li>
+            <li>Repeat until the quotient is 0.</li>
+            <li>Read the remainders in reverse order.</li>
+            <li>If the base is more than 10.</li>
+            <li>You would need a hex_map similar to decimal to hexadecimal</li>
+            <li>Do read the question for more information</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def decimal_to_base(dec_num, n):
+    num = ''
+    while dec_num > 0:
+        remainder = dec_num % n
+        num = str(remainder) + num
+        dec_num = dec_num // n
+    return num
+
+# main
+print(decimal_to_base(1114, 8))  # Output: 2132</code>
+---------------------------------------
+<code>2132</code>
+</div>
+<br>
+
+<h3>4. Binary to Decimal</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a binary number to decimal by summing the products of binary digits and positional powers of 2.</li>
+</ul>
+<div class="dark-box"><code>def binary_to_decimal(bin_num):
+    dec_num = 0
+    for i in range(len(bin_num)):
+        digit = bin_num[len(bin_num) - 1 - i]
+        dec_num += int(digit) * (2 ** i)
+    return dec_num
+
+# main
+print(binary_to_decimal('10001011010'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<h3>5. Hexadecimal to Decimal</h3>
+<ul>
+    <li><strong>Definition:</strong> Convert a hexadecimal number to decimal by summing the products of hexadecimal digits and positional powers of 16.</li>
+</ul>
+<div class="dark-box"><code>def hexadecimal_to_decimal(hex_num):
+    hex_dec_map = {'1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, \
+    'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15}
+    dec_num = 0
+    for i in range(len(hex_num)):
+        digit = hex_num[len(hex_num) - 1 - i]
+        dec_num += int(hex_dec_map[digit]) * (16 ** i)
+    return dec_num
+
+# main
+print(hexadecimal_to_decimal('45A'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<p>You only need these 5 as you can use it to convert from one base to denary to another base. 
+For example: binary to decimal to hexadecimal</p>
+
+<h3>6. Binary to Hexadecimal (OPTIONAL)</h3>
+<ul>
+    <li><strong>Definition:</strong> Group binary digits into groups of 4 from right to left and map directly to hexadecimal.</li>
+</ul>
+<div class="dark-box"><code>def binary_to_hexadecimal(bin_num):
+    bin_hex_map = {'0000': '0', '0001': '1', '0010': '2', '0011': '3', \
+    '0100': '4', '0101': '5', '0110': '6', '0111': '7', \
+    '1000': '8', '1001': '9', '1010': 'A', '1011': 'B', \
+    '1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
+    bin_num = bin_num.zfill((len(bin_num) + 3) // 4 * 4)
+    hex_num = ''
+    for i in range(0, len(bin_num), 4):
+        hex_num += bin_hex_map[bin_num[i:i+4]]
+    return hex_num
+
+# main
+print(binary_to_hexadecimal('10001011010'))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>7. Hexadecimal to Binary (OPTIONAL)</h3>
+<ul>
+    <li><strong>Definition:</strong> Map each hexadecimal digit directly to its 4-bit binary equivalent.</li>
+</ul>
+<div class="dark-box"><code>def hexadecimal_to_binary(hex_num):
+    hex_bin_map = {'0': '0000', '1': '0001', '2': '0010', '3': '0011', \
+    '4': '0100', '5': '0101', '6': '0110', '7': '0111', \
+    '8': '1000', '9': '1001', 'A': '1010', 'B': '1011', \
+    'C': '1100', 'D': '1101', 'E': '1110', 'F': '1111'}
+    bin_num = ''.join(hex_bin_map[digit.upper()] for digit in hex_num)
+    return bin_num
+
+# main
+print(hexadecimal_to_binary('45A'))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+<br>
+
+<h2 id="Recursive-Conversions">Recursive Number Base Conversions</h2>
+
+<h3>1. Decimal to Binary (Recursive)</h3>
+<div class="dark-box"><code>def decimal_to_binary_recursive(dec_num):
+    if dec_num == 0:
+        return ''
+    else:
+        return decimal_to_binary_recursive(dec_num // 2) + str(dec_num % 2)
+
+# main
+print(decimal_to_binary_recursive(1114))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+<br>
+
+<h3>2. Decimal to Hexadecimal (Recursive)</h3>
+<div class="dark-box"><code>dec_hex_map = {1:'1', 2:'2', 3:'3', 4:'4', 5:'5', 6:'6', 7:'7', 8:'8', 9:'9', \
+10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+
+def decimal_to_hexadecimal_recursive(dec_num):
+    if dec_num == 0:
+        return ''
+    else:
+        remainder = dec_num % 16
+        return decimal_to_hexadecimal_recursive(dec_num // 16) + str(dec_hex_map[remainder])
+
+# main
+print(decimal_to_hexadecimal_recursive(1114))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>3. Binary to Decimal (Recursive)</h3>
+<div class="dark-box"><code>def binary_to_decimal_recursive(bin_num):
+    if len(bin_num) == 0:
+        return 0
+    else:
+        digit = bin_num[0]
+        return int(digit) * (2 ** (len(bin_num) - 1)) + binary_to_decimal_recursive(bin_num[1:])
+
+# main
+print(binary_to_decimal_recursive('10001011010'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<h3>4. Hexadecimal to Decimal (Recursive)</h3>
+<div class="dark-box"><code>hex_dec_map = {'1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, \
+'A':10, 'B':11, 'C':12, 'D':13, 'E':14, 'F':15}
+
+def hexadecimal_to_decimal_recursive(hex_num):
+    if len(hex_num) == 0:
+        return 0
+    else:
+        digit = hex_num[0]
+        return int(hex_dec_map[digit]) * (16 ** (len(hex_num) - 1)) + hexadecimal_to_decimal_recursive(hex_num[1:])
+
+# main
+print(hexadecimal_to_decimal_recursive('45A'))  # Output: 1114</code>
+---------------------------------------
+<code>1114</code>
+</div>
+<br>
+
+<h3>5. Binary to Hexadecimal (Recursive)</h3>
+<div class="dark-box"><code>bin_hex_map = {'0000': '0', '0001': '1', '0010': '2', '0011': '3', \
+'0100': '4', '0101': '5', '0110': '6', '0111': '7', \
+'1000': '8', '1001': '9', '1010': 'A', '1011': 'B', \
+'1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
+
+def binary_to_hexadecimal_recursive(bin_num):
+    padding = len(bin_num) % 4
+    if padding != 0:
+        bin_num = '0' * (4 - padding) + bin_num
+
+    if len(bin_num) == 0:
+        return ''
+    else:
+        group = bin_num[-4:]
+        return binary_to_hexadecimal_recursive(bin_num[:-4]) + bin_hex_map[group]
+
+# main
+print(binary_to_hexadecimal_recursive('10001011010'))  # Output: 45A</code>
+---------------------------------------
+<code>45A</code>
+</div>
+<br>
+
+<h3>6. Hexadecimal to Binary (Recursive)</h3>
+<div class="dark-box"><code>hex_to_bin_map = {'0': '0000', '1': '0001', '2': '0010', '3': '0011', \
+'4': '0100', '5': '0101', '6': '0110', '7': '0111', \
+'8': '1000', '9': '1001', 'A': '1010', 'B': '1011', \
+'C': '1100', 'D': '1101', 'E': '1110', 'F': '1111'}
+
+def hexadecimal_to_binary_recursive(hex_num):
+    if len(hex_num) == 0:
+        return ''
+    else:
+        return hex_to_bin_map[hex_num[0].upper()] + hexadecimal_to_binary_recursive(hex_num[1:])
+
+# main
+print(hexadecimal_to_binary_recursive('45A'))  # Output: 10001011010</code>
+---------------------------------------
+<code>10001011010</code>
+</div>
+<br>
+
+
+<h2 id="Data-Validation">Data Validation Techniques</h2>
+
+<h3>1. Presence Check</h3>
+<ul>
+    <li>Ensures that required fields are not left empty.</li>
+    <li>Commonly used in forms where specific fields must be filled out.</li>
+</ul>
+<div class="dark-box"><code>data = input("Enter your name: ")
+if data.strip() == "":
+    print("Error: This field cannot be empty.")
+else:
+    print("Valid input!")</code>
+</div>
+<br>
+
+<h3>2. Length Check</h3>
+<ul>
+    <li>Ensures that the input meets a specified length requirement (minimum or maximum).</li>
+</ul>
+<div class="dark-box"><code>data = input("Enter a password (min 8 characters): ")
+if len(data) < 8:
+    print("Error: Password must be at least 8 characters long.")
+else:
+    print("Valid password!")</code>
+</div>
+<br>
+
+<h3>3. Data Type Check</h3>
+<ul>
+    <li>Validates that the input matches the expected data type (e.g., integer, float, string).</li>
+</ul>
+<div class="dark-box"><code>data = input("Enter a number: ")
+if data.isdigit():
+    print("Valid input!")
+else:
+    print("Error: Input must be a number.")</code>
+</div>
+<br>
+
+<h3>4. Format Check</h3>
+<ul>
+    <li>Ensures that the input follows a specific format (e.g., email address, phone number).</li>
+</ul>
+<div class="dark-box"><code>data = input("Enter an email address: ")
+symbol_count = 0
+for char in data:
+  if char = '@':
+    symbol_count += 1
+
+if count = 1:
+    print("Valid email!")
+else:
+    print("Error: Invalid email format.")
+    print("Error: Invalid email format.")</code>
+</div>
+<br>
+
+<h3>5. Range Check</h3>
+<ul>
+    <li>Ensures that numerical input falls within a specified range.</li>
+</ul>
+<div class="dark-box"><code>data = int(input("Enter a number between 1 and 100: "))
+if 1 <= data <= 100:
+    print("Valid input!")
+else:
+    print("Error: Number out of range.")</code>
+</div>
+<br>
+
+<h3>6. Existence Check</h3>
+<ul>
+    <li>Verifies that the input exists in a predefined list or database.</li>
+</ul>
+<div class="dark-box"><code>valid_users = ["Alice", "Bob", "Charlie"]
+data = input("Enter your username: ")
+if data in valid_users:
+    print("Valid username!")
+else:
+    print("Error: Username does not exist.")</code>
+</div>
+<br>
+
+<h3>7. Check Digit</h3>
+<ul>
+    <li>Validates numerical identifiers (e.g., ISBN, credit card numbers) using algorithms.</li>
+    <li>The calculation of the check digit depends on the question.</li>
+    <li>The given code is just an example, that you do not have to memorise.</li>
+</ul>
+<div class="dark-box"><code># Example: Simple Mod-10 Check
+data = "12345678"
+check_digit = int(data[-1])
+calculated_digit = sum(int(digit) for digit in data[:-1]) % 10
+if check_digit == calculated_digit:
+    print("Valid check digit!")
+else:
+    print("Error: Invalid check digit.")</code>
+</div>
+<br>
+
+<h2 id="Search">Search Algorithms</h2>
+
+<h3>1. Linear Search</h3>
+<ul>
+    <li><strong>Definition:</strong> A simple search that scans each element in a list sequentially.</li>
+    <li><strong>Time Complexity:</strong> O(n).</li>
+    <li><strong>Steps:</strong>
+        <ul>
+            <li>Iterate through the list.</li>
+            <li>Compare each element with the target value.</li>
+            <li>If found, return the index; otherwise, return "not found".</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>def linear_search(A, target):
+    for i in range(len(A)):
+        if A[i] == target: # found
+            return i
+    return "not found" # not found
+
+# main
+data = [6, 2, 5, 1, 7, 10, 9, 3]
+print(linear_search(data, 1)) # success
+print(linear_search(data, 4)) # failure</code>
+---------------------------------------
+<code>3
+"not found"</code></div>
+<br>
+
+<h3>2. Binary Search</h3>
+<ul>
+    <li><strong>Definition:</strong> An efficient search for sorted lists by repeatedly dividing the search interval in half.</li>
+    <li><strong>Time Complexity:</strong> O(log n).</li>
+</ul>
+<h4>Iterative Binary Search</h4>
+<div class="dark-box"><code>def binary_search(A, target):
+    low = 0
+    high = len(A) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if A[mid] == target: # found
+            return mid
+        elif A[mid] > target: # left half
+            high = mid - 1
+        else: # right half
+            low = mid + 1
+    return "not found"
+
+# main
+data = [1, 2, 3, 5, 6, 7, 9, 10]
+print(binary_search(data, 7)) # success
+print(binary_search(data, 8)) # failure</code>
+---------------------------------------
+<code>5
+"not found"</code></div><br>
+<h4>Recursive Binary Search</h4>
+<div class="dark-box"><code>def binary_searchr(A, target, low, high):
+    if low > high:
+        return -1 # not found
+    mid = (low + high) // 2
+    if A[mid] == target:
+        return mid
+    elif target < A[mid]:
+        return binary_searchr(A, target, low, mid - 1) # left half
+    else:
+        return binary_searchr(A, target, mid + 1, high) # right half
+
+# main
+data = [6, 8, 12, 17, 19]
+print(binary_searchr(data, 17, 0, len(data)-1)) # success
+print(binary_searchr(data, 13, 0, len(data)-1)) # failure</code>
+---------------------------------------
+<code>3
+-1</code></div>
+<br>
+
+
+<h2 id="Sort">Sort Algorithms</h2>
+<h3>1. Bubble Sort</h3>
+<ul>
+    <li><strong>Definition:</strong> A sorting algorithm that repeatedly swaps adjacent elements if they are in the wrong order.</li>
+    <li><strong>Time Complexity:</strong> O(n²).</li>
+</ul><br>
+<h4>Non-Optimized Bubble Sort</h4>
+<div class="dark-box"><code>def bubble_sort(A):
+    n = len(A)
+    for i in range(n):
+        for j in range(n-1):
+            if A[j] > A[j+1]:
+                A[j], A[j+1] = A[j+1], A[j]
+    return A
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(bubble_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<h4>Optimized Bubble Sort</h4>
+<div class="dark-box"><code>def bubble_sort(A):
+    n = len(A)
+    for i in range(n):
+        swapped = False
+        for j in range(n-1):
+            if A[j] > A[j+1]:
+                A[j], A[j+1] = A[j+1], A[j]
+                swapped = True
+        if not swapped: # no swaps -> already sorted
+            break
+    return A
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(bubble_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h3>2. Insertion Sort</h3>
+<ul>
+    <li><strong>Definition:</strong> A sorting algorithm that builds the sorted list one element at a time by inserting elements into their correct positions.</li>
+    <li><strong>Time Complexity:</strong> O(n²).</li>
+</ul>
+<h4>Insertion Sort With key</h4>
+<div class="dark-box"><code>def insertion_sort(A):
+    for i in range(1, len(A)):
+        key = A[i]
+        j = i - 1
+        while j >= 0 and key < A[j]:
+            A[j+1] = A[j]
+            j -= 1
+        A[j+1] = key
+    return A
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(insertion_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+<h4>Alternative Insertion Sort</h4>
+<div class="dark-box"><code>def insertion_sort(A):
+    for i in range(1, len(A)):
+      j = i
+      while A[j-1] > A[j] and j > 0:
+        A[j-1], A[j] = A[j], A[j-1]
+        j -= 1
+    return A  
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(insertion_sort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h3>3. Quick Sort</h3>
+<ul>
+    <li><strong>Definition:</strong> A divide-and-conquer algorithm that selects a pivot and partitions the list into smaller and larger elements, then recursively sorts the sublists.</li>
+    <li><strong>Time Complexity:</strong> O(n log n) on average.</li>
+</ul>
+<h4>With List Comprehension</h4>
+<div class="dark-box"><code>def quicksort(A):
+    if len(A) <= 1:
+        return A
+    pivot = A[len(A) // 2]
+    left = [x for x in A if x < pivot]
+    middle = [x for x in A if x == pivot]
+    right = [x for x in A if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3]
+print(quicksort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h4>Without List Comprehension</h4>
+<div class="dark-box"><code>def quicksort(A):
+    if len(A) <= 1: # terminating cases (0 or 1 item)
+        return A
+
+    pivot = A[len(A) // 2] # midpoint
+    left = []
+    middle = []
+    right = []
+
+    for element in A:
+        if element < pivot:
+            left.append(element)
+        elif element == pivot:
+            middle.append(element)
+        else:
+            right.append(element)
+
+    return quicksort(left) + middle + quicksort(right) # recursive cases
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3]
+print(quicksort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h4>Without List Comprehension Simplified</h4>
+<div class="dark-box"><code>def quicksort(A):
+    if len(A) <= 1: # terminating cases (0 or 1 item)
+        return A
+
+    pivot = A[len(A) // 2] # midpoint
+    left = [] # items less than pivot
+    right = [] # items more than pivot
+
+    for element in A:
+        if element < pivot:
+            left.append(element)
+        elif element > pivot:
+            right.append(element)
+
+    return quicksort(left) + [pivot] + quicksort(right) # recursive cases
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3]
+print(quicksort(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h3>4. Merge Sort</h3>
+<ul>
+    <li><strong>Definition:</strong> A divide-and-conquer algorithm that splits the list into halves, sorts each half, and merges them.</li>
+    <li><strong>Time Complexity:</strong> O(n log n).</li>
+</ul>
+<h4>Iterative Merge Sort</h4>
+<div class="dark-box"><code>def merge_sorti(A):
+    n = len(A)
+    if n <= 1:
+    return A
+
+    left = merge_sorti(A[:n//2])
+    right = merge_sorti(A[n//2:])
+
+    i = j = k = 0
+    sorted_list = [None] * n
+
+    while i < len(left) and j < len(right):
+    if left[i] < right[j]:
+        sorted_list[k] = left[i]
+        i += 1
+    else:
+        sorted_list[k] = right[j]
+        j += 1
+    k += 1
+
+    while i < len(left):
+    sorted_list[k] = left[i]
+    i += 1
+    k += 1
+
+    while j < len(right):
+    sorted_list[k] = right[j]
+    j += 1
+    k += 1
+
+    return sorted_list
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(merge_sorti(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+
+<br>
+<h4>Recursive Merge Sort</h4>
+<div class="dark-box"><code>def merge_sortr(A):
+    if len(A) <= 1:
+        return A
+    mid = len(A) // 2
+    left = merge_sortr(A[:mid])
+    right = merge_sortr(A[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    merged_list = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            merged_list.append(left[i])
+            i += 1
+        else:
+            merged_list.append(right[j])
+            j += 1
+    merged_list += left[i:]
+    merged_list += right[j:]
+    return merged_list
+
+# main
+data = [4, 7, 1, 5, 2, 8, 3, 6]
+print(merge_sortr(data))</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8]</code></div>
+<br>
+
+<h2 id="OOP">Object-Oriented Programming (OOP)</h2>
+
+<p>Object-Oriented Programming is a paradigm that uses objects and classes to structure and organize code. Below are the fundamental concepts of OOP with examples:</p>
+
+<h3>1. Class and Object</h3>
+<ul>
+    <li><strong>Class:</strong> A blueprint for creating objects.</li>
+    <li><strong>Object:</strong> An instance of a class, with its own data and behavior.</li>
+</ul>
+<div class="dark-box"><code>class Car:
+    def __init__(self, brand, speed):
+        self.brand = brand
+        self.speed = speed
+
+    def drive(self):
+        return f"{self.brand} is driving at {self.speed} km/h."
+
+# Main
+car1 = Car("Toyota", 120)
+print(car1.drive())</code>
+---------------------------------------
+<code>Toyota is driving at 120 km/h.</code>
+</div>
+<br>
+
+<h3>2. Encapsulation</h3>
+<ul>
+    <li>Encapsulation bundles data and methods together, restricting access using private attributes.</li>
+</ul>
+<div class="dark-box"><code>class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # Private attribute
+
+    def deposit(self, amount):
+        self.__balance += amount
+
+    def get_balance(self):
+        return self.__balance
+
+# Main
+account = BankAccount(1000)
+account.deposit(500)
+print(account.get_balance())</code>
+---------------------------------------
+<code>1500</code>
+</div>
+<br>
+
+<h3>3. Inheritance</h3>
+<ul>
+    <li>Inheritance enables a class (child) to reuse the properties and methods of another class (parent).</li>
+</ul>
+<div class="dark-box"><code>class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return f"{self.name} makes a sound."
+
+class Dog(Animal):
+    def speak(self):
+        return f"{self.name} barks."
+
+# Main
+dog = Dog("Buddy")
+print(dog.speak())</code>
+---------------------------------------
+<code>Buddy barks.</code>
+</div>
+<br>
+
+<h3>4. Polymorphism</h3>
+<ul>
+    <li>Polymorphism allows methods in different classes to have the same name but different behaviors.</li>
+</ul>
+<div class="dark-box"><code>class Bird:
+    def fly(self):
+        return "Birds can fly."
+
+class Penguin(Bird):
+    def fly(self):
+        return "Penguins cannot fly."
+
+# Main
+animals = [Bird(), Penguin()]
+for animal in animals:
+    print(animal.fly())</code>
+---------------------------------------
+<code>Birds can fly.
+Penguins cannot fly.</code>
+</div>
+<br>
+<h2 id="LinkedList">Linked List</h2>
+
+<p>A linked list is a linear data structure in which elements (nodes) are connected using pointers.</p>
+<ul>
+    <li>Always read the question as they can often hint or guide you on what you have to do.</li>
+    <li>Questions may also ask you to come up with new functions.</li>
+    <li>Hence it is crucial to understand how the code works and be able to adapt and modify it.</li>
+</ul>
+<p>Below are key operations and examples:</p>
+
+<h3>1. Structure of a Node</h3>
+<ul>
+    <li>A <strong>Node</strong> contains two parts:
+        <ul>
+            <li><strong>Data:</strong> Stores the actual data of the node.</li>
+            <li><strong>Pointer:</strong> Stores the reference to the next node.</li>
+        </ul>
+    </li>
+</ul>
+<div class="dark-box"><code>class Node:
+    def __init__(self, data, pointer=None):
+        self.__data = data
+        self.__pointer = pointer
+
+    def getPointer(self):
+        return self.__pointer
+
+    def setPointer(self, pointer):
+        self.__pointer = pointer
+
+    def getData(self):
+        return self.__data
+
+    def setData(self, data):
+        self.__data = data</code></div>
+<br>
+
+<h3>2. Operations in a Linked List</h3>
+<ul>
+    <li>The <strong>LinkedList</strong> class provides methods to manipulate and traverse the list.</li>
+    <li>Below are examples of operations like inserting, deleting, and displaying elements.</li>
+</ul>
+
+<h4>a) Inserting at the Head</h4>
+<p>Adds a new node at the beginning of the list.</p>
+<div class="dark-box"><code>class LinkedList:
+    def insertHead(self, data):
+        newnode = Node(data)
+        if self.isEmpty():
+            self.__head = newnode
+        else:
+            newnode.setPointer(self.__head)
+            self.__head = newnode</code></div>
+<br>
+
+<h4>b) Inserting at the Tail</h4>
+<p>Adds a new node at the end of the list.</p>
+<div class="dark-box"><code>def insertTail(self, data):
+    newnode = Node(data)
+    if self.isEmpty():
+        self.__head = newnode
+    else:
+        curr = self.__head
+        while curr.getPointer() != None:
+            curr = curr.getPointer()
+        curr.setPointer(newnode)</code></div>
+<br>
+
+<h4>c) Deleting the Head</h4>
+<p>Removes the first node in the list.</p>
+<div class="dark-box"><code>def deleteHead(self):
+    if self.isEmpty():
+        print(f'Nothing to delete')
+    else:
+        self.__head = self.__head.getPointer()</code></div>
+<br>
+
+<h4>d) Calculating the Length</h4>
+<p>Counts the number of nodes in the list.</p>
+<div class="dark-box"><code>def length(self):
+    count = 0
+    curr = self.__head
+    while curr != None:
+        count += 1
+        curr = curr.getPointer()
+    return count</code></div>
+<br>
+
+<h4>e) Displaying the List</h4>
+<p>Traverses and prints all nodes in the list.</p>
+<div class="dark-box"><code>def display(self):
+    if self.isEmpty():
+        print(f'List is Empty')
+    else:
+        curr = self.__head
+        while curr != None:
+            print(f'{curr.getData()}')
+            curr = curr.getPointer()</code></div>
+<br>
+
+<h3>3. Example Usage</h3>
+<p>Below is an example demonstrating how to use the LinkedList class:</p>
+<div class="dark-box"><code># Main
+linked_list = LinkedList()
+
+# Insert nodes
+linked_list.insertHead(10)
+linked_list.insertTail(20)
+linked_list.insertTail(30)
+
+# Display list
+linked_list.display()
+
+# Delete head
+linked_list.deleteHead()
+linked_list.display()
+
+# Length of list
+print(f'Length: {linked_list.length()}')</code>
+---------------------------------------
+<code>10
+20
+30
+20
+30
+Length: 2</code></div>
+<br>
+
+<h2 id="Stack-Queue">Stack and Queue</h2>
+
+<p>Stacks and Queues are fundamental data structures. They are used for managing collections of data with specific rules:</p>
+<ul>
+    <li><strong>Stack (LIFO):</strong> Last-In, First-Out order.</li>
+    <li><strong>Queue (FIFO):</strong> First-In, First-Out order.</li>
+</ul>
+
+<h3>1. Stack</h3>
+<ul>
+    <li>A stack is a linear data structure that follows the LIFO principle.</li>
+    <li><strong>Push:</strong> Add an element to the top of the stack.</li>
+    <li><strong>Pop:</strong> Remove the top element.</li>
+    <li><strong>Peek:</strong> View the top element without removing it.</li>
+</ul>
+
+<h4>a) Example Using Python Built-in List</h4>
+<div class="dark-box"><code>x = []
+x.append(2)  # First In
+x.append(5)
+x.append(1)
+x.append(3)
+x.append(9)
+print(x)  # Output: [2, 5, 1, 3, 9]
+x.pop()   # Last Out
+print(x)  # Output: [2, 5, 1, 3]</code></div>
+<br>
+
+<h4>b) Implementing Stack Class</h4>
+<div class="dark-box"><code>class Stack:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            raise IndexError("pop from empty stack")
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        else:
+            raise IndexError("peek from empty stack")
+
+    def size(self):
+        return len(self.items)
+
+# Stack example
+stack = Stack()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+print(stack.pop())  # Output: 3
+print(f'Value of last element: {stack.peek()}')  # Output: 2
+print(f'Size of stack: {stack.size()}')  # Output: 2</code>
+---------------------------------------
+<code>3
+Value of last element: 2
+Size of stack: 2</code>
+</div>
+
+<br>
+
+<h3>2. Queue</h3>
+<ul>
+    <li>A queue is a linear data structure that follows the FIFO principle.</li>
+    <li><strong>Enqueue:</strong> Add an element to the end of the queue.</li>
+    <li><strong>Dequeue:</strong> Remove the front element.</li>
+    <li><strong>Front:</strong> View the front element without removing it.</li>
+</ul>
+
+<h4>a) Example Using Python Built-in List</h4>
+<div class="dark-box"><code>x = []
+x.append(2)  # First In
+x.append(5)
+x.append(1)
+x.append(3)
+x.append(9)
+print(x)  # Output: [2, 5, 1, 3, 9]
+x.pop(0)  # First Out
+print(x)  # Output: [5, 1, 3, 9]</code></div>
+<br>
+
+<h4>b) Implementing Queue Class</h4>
+<div class="dark-box"><code>class Queue:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.items.pop(0)
+        else:
+            raise IndexError("dequeue from empty queue")
+
+    def front(self):
+        if not self.is_empty():
+            return self.items[0]
+        else:
+            raise IndexError("front from empty queue")
+
+    def size(self):
+        return len(self.items)
+
+# Queue example
+queue = Queue()
+queue.enqueue('a')
+queue.enqueue('b')
+queue.enqueue('c')
+print(queue.dequeue())  # Output: 'a'
+print(f'Value of first element: {queue.front()}')  # Output: 'b'
+print(f'Size of queue: {queue.size()}')  # Output: 2</code>
+---------------------------------------
+<code>'a'
+Value of first element: b
+Size of queue: 2</code>
+</div>
+<br>
+
+<h2 id="BST">Binary Search Tree (BST) Implementations</h2>
+
+<h3>1. Iterative BST Implementation</h3>
+<ul>
+    <li><strong>Node Class:</strong>
+        <ul>
+            <li>Represents a single node in the tree with <code>data</code>, <code>left</code>, and <code>right</code> pointers.</li>
+        </ul>
+    </li>
+    <li><strong>Insertion:</strong>
+        <ul>
+            <li>If the tree is empty, the node becomes the root.</li>
+            <li>Traverse the tree iteratively:
+                <ul>
+                    <li>Move left if the value is smaller than the current node.</li>
+                    <li>Move right if the value is larger.</li>
+                    <li>Insert the value when a <code>None</code> position is found.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Search:</strong>
+        <ul>
+            <li>Traverse the tree iteratively:
+                <ul>
+                    <li>If the value matches the current node, return <code>True</code>.</li>
+                    <li>Move left or right based on comparisons.</li>
+                    <li>Return <code>False</code> if the value isn’t found before reaching a leaf.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Traversals:</strong>
+        <ul>
+            <li><strong>Inorder:</strong> Left → Root → Right.</li>
+            <li><strong>Preorder:</strong> Root → Left → Right.</li>
+            <li><strong>Postorder:</strong> Left → Right → Root.</li>
+            <li><strong>Reverse:</strong> Right → Left → Root.</li>
+        </ul>
+    </li>
+    <li><strong>Maximum/Minimum:</strong>
+        <ul>
+            <li>For maximum, move right until the last node.</li>
+            <li>For minimum, move left until the last node.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+
+<div class="dark-box"><code>class Node:
+def __init__(self, data):
+    self.data = data
+    self.left = None
+    self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        node = Node(data)
+        if self.root is None:
+            self.root = node
+            return
+        else:
+            cur = self.root
+            while cur:
+                if cur.data > data:
+                    if cur.left is None:
+                        cur.left = node
+                        return
+                    else:
+                        cur = cur.left
+                else:
+                    if cur.right is None:
+                        cur.right = node
+                        return
+                    else:
+                        cur = cur.right
+
+    def search(self, data):
+        if self.root is None:
+            return 'empty bst'
+        else:
+            cur = self.root
+            while cur:
+                if cur.data == data:
+                    return True
+                elif cur.data > data:
+                    if cur.left is None:
+                        return False
+                    else:
+                        cur = cur.left
+                else:
+                    if cur.right is None:
+                        return False
+                    else:
+                        cur = cur.right
+
+    def inorder(self):
+        def helper(node):
+            if node:
+                helper(node.left)
+                print(node.data, end=' ')
+                helper(node.right)
+        helper(self.root)
+        print()
+
+    def preorder(self):
+        def helper(node):
+            if node:
+                print(node.data, end=' ')
+                helper(node.left)
+                helper(node.right)
+        helper(self.root)
+        print()
+
+    def postorder(self):
+        def helper(node):
+            if node:
+                helper(node.left)
+                helper(node.right)
+                print(node.data, end=' ')
+        helper(self.root)
+        print()
+
+    def reverse(self):
+        def helper(node):
+            if node:
+                helper(node.right)
+                helper(node.left)
+                print(node.data, end=' ')
+        helper(self.root)
+        print()
+
+    def maximum(self):
+        cur = self.root
+        while cur:
+            if cur.right is None:
+                return cur.data
+            else:
+                cur = cur.right
+
+    def minimum(self):
+        cur = self.root
+        while cur:
+            if cur.left is None:
+                return cur.data
+            else:
+                cur = cur.left
+
+bst = BST()
+values = [50, 30, 80, 10, 40, 90, 60]
+for value in values:
+    bst.insert(value)
+
+print(bst.search(10)) # True
+print(bst.search(70)) # False
+
+bst.inorder()    # 10 30 40 50 60 80 90
+bst.preorder()   # 50 30 10 40 80 60 90
+bst.postorder()  # 10 40 30 60 90 80 50
+bst.reverse()    # 90 80 60 50 40 30 10
+
+print(bst.maximum()) # 90
+print(bst.minimum()) # 10</code>
+---------------------------------------
+<code>True
+False
+10 30 40 50 60 80 90
+50 30 10 40 80 60 90
+10 40 30 60 90 80 50
+90 80 60 50 40 30 10
+90
+10</code></div>
+<br>
+<h3>2. Recursive BST Implementation</h3>
+<ul>
+    <li><strong>Insertion:</strong>
+        <ul>
+            <li>Compare the value with the root:
+                <ul>
+                    <li>If smaller, recursively insert into the left subtree.</li>
+                    <li>If larger, recursively insert into the right subtree.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Search:</strong>
+        <ul>
+            <li><strong>Base Case 1:</strong> If the target matches the current node, return <code>"Found"</code>.</li>
+            <li><strong>Base Case 2:</strong> If the subtree is <code>None</code>, return <code>"Not found"</code>.</li>
+            <li><strong>Recursive Cases:</strong>
+                <ul>
+                    <li>Go left if the target is smaller.</li>
+                    <li>Go right if the target is larger.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Traversals:</strong>
+        <ul>
+            <li><strong>Inorder:</strong> Recursive left → Print root → Recursive right.</li>
+            <li><strong>Preorder:</strong> Print root → Recursive left → Recursive right.</li>
+            <li><strong>Postorder:</strong> Recursive left → Recursive right → Print root.</li>
+            <li><strong>Reverse:</strong> Recursive right → Print root → Recursive left.</li>
+        </ul>
+    </li>
+    <li><strong>Maximum/Minimum:</strong>
+        <ul>
+            <li>Move right for maximum until no further subtree exists.</li>
+            <li>Move left for minimum until no further subtree exists.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+
+<div class="dark-box"><code>class BST:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+        if value < self.data:
+            if self.left is None:
+                self.left = BST(value)
+            else:
+                self.left.insert(value)
+        else:
+            if self.right is None:
+                self.right = BST(value)
+            else:
+                self.right.insert(value)
+
+    def search(self, target):
+        if self.data == target:
+            return "Found"
+        elif target < self.data:
+            if self.left is None:
+                return "Not found"
+            else:
+                return self.left.search(target)
+        else:
+            if self.right is None:
+                return "Not found"
+            else:
+                return self.right.search(target)
+
+    def inorder(self):
+        if self.left:
+            self.left.inorder()
+        print(self.data, end=' ')
+        if self.right:
+            self.right.inorder()
+
+    def preorder(self):
+        print(self.data, end=' ')
+        if self.left:
+            self.left.preorder()
+        if self.right:
+            self.right.preorder()
+
+    def postorder(self):
+        if self.left:
+            self.left.postorder()
+        if self.right:
+            self.right.postorder()
+        print(self.data, end=' ')
+
+    def minimum(self):
+        if self.left is None:
+            print(self.data)
+        else:
+            self.left.minimum()
+
+    def maximum(self):
+        if self.right is None:
+            print(self.data)
+        else:
+            self.right.maximum()
+
+# main
+bst = BST(50)
+values = [30, 80, 10, 40, 90, 60]
+for value in values:
+    bst.insert(value)
+
+print(bst.search(10)) # Found
+print(bst.search(70)) # Not found
+
+bst.inorder()    # 10 30 40 50 60 80 90
+print()
+bst.preorder()   # 50 30 10 40 80 60 90
+print()
+bst.postorder()  # 10 40 30 60 90 80 50
+print()
+bst.minimum()    # 10
+bst.maximum()    # 90</code>
+---------------------------------------
+<code>Found
+Not found
+10 30 40 50 60 80 90
+50 30 10 40 80 60 90
+10 40 30 60 90 80 50
+10
+90</code></div>
+<br>
+
+<h3>3. Array-Based BST Implementation</h3>
+<ul>
+    <li><strong>Concept:</strong> Use an array to simulate a BST:
+        <ul>
+            <li>The root is at index 0.</li>
+            <li>The left child of a node at index <code>i</code> is at <code>2*i + 1</code>.</li>
+            <li>The right child of a node at index <code>i</code> is at <code>2*i + 2</code>.</li>
+        </ul>
+    </li>
+    <li><strong>Insertion:</strong>
+        <ul>
+            <li>If the position exceeds the array size, insertion isn’t possible.</li>
+            <li>Recursively decide to go left (<code>2*i + 1</code>) or right (<code>2*i + 2</code>).</li>
+        </ul>
+    </li>
+    <li><strong>Search:</strong>
+        <ul>
+            <li><strong>Base Case 1:</strong> If the index is out of bounds or the slot is <code>None</code>, return <code>"Not found"</code>.</li>
+            <li><strong>Base Case 2:</strong> If the target matches the value at the index, return <code>"Found"</code>.</li>
+            <li><strong>Recursive Cases:</strong>
+                <ul>
+                    <li>Go left (<code>2*i + 1</code>) if the target is smaller.</li>
+                    <li>Go right (<code>2*i + 2</code>) if the target is larger.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Traversals:</strong>
+        <ul>
+            <li><strong>Inorder:</strong> Recursive left → Current node → Recursive right.</li>
+            <li><strong>Preorder:</strong> Current node → Recursive left → Recursive right.</li>
+            <li><strong>Postorder:</strong> Recursive left → Recursive right → Current node.</li>
+        </ul>
+    </li>
+    <li><strong>Maximum/Minimum:</strong>
+        <ul>
+            <li>For maximum, move to the right child (<code>2*i + 2</code>) until no further right exists.</li>
+            <li>For minimum, move to the left child (<code>2*i + 1</code>) until no further left exists.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+
+<div class="dark-box"><code>class BST:
+    def __init__(self, size):
+        self.size = size
+        self.tree = [None] * size
+        self.root = 0
+
+    def insert(self, value, index=0):
+        if index >= self.size:
+            print(f"Cannot insert {value}: Index {index} out of bounds")
+            return
+        if self.tree[index] is None:
+            self.tree[index] = value
+        elif value < self.tree[index]:
+            self.insert(value, 2 * index + 1)
+        else:
+            self.insert(value, 2 * index + 2)
+
+    def search(self, target, index=0):
+        if index >= self.size or self.tree[index] is None:
+            return "Not found"
+        if self.tree[index] == target:
+            return "Found"
+        elif target < self.tree[index]:
+            return self.search(target, 2 * index + 1)
+        else:
+            return self.search(target, 2 * index + 2)
+
+    def inorder(self, index=0):
+        if index < self.size and self.tree[index] is not None:
+            self.inorder(2 * index + 1)
+            print(self.tree[index], end=' ')
+            self.inorder(2 * index + 2)
+
+    def preorder(self, index=0):
+        if index < self.size and self.tree[index] is not None:
+            print(self.tree[index], end=' ')
+            self.preorder(2 * index + 1)
+            self.preorder(2 * index + 2)
+
+# main
+bst = BST(7)
+values = [50, 30, 70, 20, 40, 60, 90]
+
+for value in values:
+    bst.insert(value)
+
+print(bst.search(10)) # Not found
+print(bst.search(70)) # Found
+
+bst.inorder()    # 20 30 40 50 60 70 90
+print()
+bst.preorder()   # 50 30 20 40 70 60 90
+print()</code>
+---------------------------------------
+<code>Not found
+Found
+20 30 40 50 60 70 90
+50 30 20 40 70 60 90</code></div>
+<br>
+
+<h2 id="Hash">Hash Table</h2>
+
+<h3>1. Pigeonhole Principle</h3>
+<p>
+    The <strong>Pigeonhole Principle</strong> states that if <code>n</code> pigeons are placed into <code>m</code> pigeonholes, with <code>n > m</code>, at least one pigeonhole must hold more than one pigeon.
+</p>
+<p>A hash table is an application of this principle.</p>
+
+<br>
+<h3>2. What is a Hash Table?</h3>
+<p>
+    A <strong>Hash Table</strong> is a data structure that maps keys to values using a hash function. It condenses a large address space into a smaller, manageable index range, enabling efficient data retrieval.
+</p>
+<p>An example of a hashing function:</p>
+<div class="dark-box"><code>def hash(key):
+    ''' transform/map key to value (index) '''
+    total = 0
+    for char in key:
+        total += ord(char)
+    return total % N</code></div>
+<p><code>% N</code> confines the index within a valid range. The choice of <code>N</code> should consider the growth of the hash table.</p>
+<br>
+<h3>3. Collisions and Resolution Strategies</h3>
+<p>
+    A <strong>collision</strong> occurs when two different keys hash to the same index. This can lead to non-optimal performance and requires strategies to handle collisions:
+</p>
+<ul>
+    <li><strong>Linear Probing:</strong> Add to the next available <code>+i</code> location.</li>
+    <li><strong>Quadratic Probing:</strong> Add to the next available <code>+i^2</code> location.</li>
+    <li><strong>Chaining:</strong> Create a linked list for each hash table location; add collided records to the appropriate list.</li>
+</ul>
+
+<br>
+<h3>4. Hash Table with Linear Probing</h3>
+<p>This implementation resolves collisions using linear probing.</p>
+<div class="dark-box"><code>def hash(key):
+    return key % N
+
+def insert(key, value):
+    index = hash(key)
+    if hash_table[index] == -1: # available
+        hash_table[index] = value # no collision
+    else: # collision
+        i = (index + 1) % N
+        while hash_table[i] != -1: # find next free slot
+            i = (i + 1) % N # linear probing
+        hash_table[i] = value # insert collided record
+
+def search(key, target):
+    index = hash(key)
+    if hash_table[index] == -1:
+        return "Record not found"
+    elif hash_table[index] != target: # collided record
+        i = (index + 1) % N
+        while hash_table[i] != -1:
+            if hash_table[i] == target:
+                return "Found in collided records"
+            i = (i + 1) % N
+        return "Not found in collided records"
+    else:
+        return hash_table[index] # non-collided record
+
+# main
+N = 10
+hash_table = [-1 for i in range(N)]
+records = {1234: 'Tom', 651: 'Mary', 238: 'Ali'}
+for key, value in records.items():
+    insert(key, value)
+print(hash_table)</code></div>
+<p>Output after inserting and searching records will demonstrate linear probing.</p>
+<br>
+<h3>5. Hash Table with Quadratic Probing</h3>
+<p>This implementation resolves collisions using quadratic probing.</p>
+<div class="dark-box"><code>def hash(key):
+    return key % N
+
+def insert(key, value):
+    index = hash(key)
+    if hash_table[index] == -1: # available
+        hash_table[index] = value # no collision
+    else: # collision
+        i = (index + 1) % N
+        k = 2
+        while hash_table[i] != -1 and k < N:
+            i = (i + k**2) % N # quadratic probing
+            k += 1
+        hash_table[i] = value # insert collided record
+
+# main
+N = 10
+hash_table = [-1 for i in range(N)]
+records = {1234: 'Tom', 651: 'Mary', 238: 'Ali'}
+for key, value in records.items():
+    insert(key, value)
+print(hash_table)</code></div>
+<p>Quadratic probing helps reduce primary clustering.</p>
+
+<br>
+<h3>6. Hash Table with Chaining</h3>
+<p>This implementation resolves collisions by using linked lists.</p>
+<div class="dark-box"><code>class Node:
+    def __init__(self, data=None):
+        self.data = None
+        self.next = None
+
+def chain_insert(key, value):
+    index = hash(key)
+    if hash_table[index].data is None:
+        hash_table[index].data = value
+    else:
+        curr = hash_table[index]
+        while curr.next:
+            curr = curr.next
+        curr.next = Node(value)
+
+# main
+N = 10
+hash_table = [Node() for i in range(N)]
+records = {1234: 'Tom', 651: 'Mary', 238: 'Ali'}
+for key, value in records.items():
+    chain_insert(key, value)
+print(chain_search(1234, 'Tom')) # Original record
+print(chain_search(7654, 'Alex')) # Collided record</code></div>
+<p>Chaining provides a flexible way to handle collisions but uses additional memory.</p>
+<br>
+<h3>7. Hashing Function for Strings</h3>
+<p>A hashing function that computes the sum of ASCII values modulo a number.</p>
+<div class="dark-box"><code>def hash(key):
+    total = 0
+    for char in key:
+        total += ord(char)
+    return total % 13
+
+# main
+print(hash("Good morning!"))
+print(hash("How are you?"))</code></div>
+<p>This demonstrates how strings can be hashed effectively.</p>
+<br>
+
+<h2 id="SQL">SQL Workflow</h2>
+
+<h3>1. Setting Up SQLite3 Database</h3>
+<p>The following Python code demonstrates how to set up and interact with an SQLite3 database.</p>
+
+<div class="dark-box"><code># Import modules
+import sqlite3
+
+# Connect to database (or create it if it does not exist)
+conn = sqlite3.connect('school.db')
+
+# Create cursor object to interact with the database
+cur = conn.cursor()
+
+# Create table
+cur.execute('''CREATE TABLE IF NOT EXISTS students(sid INTEGER PRIMARY KEY,
+                       name TEXT NOT NULL,
+                       classid TEXT,
+                       phone TEXT UNIQUE);''')
+
+cur.execute('''CREATE TABLE IF NOT EXISTS Teachers(tid INTEGER PRIMARY KEY,
+                       tname TEXT NOT NULL,
+                       subject TEXT NOT NULL,
+                       classid TEXT
+                       salary REAL NOT NULL);''')
+
+cur.execute('''CREATE TABLE IF NOT EXISTS Tests(testid INTEGER PRIMARY KEY,
+                       sname TEXT NOT NULL,
+                       marks TEXT,
+                       phone TEXT UNIQUE);''')
+
+# Insert data
+cur.execute('''INSERT INTO students (name, classid, phone)
+              VALUES ('Mary', '24/14', '77777777');''')
+
+# Update data
+cur.execute("UPDATE students SET phone='12341234' WHERE sid=1;")
+
+# Delete data
+cur.execute("DELETE FROM students WHERE classid='24/11';")
+
+# Select and display data
+rows = cur.execute("SELECT * FROM students;")
+for row in rows:
+    print(row)
+
+# Commit changes to disk
+conn.commit()
+
+# Close connection
+conn.close()</code>
+</div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><strong>Database Connection:</strong> The `sqlite3.connect()` method connects to a database or creates it if it doesn’t exist.</li>
+    <li><strong>Cursor Object:</strong> The cursor object allows us to execute SQL commands.</li>
+    <li><strong>Create Table:</strong> `CREATE TABLE IF NOT EXISTS` ensures that the table is only created if it doesn’t already exist.</li>
+    <li><strong>CRUD Operations:</strong>
+        <ul>
+            <li><code>INSERT INTO</code>: Adds new records to the table.</li>
+            <li><code>UPDATE</code>: Modifies existing records based on a condition.</li>
+            <li><code>DELETE</code>: Removes records based on a condition.</li>
+        </ul>
+    </li>
+    <li><strong>SELECT Query:</strong> Retrieves data from the database.</li>
+    <li><strong>Commit and Close:</strong> Commits changes to disk and closes the connection.</li>
+</ul>
+<br>
+<h3>2. SQL Select, Where, and Aggregate Functions</h3>
+
+<h4>Select Query</h4><div class="dark-box"><code>cur.execute("SELECT name, classid FROM Students;")</code>
+</div>
+<p>Retrieves specific columns (`name` and `classid`) from the `Students` table.</p>
+
+<h4>Where Clause</h4><div class="dark-box"><code>cur.execute('''SELECT * FROM students WHERE classid='2512';''')</code>
+</div>
+<p>Filters rows where `classid` matches `2512`.</p>
+
+<h4>Order By</h4>
+<div class="dark-box"><code>cur.execute('''SELECT * FROM Tests ORDER BY marks;''')</code>
+</div>
+<p>Sorts the results by the `marks` column in ascending order.</p>
+
+<h4>AND, OR, NOT Operators</h4>
+<ul>
+    <li><strong>AND:</strong> Filters rows where all conditions are true.</li>
+    <li><strong>OR:</strong> Filters rows where any condition is true.</li>
+    <li><strong>NOT:</strong> Filters rows where the condition is false.</li>
+</ul>
+<div class="dark-box"><code>cur.execute('''SELECT * FROM Teachers WHERE subject = 'Math' AND salary = '8888.88';''')
+cur.execute('''SELECT * FROM Teachers WHERE subject = 'Math' OR subject = 'Computing';''')
+cur.execute('''SELECT * FROM Teachers WHERE NOT subject = 'Math';''')</code>
+</div>
+
+<h4>Aggregate Functions</h4>
+<ul>
+    <li><strong>MIN():</strong> Returns the smallest value.</li>
+    <li><strong>MAX():</strong> Returns the largest value.</li>
+    <li><strong>COUNT():</strong> Counts rows.</li>
+    <li><strong>SUM():</strong> Sums numeric values.</li>
+    <li><strong>AVG():</strong> Returns the average of numeric values.</li>
+</ul>
+<div class="dark-box"><code>cur.execute("SELECT MIN(marks) FROM Tests;")
+cur.execute("SELECT MAX(marks) FROM Tests;")
+cur.execute("SELECT COUNT(*) FROM Students;")
+cur.execute("SELECT SUM(salary) FROM Teachers;")
+cur.execute("SELECT AVG(marks) FROM Tests;")</code>
+</div>
+<br>
+<h3>3. SQL Joins</h3>
+
+<h4>INNER JOIN</h4>
+<p>The `INNER JOIN` keyword selects records that have matching values in both tables.</p>
+<div class="dark-box"><code>cur.execute('''
+SELECT Students.sname, Teachers.tname, Teachers.subject
+FROM Students
+INNER JOIN Teachers ON Students.classid = Teachers.classid;
+''')</code>
+</div>
+<p>This query retrieves student names, teacher names, and subjects where the `classid` matches in both tables.</p>
+
+<h4>LEFT OUTER JOIN</h4>
+<p>The `LEFT OUTER JOIN` keyword returns all records from the left table and the matching records from the right table. If no match exists, NULL values are returned for the right table’s columns.</p>
+<div class="dark-box"><code>cur.execute('''
+SELECT Students.sname, Teachers.tname, Teachers.subject
+FROM Students
+LEFT OUTER JOIN Teachers ON Students.classid = Teachers.classid;
+''')</code>
+</div>
+<p>This query retrieves all student names and their respective teachers (if any). If no teacher exists for a student’s class, NULL is returned for the teacher fields.</p>
+
+<!-- <h3>4. SQL Insert, Update, and Delete</h3>
+
+<h4>Insert Data</h4>
+<div class="dark-box"><code>cur.execute('''INSERT INTO Students (sname, classid, phone)
+VALUES ('Rob', '25/12', '12345678');''')</code>
+</div>
+<p>Inserts a new student record into the `Students` table.</p>
+
+<h4>Update Data</h4>
+<div class="dark-box"><code>cur.execute("UPDATE students SET phone='12341234' WHERE sid=1;")</code>
+</div>
+<p>Updates the phone number for the student with `sid=1`.</p>
+
+<h4>Delete Data</h4>
+<div class="dark-box"><code>cur.execute("DELETE FROM students WHERE classid='24/11';")</code>
+</div>
+<p>Deletes all records where `classid='24/11'`.</p> -->
+<!-- <br>
+<h3>4. Summary</h3>
+<ul>
+    <li>SQLite3 is a lightweight, file-based database system.</li>
+    <li>SQL provides powerful tools for querying and manipulating data.</li>
+    <li>Joins allow combining data from multiple tables based on relationships.</li>
+    <li>Aggregate functions help summarize and analyze data efficiently.</li>
+</ul> -->
+<br>
+<h3>4. Refering to Insert</h3>
+<p>This insert is provided during your exams and do use it <strong>only</strong> for reference</p>
+<img src="..\static\SQL.jpg" alt="SQL Reference" height="800">
+<br>
+<h3>5. Utilising DB browser</h3>
+<div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Fu4SOi4ZepU?si=d8Y4zkBoIJyRElZE" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/svEKdcSvljY?si=m4OKJNcIuY2vjSFZ" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<br>
+
+<h2 id="NoSQL">PyMongo and MongoDB (Non-SQL)</h2>
+
+<h3>1. Connecting to MongoDB</h3>
+<p>
+    MongoDB is a NoSQL database that stores data in a flexible, JSON-like format. The PyMongo library allows Python to interact with MongoDB.
+</p>
+
+<div class="dark-box"><code># Import modules
+import pymongo
+from pprint import pprint
+
+# Connect to localhost MongoDB
+client = pymongo.MongoClient('localhost', 27017)
+
+# Create database
+db = client['school']
+
+# Create collections
+student_coll = db['students']
+teacher_coll = db['teachers']
+
+# Display existing databases and collections
+database = client.list_database_names()
+print(database)
+
+coll_name = db.list_collection_names()
+print(coll_name)</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>MongoClient()</code>: Connects to MongoDB running on localhost at port 27017.</li>
+        <li>Creates a database <code>school</code> and two collections: <code>students</code> and <code>teachers</code>.</li>
+        <li><code>list_database_names()</code>: Lists all databases in MongoDB.</li>
+        <li><code>list_collection_names()</code>: Lists collections in the current database.</li>
+    </ul>
+</p>
+<br>
+<h3>2. Inserting Data</h3>
+<div class="dark-box"><code># Insert data into teacher collection
+teacher_coll.insert_one({"_id":1, "name": "Miss Tan", "subject": "math"})
+teacher_coll.insert_many([{"_id":2, "name": "Mr Lim", "subject": "phy"},
+                          {"_id":3, "name": "Mr Lee", "subject": "chem"}])</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>insert_one()</code>: Inserts a single document into the collection.</li>
+        <li><code>insert_many()</code>: Inserts multiple documents into the collection.</li>
+        <li><code>_id</code>: A unique identifier for each document (MongoDB automatically generates it if not provided).</li>
+    </ul>
+</p>
+<br>
+
+<h3>3. Querying Data</h3>
+
+<h4>Find All Documents</h4>
+<div class="dark-box"><code>docs = teacher_coll.find()
+for doc in docs:
+    print(doc)</code>
+</div>
+<p><code>find()</code>: Retrieves all documents from the collection (similar to <code>SELECT * FROM table</code> in SQL).</p>
+
+<h4>Find with Criteria</h4>
+<div class="dark-box"><code>teacher_coll.find({"name": "Miss Tan", "subject": "math"})</code>
+</div>
+<p>Filters documents based on criteria (similar to <code>WHERE</code> in SQL).</p>
+
+<h4>Find One Document</h4>
+<div class="dark-box"><code>query = teacher_coll.find_one({"name": "Mr Lim"})
+print(query)</code>
+</div>
+<p><code>find_one()</code>: Retrieves a single document that matches the criteria.</p>
+
+<h4>Comparison Operators</h4>
+<div class="dark-box"><code>equal = teacher_coll.find_one({"_id": {"$eq": 3}})
+for teacher in teacher_coll.find({"subject": {"$in": ["math", "chem"]}}):
+    print(teacher)</code>
+</div>
+<p>
+    <strong>Operators:</strong>
+    <ul>
+        <li><code>$eq</code>: Equal to.</li>
+        <li><code>$gt</code>: Greater than.</li>
+        <li><code>$in</code>: Matches any value in the specified array.</li>
+    </ul>
+</p>
+<br>
+
+<h3>4. Logical Query Operators</h3>
+<div class="dark-box"><code># Logical queries
+for student in student_coll.find({"name": {"$not": {"$eq": "Raul"}}}):
+    print(student)</code>
+</div>
+<p>
+    <strong>Logical Operators:</strong>
+    <ul>
+        <li><code>$and</code>: Joins query clauses with logical AND.</li>
+        <li><code>$or</code>: Joins query clauses with logical OR.</li>
+        <li><code>$not</code>: Inverts the effect of a query.</li>
+    </ul>
+</p>
+<br>
+
+<h3>5. Updating Data</h3>
+<div class="dark-box"><code>teacher_coll.update_many({"name": {"$exists": True}}, {"$set": {"position": "HOD"}})</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>update_one()</code>: Updates the first document that matches the criteria.</li>
+        <li><code>update_many()</code>: Updates all documents that match the criteria.</li>
+        <li><code>$set</code>: Updates specified fields.</li>
+        <li><code>$exists</code>: Checks if a field exists in the document.</li>
+    </ul>
+</p>
+<br>
+
+<h3>6. Deleting Data</h3>
+<div class="dark-box"><code>teacher_coll.delete_one({"name": "Mr Lee"})
+teacher_coll.drop()</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>delete_one()</code>: Deletes the first document that matches the criteria.</li>
+        <li><code>delete_many()</code>: Deletes all documents that match the criteria.</li>
+        <li><code>drop()</code>: Removes the entire collection from the database.</li>
+    </ul>
+</p>
+<br>
+
+<h3>7. Aggregation</h3>
+<div class="dark-box"><code>teacher_coll.aggregate([
+    {"$group": {"_id": "$subject", "total": {"$sum": 1}}},
+    {"$sort": {"total": -1}}
+])</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>$group</code>: Groups documents by a specified field.</li>
+        <li><code>$sum</code>: Computes the sum of numeric values.</li>
+        <li><code>$sort</code>: Sorts the results in ascending or descending order.</li>
+    </ul>
+</p>
+<br>
+
+<h3>8. Array Query Operators</h3>
+<div class="dark-box"><code>student_coll.find({"hobbies": {"$type": "array"}})</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>$type</code>: Selects documents based on the type of a field.</li>
+        <li><code>$exists</code>: Matches documents that contain the specified field.</li>
+    </ul>
+</p>
+<br>
+
+<!-- <h3>9. Summary</h3>
+<ul>
+    <li>PyMongo allows Python to interact with MongoDB databases.</li>
+    <li>MongoDB uses a flexible, JSON-like data format.</li>
+    <li>Common operations include inserting, querying, updating, and deleting data.</li>
+    <li>Aggregation and logical operators provide powerful data manipulation capabilities.</li>
+</ul> -->
+
+<h3>9. Refering to Insert</h3>
+<p>This insert is provided during your exams and do use it <strong>only</strong> for reference</p>
+<img src="https://lh6.googleusercontent.com/0BUv6AHTyKeH12vRYX3v-fYLfgUgLvGLDGkEO1liWzP-rPaI0HG1lNKw_dbUECiL3sHtWco301-KiUWAkUxDKSUi9_p29iJzKFEN6zclJC8HhCSlnEZaSAPtR1NfAz94TA=w1280" alt="SQL Reference" width="700">
+<br>
+
+<br>
+<h2 id="Socket">Socket Programming</h2>
+
+<h3>1. What is Socket Programming?</h3>
+<p>
+    Socket programming is a way of connecting two nodes on a network to communicate with each other. One socket (node) listens on a particular port, while the other socket reaches out to establish a connection. Once connected, they can exchange messages.
+</p>
+<ul>
+    <li><strong>Client:</strong> The node initiating the connection.</li>
+    <li><strong>Server:</strong> The node waiting for the connection.</li>
+    <li><strong>Socket:</strong> An endpoint for sending or receiving data across a network.</li>
+</ul>
+<br>
+<h3>2. Server Code</h3>
+<p>The server listens for a connection on a specific port and sends a message to the client upon connection.</p>
+
+<div class="dark-box"><code># Server Code
+
+import socket
+
+# Setup server
+server_socket = socket.socket()
+server_socket.bind(('localhost', 12345)) # Bind to localhost and port 12345
+server_socket.listen()
+
+# Respond to client
+client_socket, client_conn = server_socket.accept()
+print(client_socket)
+print("Connected to " + str(client_conn))
+client_socket.sendall(b'Hi from server')
+
+# Teardown
+client_socket.close()
+server_socket.close()</code>
+</div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><code>socket.socket()</code>: Creates a socket object.</li>
+    <li><code>bind(('localhost', 12345))</code>: Binds the socket to the address (localhost) and port (12345).</li>
+    <li><code>listen()</code>: Puts the server in listening mode, waiting for incoming connections.</li>
+    <li><code>accept()</code>: Accepts a connection from a client and returns the client socket and address.</li>
+    <li><code>sendall()</code>: Sends data to the connected client.</li>
+    <li><code>close()</code>: Closes the socket to free resources.</li>
+</ul>
+<br>
+<h3>3. Client Code</h3>
+<p>The client connects to the server and receives a message.</p>
+
+<div class="dark-box"><code># Client Code
+
+import socket
+
+# Setup client
+client_socket = socket.socket()
+server_addr = input("Enter server address: ") # e.g., localhost
+server_port = int(input("Enter server port: ")) # e.g., 12345
+
+# Connect to server
+client_socket.connect((server_addr, server_port))
+print(client_socket.recv(1024))
+
+# Teardown
+client_socket.close()</code>
+</div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><code>socket.socket()</code>: Creates a socket object for the client.</li>
+    <li><code>connect((server_addr, server_port))</code>: Connects the client to the specified server address and port.</li>
+    <li><code>recv(1024)</code>: Receives up to 1024 bytes of data from the server.</li>
+    <li><code>close()</code>: Closes the client socket to free resources.</li>
+</ul>
+<br>
+<h3>4. Steps to Run the Code</h3>
+<ol>
+    <li>Open two Python IDLE instances (or terminals).</li>
+    <li>Run the server code in one instance. The server will start listening on port <code>12345</code>.</li>
+    <li>Run the client code in the other instance. Provide the server address (<code>localhost</code>) and port (<code>12345</code>).</li>
+    <li>Observe the interaction: The client receives the message "Hi from server".</li>
+</ol>
+<br>
+<h3>5. Concepts of Socket Programming</h3>
+<ul>
+    <li><strong>IP Address:</strong> Identifies a device on a network.</li>
+    <li><strong>Port:</strong> Identifies a specific process or service on a device.</li>
+    <li><strong>TCP:</strong> A reliable protocol for ensuring data is received correctly.</li>
+    <li><strong>UDP:</strong> A faster but less reliable protocol compared to TCP.</li>
+</ul>
+<br>
+<h3>6. Key Functions in Python Socket Programming</h3>
+<ul>
+<table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">
+    <thead>
+        <tr>
+            <th style="padding: 8px;">Function</th>
+            <th style="padding: 8px;">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding: 8px;"><code>socket()</code></td>
+            <td style="padding: 8px;">Creates a new socket.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>bind()</code></td>
+            <td style="padding: 8px;">Associates the socket with an address and port.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>listen()</code></td>
+            <td style="padding: 8px;">Puts the socket into listening mode for incoming connections.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>accept()</code></td>
+            <td style="padding: 8px;">Accepts a connection from a client.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>connect()</code></td>
+            <td style="padding: 8px;">Connects the client to a server.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>sendall()</code></td>
+            <td style="padding: 8px;">Sends data to the connected socket.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>recv()</code></td>
+            <td style="padding: 8px;">Receives data from the connected socket.</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><code>close()</code></td>
+            <td style="padding: 8px;">Closes the socket connection.</td>
+        </tr>
+    </tbody>
+</table>
+</ul>
+<br>
+
+<h2 id="Flask">Flask Framework</h2>
+
+<h3>1. What is Flask?</h3>
+<p>
+    Flask is a lightweight and versatile Python web framework used to build web applications. It provides tools for routing, handling HTTP requests, and rendering templates. Flask is known for its simplicity, flexibility, and modular design.
+</p>
+<br>
+<h3>2. Core Features</h3>
+<ul>
+    <li><strong>Lightweight:</strong> Minimalistic, allowing developers to add only the components they need.</li>
+    <li><strong>Routing:</strong> Built-in support for mapping URLs to functions.</li>
+    <li><strong>Template Rendering:</strong> Uses the Jinja2 template engine for creating dynamic HTML content.</li>
+    <li><strong>Extensible:</strong> Allows easy integration with extensions like Flask-SQLAlchemy and Flask-WTF.</li>
+</ul>
+<br>
+<h3>3. Basic Flask Application</h3>
+<p>A simple example of a Flask app that responds to requests at the root URL:</p>
+
+<div class="dark-box"><code># Flask Basic App
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, Flask!"
+
+if __name__ == '__main__':
+    app.run()</code></div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><code>Flask(__name__)</code>: Creates the Flask application object.</li>
+    <li><code>@app.route()</code>: A decorator that maps a URL to the specified function.</li>
+    <li><code>app.run()</code>: Starts the server.</li>
+</ul>
+<br>
+<h3>4. Routing in Flask</h3>
+<p>Routing allows mapping of URLs to specific functions in the application.</p>
+
+<div class="dark-box"><code>@app.route('/about')
+def about():
+    return "This is the About page."
+
+@app.route('/contact')
+def contact():
+    return "This is the Contact page."</code></div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><code>@app.route('/about')</code>: Maps the URL <code>/about</code> to the <code>about</code> function.</li>
+    <li><code>@app.route('/contact')</code>: Maps the URL <code>/contact</code> to the <code>contact</code> function.</li>
+</ul>
+<br>
+<h3>5. Dynamic Routing and Template Rendering</h3>
+<p>Flask supports dynamic URLs and renders templates using Jinja2.</p>
+
+<div class="dark-box"><code>from flask import render_template
+
+@app.route('/greet/<name>')
+def greet(name):
+    return render_template('greet.html', name=name)</code></div>
+
+<h4>Template (greet.html):</h4>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Greeting&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello, &#123;&#123; name &#125;&#125;!&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><code>/greet/&lt;name&gt;</code>: A dynamic URL where <code>&lt;name&gt;</code> is a variable passed to the function.</li>
+    <li><code>render_template()</code>: Renders the <code>greet.html</code> template, passing <code>name</code> as a context variable.</li>
+    <li><code>{{ name }}</code>: A Jinja2 placeholder replaced by the actual value of <code>name</code>.</li>
+</ul>
+<br>
+<h3>6. Handling HTTP Methods</h3>
+<p>Flask supports HTTP methods like GET and POST to handle user input and form submissions.</p>
+
+<div class="dark-box"><code>from flask import request
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = request.form['data']
+    return f"Received: {data}"</code></div>
+
+<h4>Explanation:</h4>
+<ul>
+    <li><code>@app.route('/submit', methods=['POST'])</code>: Specifies that this route handles POST requests.</li>
+    <li><code>request.form</code>: Accesses form data submitted by the user.</li>
+</ul>
+<br>
+<h3>7. Running the Application</h3>
+<ol>
+    <li>Save the Flask application in a Python file (e.g., <code>app.py</code>).</li>
+    <li>Run the application using <code>python app.py</code>.</li>
+    <li>Access the application in a web browser at <code>http://localhost:5000</code>.</li>
+</ol>
+<br>
+<h3>8. Advantages of Flask</h3>
+<ul>
+    <li>Simple and easy to use, making it great for beginners.</li>
+    <li>Highly flexible and supports extensions for advanced features.</li>
+    <li>Suitable for both small-scale and large-scale applications.</li>
+</ul>
+<br>
+<h2>Flask Web Applications with SQLite3</h2>
+<p>
+    Flask is a lightweight web framework in Python. It provides powerful tools for building web applications, including routing, template rendering, and integration with databases like SQLite3.
+</p>
+<br>
+
+<h2>1. Library Management Example</h2>
+<h3>Python Backend (main.py)</h3>
+<div class="dark-box"><code>import sqlite3
+import flask
+
+app = flask.Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+db = sqlite3.connect('LIBRARY.db')
+cur = db.execute("""SELECT FamilyName, GivenName, Title from
+                    Book, Member, Loan
+                    WHERE Book.BookID = Loan.BookID and
+                    Member.MemberNumber = Loan.MemberNumber and
+                    Loan.Returned = 'FALSE'""")
+data = cur.fetchall()
+return flask.render_template('index.html', data=data)
+
+app.run()</code></div>
+<br>
+<h3>HTML Template (index.html):</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Library System&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Family Name&lt;/th&gt;
+                &lt;th&gt;Given Name&lt;/th&gt;
+                &lt;th&gt;Book Title&lt;/th&gt;
+            &lt;/tr&gt;
+            &#123;% for item in data %&#125;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123; item[0] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[1] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[2] &#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+            &#123;% endfor %&#125;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></div>
+<h3>Explanation:</h3>
+<ul>
+    <li>The Python code fetches unreturned loan records from the SQLite3 database and passes them to the HTML template.</li>
+    <li>The HTML template uses Jinja2 syntax to dynamically populate a table with loan data.</li>
+</ul>
+
+<h2>2. Sanitiser Management Example</h2>
+<h3>Python Backend (main.py)</h3>
+<div class="dark-box"><code>import sqlite3
+import flask
+
+app = flask.Flask(__name__)
+
+@app.route('/')
+def home():
+conn = sqlite3.connect('sanitisers.db')
+cur = conn.cursor()
+cur.execute('''SELECT product_name, active_ingredient, alcohol_based FROM sanitisers''')
+data = cur.fetchall()
+return flask.render_template('index.html', data=data)
+
+@app.route('/process_form/', methods=["POST"])
+def process_home():
+ingredient = flask.request.form['ingredient']
+conn = sqlite3.connect('sanitisers.db')
+cur = conn.cursor()
+cur.execute('''SELECT product_name, alcohol_based FROM sanitisers WHERE active_ingredient = ?''', (ingredient,))
+sanitisers = cur.fetchall()
+return flask.render_template('result.html', sanitisers=sanitisers)
+
+app.run()</code></div>
+<br>
+<h3>HTML Template (index.html)</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Sanitisers&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Product Name&lt;/th&gt;
+                &lt;th&gt;Active Ingredient&lt;/th&gt;
+                &lt;th&gt;Alcohol Based&lt;/th&gt;
+            &lt;/tr&gt;
+            &#123;% for item in data %&#125;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123; item[0] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[1] &#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123; item[2] &#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+            &#123;% endfor %&#125;
+        &lt;/table&gt;
+        &lt;form action="/process_form/" method="POST"&gt;
+            &lt;p&gt;
+                Active Ingredient: &lt;input type="text" name="ingredient"&gt;
+            &lt;/p&gt;
+            &lt;p&gt;
+                &lt;input type="submit" value="Search"&gt;
+            &lt;/p&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code>
+</div>
+<h3>Explanation:</h3>
+<ul>
+    <li>The home route displays all sanitiser data in a table.</li>
+    <li>A form allows users to search for sanitisers by active ingredient.</li>
+    <li>The result is displayed using a different template, dynamically populated with matching data.</li>
+</ul>
+<br>
+<h2>3. Image Upload and View Example</h2>
+<h3>Python Backend (main.py)</h3>
+<div class="dark-box"><code>import os
+from flask import Flask, render_template, request, send_from_directory
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+if request.method == 'POST' and request.files and 'image' in request.files:
+    image = request.files['image']
+    filename = secure_filename(image.filename)
+    path = os.path.join('uploads', filename)
+    image.save(path)
+    with open('all.txt', 'a') as file:
+        file.write(filename + '\n')
+    return render_template('index.html', status='ok')
+return render_template('index.html')
+
+@app.route('/view')
+def view():
+with open('all.txt', 'r') as file:
+    filenames = file.readlines()
+images = [filename.strip() for filename in filenames]
+return render_template('view.html', images=images)
+
+@app.route('/images/<filename>')
+def get_file(filename):
+return send_from_directory('uploads', filename)
+
+app.run()</code></div>
+<h3>Explanation:</h3>
+<ol>
+    <li><strong>Import Statements:</strong></li>
+        <ul>
+            <li><code>os</code>: Handles file system operations like creating paths.</li>
+            <li><code>Flask</code>: The core Flask web application class.</li>
+            <li><code>render_template</code>: Renders HTML templates for the web pages.</li>
+            <li><code>request</code>: Handles HTTP requests (e.g., POST for file uploads).</li>
+            <li><code>send_from_directory</code>: Serves static files like images.</li>
+            <li><code>secure_filename</code>: Sanitizes uploaded file names to prevent malicious uploads.</li>
+        </ul>
+    <li><strong>Flask Application Setup:</strong></li>
+        <ul>
+            <li><code>app = Flask(__name__)</code>>: Initializes the Flask app.</li>
+        </ul>
+    <li><strong>Route: <code>/</code> (Home Page)</strong></li>
+        <ul>
+            <li><strong>GET Request:</strong></li>
+                <ul><li>Renders the <code>index.html</code> page to allow users to upload an image.</li></ul>
+            <li><strong>POST Request:</strong></li>
+                <ul>
+                    <li>Checks if a file named <code>image</code> is in the request.</li>
+                    <li>Saves the uploaded file in the <code>uploads</code> directory using a secure filename.</li>
+                    <li>Appends the file name to <code>all.txt</code> for tracking.</li>
+                    <li>Renders the <code>index.html</code> page with a <code>status='ok'</code> message to indicate success.</li>
+                </ul>
+        </ul>
+    <li><strong>Route: <code>/view</code> (Gallery Page)</strong></li>
+        <ul>
+            <li>Reads the <code>all.txt</code> file, which contains the list of uploaded image filenames.</li>
+            <li>Loads all filenames into a list and passes them to the <code>view.html</code> template for display.</li>
+            <li>The template renders each image in a gallery format using <code>&lt;img&gt;</code> tags.</li>
+        </ul>
+    <li><strong>Route: <code>/images/&lt;filename&gt;</code> (Serve Images)</strong></li>
+        <ul>
+            <li>Uses <code>send_from_directory</code> to serve image files from the <code>uploads</code> directory.</li>
+        </ul>
+    <li><strong>Run the App:</strong></li>
+        <ul>
+            <li><code>app.run()</code>: Starts the Flask development server, making the app accessible.</li>
+        </ul>
+</ol>
+<br>
+<h3>HTML template (index.html)</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;Upload&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;form method="post" enctype="multipart/form-data"&gt;
+        Image: &lt;input name="image" type="file"&gt;&lt;br/&gt;
+        &lt;/form&gt;
+        &lt;p&gt;&lt;a href="&#123;&#123; url_for('view') &#125;&#125;"&gt;View&lt;/a&gt;&lt;/p&gt;
+        &#123;% if status %&#125;
+          &#123;&#123; status &#125;&#125;
+        &#123;% endif %&#125;
+      &lt;/body&gt;
+    &lt;/html&gt;</code></div>
+<br>
+<h3>Explanation:</h3>
+<ol>
+    <li><strong>Purpose:</strong></li>
+        <ul><li>Provides the interface for image uploads.</li></ul>
+    <li><strong>Structure:</strong></li>
+        <ul>
+            <li>A form with <code>method="post"</code> and <code>enctype="multipart/form-data"</code> allows file uploads.</li>
+            <li>A file input field named image accepts image uploads.</li>
+            <li>A link (&lt;code&gt;&lt;a href="&#123;&#123; url_for('view') &#125;&#125;"&gt;View&lt;/a&gt;&lt;/code&gt;) leads to the gallery page.</li>
+            <li>If <code>status</code> is set, it displays the upload status.</li>
+        </ul>
+</ol>
+<h3>HTML template (view.html)</h3>
+<div class="dark-box"><code>&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;View&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &#123;% for image in images %&#125;
+        &lt;img src="&#123;&#123; url_for('get_file', filename=image) &#125;&#125;" alt="&#123;&#123; image &#125;&#125;"&gt;
+        &#123;% endfor %&#125;
+        &lt;p&gt;&lt;a href="&#123;&#123; url_for('home') &#125;&#125;"&gt;Home&lt;/a&gt;&lt;/p&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></div>
+<h3>Explanation:</h3>
+<ol>
+    <li><strong>Purpose:</strong></li>
+        <ul>
+            <li>Displays uploaded images in a gallery.</li>
+        </ul>
+    <li><strong>Structure:</strong></li>
+        <ul>
+            <li>Iterates through the <code>images</code> list (passed from the <code>/view</code> route).</li>
+            <li>Renders an <code>&lt;img&gt;</code> tag for each filename, using <code>url_for</code> to generate the file URL dynamically.</li>
+            <li>A link (<code>&lt;a href="&#123;&#123; url_for('home') &#125;&#125;"&gt;Home&lt;/a&gt;</code>) leads back to the home page.</li>
+        </ul>
+</ol>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>
+

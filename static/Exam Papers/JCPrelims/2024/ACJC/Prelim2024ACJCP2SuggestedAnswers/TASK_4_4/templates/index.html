@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Items Purchased </title>
+    </head>
+
+    <body>
+        
+	<table border=1px>
+  		<tr>
+    		<th> Customer Name </th>
+    		<th> Item Name </th>
+    		<th> Quantity </th>
+  		</tr>
+
+
+		{% for info in lst %}
+
+		<tr>
+    		<td> {{info[0]}} </td>
+    		<td> {{info[1]}} </td>
+    		<td> {{info[2]}} </td>
+  		</tr>
+
+		{% endfor %}
+
+	</table>
+
+      
+    </body>
+
+</html>
+

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Connecting to MongoDB</a>
+        <a href="#2" onclick="toggleSidebar()">Inserting Data</a>
+        <a href="#3" onclick="toggleSidebar()">Querying Data</a>
+        <a href="#4" onclick="toggleSidebar()">Logical Query Operators</a>
+        <a href="#5" onclick="toggleSidebar()">Updating Data</a>
+        <a href="#6" onclick="toggleSidebar()">Deleting Data</a>
+        <a href="#7" onclick="toggleSidebar()">Aggregation</a>
+        <a href="#8" onclick="toggleSidebar()">Array Query Operators</a>
+        <a href="#9" onclick="toggleSidebar()">Refering to Insert</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+
+<h1 id="NoSQL">PyMongo and MongoDB (Non-SQL)</h1>
+
+<h2 id="1">1. Connecting to MongoDB</h2>
+<p>
+    MongoDB is a NoSQL database that stores data in a flexible, JSON-like format. The PyMongo library allows Python to interact with MongoDB.
+</p>
+
+<div class="dark-box"><code># Import modules
+import pymongo
+from pprint import pprint
+
+# Connect to localhost MongoDB
+client = pymongo.MongoClient('localhost', 27017)
+
+# Create database
+db = client['school']
+
+# Create collections
+student_coll = db['students']
+teacher_coll = db['teachers']
+
+# Display existing databases and collections
+database = client.list_database_names()
+print(database)
+
+coll_name = db.list_collection_names()
+print(coll_name)</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>MongoClient()</code>: Connects to MongoDB running on localhost at port 27017.</li>
+        <li>Creates a database <code>school</code> and two collections: <code>students</code> and <code>teachers</code>.</li>
+        <li><code>list_database_names()</code>: Lists all databases in MongoDB.</li>
+        <li><code>list_collection_names()</code>: Lists collections in the current database.</li>
+    </ul>
+</p>
+<br>
+<h2 id="2">2. Inserting Data</h2>
+<div class="dark-box"><code># Insert data into teacher collection
+teacher_coll.insert_one({"_id":1, "name": "Miss Tan", "subject": "math"})
+teacher_coll.insert_many([{"_id":2, "name": "Mr Lim", "subject": "phy"},
+                          {"_id":3, "name": "Mr Lee", "subject": "chem"}])</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>insert_one()</code>: Inserts a single document into the collection.</li>
+        <li><code>insert_many()</code>: Inserts multiple documents into the collection.</li>
+        <li><code>_id</code>: A unique identifier for each document (MongoDB automatically generates it if not provided).</li>
+    </ul>
+</p>
+<br>
+
+<h2 id="3">3. Querying Data</h2>
+
+<h3>Find All Documents</h3>
+<div class="dark-box"><code>docs = teacher_coll.find()
+for doc in docs:
+    print(doc)</code>
+</div>
+<p><code>find()</code>: Retrieves all documents from the collection (similar to <code>SELECT * FROM table</code> in SQL).</p>
+
+<h3>Find with Criteria</h3>
+<div class="dark-box"><code>teacher_coll.find({"name": "Miss Tan", "subject": "math"})</code>
+</div>
+<p>Filters documents based on criteria (similar to <code>WHERE</code> in SQL).</p>
+
+<h3>Find One Document</h3>
+<div class="dark-box"><code>query = teacher_coll.find_one({"name": "Mr Lim"})
+print(query)</code>
+</div>
+<p><code>find_one()</code>: Retrieves a single document that matches the criteria.</p>
+
+<h3>Comparison Operators</h3>
+<div class="dark-box"><code>equal = teacher_coll.find_one({"_id": {"$eq": 3}})
+for teacher in teacher_coll.find({"subject": {"$in": ["math", "chem"]}}):
+    print(teacher)</code>
+</div>
+<p>
+    <strong>Operators:</strong>
+    <ul>
+        <li><code>$eq</code>: Equal to.</li>
+        <li><code>$gt</code>: Greater than.</li>
+        <li><code>$in</code>: Matches any value in the specified array.</li>
+    </ul>
+</p>
+<br>
+
+<h2 id="4">4. Logical Query Operators</h2>
+<div class="dark-box"><code># Logical queries
+for student in student_coll.find({"name": {"$not": {"$eq": "Raul"}}}):
+    print(student)</code>
+</div>
+<p>
+    <strong>Logical Operators:</strong>
+    <ul>
+        <li><code>$and</code>: Joins query clauses with logical AND.</li>
+        <li><code>$or</code>: Joins query clauses with logical OR.</li>
+        <li><code>$not</code>: Inverts the effect of a query.</li>
+    </ul>
+</p>
+<br>
+
+<h2 id="5">5. Updating Data</h2>
+<div class="dark-box"><code>teacher_coll.update_many({"name": {"$exists": True}}, {"$set": {"position": "HOD"}})</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>update_one()</code>: Updates the first document that matches the criteria.</li>
+        <li><code>update_many()</code>: Updates all documents that match the criteria.</li>
+        <li><code>$set</code>: Updates specified fields.</li>
+        <li><code>$exists</code>: Checks if a field exists in the document.</li>
+    </ul>
+</p>
+<br>
+
+<h2 id="6">6. Deleting Data</h2>
+<div class="dark-box"><code>teacher_coll.delete_one({"name": "Mr Lee"})
+teacher_coll.drop()</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>delete_one()</code>: Deletes the first document that matches the criteria.</li>
+        <li><code>delete_many()</code>: Deletes all documents that match the criteria.</li>
+        <li><code>drop()</code>: Removes the entire collection from the database.</li>
+    </ul>
+</p>
+<br>
+
+<h2 id="7">7. Aggregation</h2>
+<div class="dark-box"><code>teacher_coll.aggregate([
+    {"$group": {"_id": "$subject", "total": {"$sum": 1}}},
+    {"$sort": {"total": -1}}
+])</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>$group</code>: Groups documents by a specified field.</li>
+        <li><code>$sum</code>: Computes the sum of numeric values.</li>
+        <li><code>$sort</code>: Sorts the results in ascending or descending order.</li>
+    </ul>
+</p>
+<br>
+
+<h2 id="8">8. Array Query Operators</h2>
+<div class="dark-box"><code>student_coll.find({"hobbies": {"$type": "array"}})</code>
+</div>
+<p>
+    <strong>Explanation:</strong>
+    <ul>
+        <li><code>$type</code>: Selects documents based on the type of a field.</li>
+        <li><code>$exists</code>: Matches documents that contain the specified field.</li>
+    </ul>
+</p>
+<br>
+
+<!-- <h2>9. Summary</h2>
+<ul>
+    <li>PyMongo allows Python to interact with MongoDB databases.</li>
+    <li>MongoDB uses a flexible, JSON-like data format.</li>
+    <li>Common operations include inserting, querying, updating, and deleting data.</li>
+    <li>Aggregation and logical operators provide powerful data manipulation capabilities.</li>
+</ul> -->
+
+<h2 id="9">9. Refering to Insert</h2>
+<p>This insert is provided during your exams and do use it <strong>only</strong> for reference</p>
+<img src="static\NoSQL.jpg" alt="NO SQL Reference" width="700">
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

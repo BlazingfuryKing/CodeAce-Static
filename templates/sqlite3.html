@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structured Query Language</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Setting Up SQLite3 Database</a>
+        <a href="#2" onclick="toggleSidebar()">SQL Select, Where, and Aggregate Functions</a>
+        <a href="#3" onclick="toggleSidebar()">SQL Joins</a>
+        <a href="#4" onclick="toggleSidebar()">Refering to Insert</a>
+        <a href="#5" onclick="toggleSidebar()">Utilising DB browser</a>
+
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+
+<h1 id="SQL">SQL Workflow</h1>
+
+<h2 id="1">1. Setting Up SQLite3 Database</h2>
+<p>The following Python code demonstrates how to set up and interact with an SQLite3 database.</p>
+
+<div class="dark-box"><code># Import modules
+import sqlite3
+
+# Connect to database (or create it if it does not exist)
+conn = sqlite3.connect('school.db')
+
+# Create cursor object to interact with the database
+cur = conn.cursor()
+
+# Create table
+cur.execute('''CREATE TABLE IF NOT EXISTS students(sid INTEGER PRIMARY KEY,
+                       name TEXT NOT NULL,
+                       classid TEXT,
+                       phone TEXT UNIQUE);''')
+
+cur.execute('''CREATE TABLE IF NOT EXISTS Teachers(tid INTEGER PRIMARY KEY,
+                       tname TEXT NOT NULL,
+                       subject TEXT NOT NULL,
+                       classid TEXT
+                       salary REAL NOT NULL);''')
+
+cur.execute('''CREATE TABLE IF NOT EXISTS Tests(testid INTEGER PRIMARY KEY,
+                       sname TEXT NOT NULL,
+                       marks TEXT,
+                       phone TEXT UNIQUE);''')
+
+# Insert data
+cur.execute('''INSERT INTO students (name, classid, phone)
+              VALUES ('Mary', '24/14', '77777777');''')
+
+# Update data
+cur.execute("UPDATE students SET phone='12341234' WHERE sid=1;")
+
+# Delete data
+cur.execute("DELETE FROM students WHERE classid='24/11';")
+
+# Select and display data
+rows = cur.execute("SELECT * FROM students;")
+for row in rows:
+    print(row)
+
+# Commit changes to disk
+conn.commit()
+
+# Close connection
+conn.close()</code>
+</div>
+
+<h3>Explanation:</h3>
+<ul>
+    <li><strong>Database Connection:</strong> The `sqlite3.connect()` method connects to a database or creates it if it doesn’t exist.</li>
+    <li><strong>Cursor Object:</strong> The cursor object allows us to execute SQL commands.</li>
+    <li><strong>Create Table:</strong> `CREATE TABLE IF NOT EXISTS` ensures that the table is only created if it doesn’t already exist.</li>
+    <li><strong>CRUD Operations:</strong>
+        <ul>
+            <li><code>INSERT INTO</code>: Adds new records to the table.</li>
+            <li><code>UPDATE</code>: Modifies existing records based on a condition.</li>
+            <li><code>DELETE</code>: Removes records based on a condition.</li>
+        </ul>
+    </li>
+    <li><strong>SELECT Query:</strong> Retrieves data from the database.</li>
+    <li><strong>Commit and Close:</strong> Commits changes to disk and closes the connection.</li>
+</ul>
+<br>
+<h2 id="2">2. SQL Select, Where, and Aggregate Functions</h2>
+
+<h3>Select Query</h3><div class="dark-box"><code>cur.execute("SELECT name, classid FROM Students;")</code>
+</div>
+<p>Retrieves specific columns (`name` and `classid`) from the `Students` table.</p>
+
+<h3>Where Clause</h3><div class="dark-box"><code>cur.execute('''SELECT * FROM students WHERE classid='2512';''')</code>
+</div>
+<p>Filters rows where `classid` matches `2512`.</p>
+
+<h3>Order By</h3>
+<div class="dark-box"><code>cur.execute('''SELECT * FROM Tests ORDER BY marks;''')</code>
+</div>
+<p>Sorts the results by the `marks` column in ascending order.</p>
+
+<h3>AND, OR, NOT Operators</h3>
+<ul>
+    <li><strong>AND:</strong> Filters rows where all conditions are true.</li>
+    <li><strong>OR:</strong> Filters rows where any condition is true.</li>
+    <li><strong>NOT:</strong> Filters rows where the condition is false.</li>
+</ul>
+<div class="dark-box"><code>cur.execute('''SELECT * FROM Teachers WHERE subject = 'Math' AND salary = '8888.88';''')
+cur.execute('''SELECT * FROM Teachers WHERE subject = 'Math' OR subject = 'Computing';''')
+cur.execute('''SELECT * FROM Teachers WHERE NOT subject = 'Math';''')</code>
+</div>
+
+<h3>Aggregate Functions</h3>
+<ul>
+    <li><strong>MIN():</strong> Returns the smallest value.</li>
+    <li><strong>MAX():</strong> Returns the largest value.</li>
+    <li><strong>COUNT():</strong> Counts rows.</li>
+    <li><strong>SUM():</strong> Sums numeric values.</li>
+    <li><strong>AVG():</strong> Returns the average of numeric values.</li>
+</ul>
+<div class="dark-box"><code>cur.execute("SELECT MIN(marks) FROM Tests;")
+cur.execute("SELECT MAX(marks) FROM Tests;")
+cur.execute("SELECT COUNT(*) FROM Students;")
+cur.execute("SELECT SUM(salary) FROM Teachers;")
+cur.execute("SELECT AVG(marks) FROM Tests;")</code>
+</div>
+<br>
+<h2 id="3">3. SQL Joins</h2>
+
+<h3>INNER JOIN</h3>
+<p>The `INNER JOIN` keyword selects records that have matching values in both tables.</p>
+<div class="dark-box"><code>cur.execute('''
+SELECT Students.sname, Teachers.tname, Teachers.subject
+FROM Students
+INNER JOIN Teachers ON Students.classid = Teachers.classid;
+''')</code>
+</div>
+<p>This query retrieves student names, teacher names, and subjects where the `classid` matches in both tables.</p>
+
+<h3>LEFT OUTER JOIN</h3>
+<p>The `LEFT OUTER JOIN` keyword returns all records from the left table and the matching records from the right table. If no match exists, NULL values are returned for the right table’s columns.</p>
+<div class="dark-box"><code>cur.execute('''
+SELECT Students.sname, Teachers.tname, Teachers.subject
+FROM Students
+LEFT OUTER JOIN Teachers ON Students.classid = Teachers.classid;
+''')</code>
+</div>
+<p>This query retrieves all student names and their respective teachers (if any). If no teacher exists for a student’s class, NULL is returned for the teacher fields.</p>
+
+<br>
+<h2 id="4">4. Refering to Insert</h2>
+<p>This insert is provided during your exams and do use it <strong>only</strong> for reference</p>
+<img src="..\static\SQL.jpg" alt="SQL Reference" height="800">
+<br>
+<h2 id="5">5. Utilising DB browser</h2>
+<div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Fu4SOi4ZepU?si=d8Y4zkBoIJyRElZE" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/svEKdcSvljY?si=m4OKJNcIuY2vjSFZ" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>

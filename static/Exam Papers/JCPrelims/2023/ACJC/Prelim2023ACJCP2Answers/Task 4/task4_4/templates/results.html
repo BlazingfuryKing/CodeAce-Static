@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+	<body>
+		<table>
+			<th>Name</th>
+			<th>ID</th>
+			<th>Score</th>
+			{% for item in data %}
+			<tr>
+				<td>{{item[0]}}</td>
+				<td>{{item[1]}}</td>
+				<td>{{item[2]}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+
+<html>
+	<head>
+		<title>Bento Form</title>
+	</head>
+	
+	<body>
+		<form action="{{url_for('result')}}" method="POST">
+			<p>Enter location: <input type="text" name="location"></p>
+			
+			<p>Do you have any allergies?</p>
+			<p><input type="checkbox" name="allergy" value="egg">Egg
+			   <input type="checkbox" name="allergy" value="nut">Nut
+			   <input type="checkbox" name="allergy" value="seafood">Seafood</p>
+			
+			<input type="submit">
+		</form>
+	</body>
+</html>

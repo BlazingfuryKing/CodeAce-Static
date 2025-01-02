@@ -1,0 +1,325 @@
+%% LyX 2.3.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1cm,bmargin=1cm,lmargin=1cm,rmargin=1cm}
+\usepackage{setspace}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{setspace}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
+
+\makeatletter
+
+\providecommand{\tabularnewline}{\\}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1.8cm,bmargin=4cm,lmargin=1.5cm,rmargin=2cm}
+\usepackage{enumitem}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{graphicx}
+\doublespacing
+
+
+\usepackage{enumitem}
+\setenumerate[1]{label=\textbf{\arabic*}}
+\setenumerate[2]{label=\textbf{(\alph*)}}
+\setenumerate[3]{label=\textbf{(\roman*)}}
+\setlist[enumerate]{align=right}
+
+\setcounter{page}{2}
+
+\makeatother
+
+\usepackage{babel}
+
+\makeatother
+
+\begin{document}
+\begin{enumerate}
+\item A league of cycle clubs has competitive events throughout the year.
+Each event is scored. The club with the highest score at the end of
+the year is declared the league champion.
+
+A database is to be used to store the data required about clubs and
+events.
+
+Each club has a unique club name. The name and email address of the
+club secretary is stored.
+
+Each event has a unique event number. The date. start time and location
+of each event is stored.
+
+Each event is limited to a maximum of 175 cyclists with a maximum
+of seven cyclists from any club. When a cyclist enters an event their
+name and club name are recorded, and they are assigned a unique competitor
+number in the range 1 to 175 inclusive.
+
+When an event is over. the finishing position and finishing time is
+stored for each competing cyclist.
+
+The event organiser calculates a score using the positions and times
+of each cyclist. The score is a value in the range 0 to 25 inclusive
+and is awarded to each participating club. The club name.
+
+the event number and the club score are recorded.
+
+\textbf{Four} entities are to be used to define the data needs of
+the league. The database has \textbf{not} been normalised.
+\begin{enumerate}
+\item Copy and complete this entity-relationship (ER) diagram by showing
+\textbf{four} many-to-one relationships. When copying the diagram,
+do \textbf{not} rearrange the layout of the four given entities. If
+needed. your answer may include lines that cross over each other.
+
+\textless INSERT\_IMAGE\_HERE\textgreater{} \hfill{}{[}4{]}
+\item Write table definitions, indicating the primary key. for each of the
+tables listed below. 
+
+Use the format: \texttt{TableName (Attributel , Attribute2, Attribute3,
+etc .)} 
+\begin{enumerate}
+\item Club\hfill{} {[}2{]}
+\item Event \hfill{}{[}2{]}
+\item EventCompetitor \hfill{}{[}3{]}
+\item EventClubScore\hfill{} {[}3{]}
+\end{enumerate}
+\item After each event a report is produced displaying. for all competing
+clubs: the club's name. the club\textquoteright s score for the event.
+the secretary's name and the secretary's email address. 
+
+Write an SQL query that will output the required data for an event
+with the event number 23. The output must list the clubs in the order
+of highest score to lowest score. {[}6{]} 
+\item Normalisation is a process used when designing database tables. 
+\begin{enumerate}
+\item State \textbf{two} aims of the normalisation process. \hfill{}{[}2{]}
+\end{enumerate}
+Assume that a table is already in first normal form (1NF). 
+\begin{enumerate}
+\item[\textbf{(ii)}] State \textbf{two} other requirements of a table being in third normal
+form (3NF).\hfill{} {[}2{]}
+\end{enumerate}
+\item Identify the most suitable validation technique for an event score.\hfill{}
+{[}1{]}
+\end{enumerate}
+\item An estate agent maintains a list of apartments for sale or rent. They
+want to use Object-Oriented Programming (OOP) to model this situation. 
+
+For every apartment the following data is recorded: 
+\begin{itemize}
+\item the apartment address 
+\item the owner's name. address and email address. 
+\end{itemize}
+For an apartment that is for sale the following data is recorded: 
+\begin{itemize}
+\item the asking price
+\item the date of sale
+\item the price paid. 
+\end{itemize}
+Until an apartment is sold. the date of sale and price paid are left
+blank. 
+
+For a rental apartment the following data is recorded: 
+\begin{itemize}
+\item monthly rent 
+\item date when rent is to be paid.
+\end{itemize}
+If a rental apartment is vacant, the rent date (date when rent is
+to be paid) is set to 31/12/2099. When the rent is paid. the rent
+date is updated. 
+\begin{enumerate}
+\item Explain the difference between a class and an object. \hfill{}{[}2{]}
+\item Draw a class diagram for the described situation. showing:
+\begin{itemize}
+\item any derived classes and inheritance from the base class
+\item the properties needed in the base and any derived classes 
+\item suitable methods. in each class. to support the system. \hfill{}{[}8{]}
+\end{itemize}
+\end{enumerate}
+It is common for the properties of a class to be private. 
+\begin{enumerate}
+\item[\textbf{(c)}] Explain an advantage of using private properties. \hfill{}{[}2{]}
+\item[\textbf{(d)}] Explain a benefit of using inheritance to a software developer. \hfill{}{[}2{]}
+\end{enumerate}
+\item Messages are sent across a public network. 
+\begin{enumerate}
+\item State how a message can be made meaningless to anyone other than the
+intended recipient. \hfill{}{[}1{]}
+\item Explain what sending and receiving devices can do to detect any malicious
+alteration of a message. \hfill{}{[}4{]}
+\end{enumerate}
+Authentication is used in a computing context. 
+\begin{enumerate}
+\item[\textbf{(c)}] Describe \textbf{two} situations where authentication is important.
+For each situation. state how it can be achieved. \hfill{}{[}4{]}
+\end{enumerate}
+\item A program needs a structure to store ordered data. Data items are
+added and removed from the structure during the execution of the program.
+The programmer is considering using either a fixed- capacity array
+or a linked list to hold the ordered data items.
+\begin{enumerate}
+\item State \textbf{two} advantages of using a fixed---capacity array over
+a linked list to store the ordered items. \hfill{}{[}2{]}
+\item State \textbf{two} advantages of using a linked list over a fixed-capacity
+array to store the ordered items. \hfill{}{[}2{]}
+\item A linked list can be represented as a number of nodes each containing
+an item of data and a pointer to the next node. A pointer \texttt{Head}
+indicates the location of the first node. 
+
+A value of \texttt{-1} in \texttt{Head} indicates an empty list; a
+value of \texttt{-1} in a pointer indicates the final node.
+
+\textless INSERT\_IMAGE\_HERE\textgreater{} 
+
+Function \texttt{z} is written to operate on a linked list \texttt{LL}.
+The function has a single integer parameter, \texttt{CurrentPointer}.
+The function returns an integer. 
+
+\noindent\begin{minipage}[t]{1\columnwidth}%
+\begin{singlespace}
+\noindent \texttt{01 FUNCTION Z (CurrentPointer) RETURNS INTEGER}
+
+\noindent \texttt{02 ~~IF CurrentPointer = -1 THEN}
+
+\noindent \texttt{03 ~~~~RETURN 0}
+
+\noindent \texttt{04 ~~ELSE}
+
+\noindent \texttt{05 ~~~~CurrentPointer = LL(CurrentPointer).Pointer}
+
+\noindent \texttt{O6 ~~~~RETURN l + Z(CurrentPointer)}
+
+\noindent \texttt{07 ~~ENDIF}
+
+\noindent \texttt{08 ENDFUNCTION}
+\end{singlespace}
+
+\bigskip{}
+%
+\end{minipage}
+\begin{enumerate}
+\item State what line \texttt{06} indicates about function \texttt{z} \hfill{}{[}1{]} 
+\item State what lines \texttt{02} and \texttt{03} represent. \hfill{}{[}1{]} 
+\item State the purpose of function \texttt{z} \hfill{}{[}1{]} 
+\end{enumerate}
+\item Using pseudo-code write a function. of the same type as function \texttt{z},
+to reverse the order of the data items in the linked list \texttt{LL}.
+You can assume that \texttt{Head} points to the first item in the
+current list. \hfill{} {[}5{]}
+\item It is common to sort items in a fixed-capacity array. 
+
+Explain why a merge sort may be faster than a quicksort in this situation.
+\hfill{}{[}2{]}
+\end{enumerate}
+\item A programmer is writing code for a system to control an elevator.
+The programming language used allows the use of dynamic memory allocation. 
+
+The following algorithm describes what is to happen after a floor
+button in the elevator has been pressed: 
+
+Get some memory that will be used to store the chosen floor number 
+
+Store the chosen floor number into the memory 
+
+Is the elevator already at the chosen floor? 
+
+\texttt{~~}Yes: 
+
+\texttt{~~~~}Finished 
+
+\texttt{~~}No:
+
+\texttt{~~~~}Close the doors
+
+\texttt{~~~~}Move to the required floor
+
+\texttt{~~~~}Open the doors
+
+\texttt{~~~~}Release the memory used to store the floor number 
+
+You may assume that only one button press is processed at a time. 
+
+The programmer believes that they have thoroughly tested the complete
+system and finds it to operate exactly as expected. 
+
+After many months in operation the elevator ceases to operate. The
+engineer called to investigate the fault switches off the power to
+the elevator and control system. finds no obvious problem. switches
+the power back on and finds that the elevator operates correctly.
+Several months later the elevator ceases to operate again. 
+\begin{enumerate}
+\item Explain how a mistake in the algorithm is causing the recurring problem.
+\hfill{}{[}3{]}
+\item Explain how the algorithm should be changed to prevent the problem
+recurring. \hfill{}{[}2{]}
+\item Suggest \textbf{two} reasons why the mistake was \textbf{not} identified
+during testing. \hfill{}{[}2{]}
+\end{enumerate}
+\item Every night a business backs up all its data. From time to time the
+data that is infrequently accessed is archived.
+\begin{enumerate}
+\item {}
+\begin{enumerate}
+\item Describe the purpose of creating a backup. \hfill{}{[}2{]}
+\item Describe the purpose of archiving. \hfill{}{[}2{]}
+\end{enumerate}
+\item Explain why backup copies of the data should be stored off-site. \hfill{}{[}2{]}
+\item Describe the consequences of the business \textbf{not} backing up
+the data. \hfill{}{[}3{]}
+\end{enumerate}
+\item Data transmitted across the intemet is divided into sequentially numbered
+packets. 
+\begin{enumerate}
+\item Explain why transmitted data is divided into packets. \hfill{}{[}2{]}
+\begin{enumerate}
+\item Explain why the packets are sequentially numbered. \hfill{}{[}2{]}
+\item State \textbf{two} items, other than the packet number, that are stored
+in the packet header. \hfill{}{[}2{]}
+\end{enumerate}
+\item Explain why protocols are required to enable reliable communication
+over the intemet. \hfill{}{[}2{]}
+\item A router is a device that allows the connection of a LAN to the lnternet.
+
+Explain how the router directs arriving data packets to the comet
+device on the LAN. \hfill{}{[}2{]}
+\item A firewall is often placed between a LAN and the Internet. 
+
+Explain how a firewall can provide security to the LAN.\hfill{} {[}2{]}
+\end{enumerate}
+\item A hash function and associated hash table are commonly used when finding
+storage space for a new record and searching for a specific record
+within a data set. 
+\begin{enumerate}
+\item Explain the advantage a hash table search might have over a linear
+search and a binary search when searching for a specific record. Refer
+to time complexity in your answer. \hfill{}{[}3{]}
+\item Explain the meaning of a collision in the context of a hash table
+search. \hfill{}{[}2{]}
+\item Describe \textbf{one} method that can be used to handle the consequence
+of a collision. \hfill{}{[}2{]}
+\item A hashing algorithm is used to calculate the index of a hash table
+from a record key. Give \textbf{three} features of an effective hashing
+algorithm. \hfill{}{[}3{]}
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

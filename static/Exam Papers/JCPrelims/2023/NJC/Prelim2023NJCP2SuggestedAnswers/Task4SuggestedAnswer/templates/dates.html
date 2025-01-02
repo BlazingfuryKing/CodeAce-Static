@@ -1,0 +1,36 @@
+<html>
+<head>
+  <link rel="stylesheet" href={{ url_for('static', filename='style.css')}} />
+</head>
+<body>
+<h2>{{ name }}</h2>
+<table>
+  <tr>
+  <th>
+    Date
+  </th>
+  <th>
+    Time
+  </th>
+  <th>
+    Venue
+  </th>
+  </tr>
+  {% for row in rows %}
+  <tr>
+    <td>
+      {{ row["Date"] }}
+    </td>
+    <td>
+      {{row["Time"]}}
+    </td>
+    <td>
+      {{row["venue"]}}
+    </td>
+      
+  </tr>
+  {% endfor %}
+  
+</table>
+</body>
+</html>

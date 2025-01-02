@@ -1,0 +1,13 @@
+select cubicle.cubicle_no from cubicle
+where cubicle.cubicle_no not in
+(
+select cubicle.cubicle_no from cubicle, student, booking
+where cubicle.cubicle_no = booking.cubicle_no
+and student.id = booking.student_id
+and booking.date = "17112024"
+) 
+and cubicle.cubicle_no not in
+(
+select cubicle.cubicle_no from cubicle
+where cubicle.maintenance = 1
+)

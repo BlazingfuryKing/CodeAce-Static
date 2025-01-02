@@ -1,0 +1,24 @@
+<html>
+<title> Update Profile Picture </title>
+
+<body>
+<h3> Update Profile Picture</h3>
+
+<p> Userid: {{userid}} </p>
+<p> Username: {{username}} </p>
+
+
+<form action={{url_for('update')}} method="POST" enctype="multipart/form-data">
+
+<p>Upload your profile picture in PNG fromat:</p>
+	<input type="file" name="mypic" accept="image/png" />
+	<br>
+	<input type="submit" value="Upload">  </p>
+<input type="hidden" name="username" value={{username}}>
+<input type="hidden" name="userid" value={{userid}}>
+
+</form>
+
+
+</body>
+</html>

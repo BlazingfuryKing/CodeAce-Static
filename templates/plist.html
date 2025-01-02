@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List and Array</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+                /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+    
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+<div class="main-menu">
+    <div class="menu-left">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <div class="menu-links">
+        <a href="/">Home</a>
+        <a href="theory.html">Theory</a>
+        <a href="practical.html">Practical</a>
+        <a href="papers.html">Papers</a>
+    </div>
+</div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#List">CRUD List</a>
+        <a href="#Array">CRUD Array</a>
+        <br>
+    </div>
+
+    <!-- Content -->
+<div class="content">
+    <h2 id="List">CRUD Operations on a List</h2>
+    <ul>
+        <li><strong>Create:</strong> Use a <code>for</code> loop to add numbers from 1 to 10 into the list.</li>
+        <li><strong>Read:</strong> Print the list to view its contents.</li>
+        <li><strong>Update:</strong> Modify the value at a specific index (e.g., set the value at index 0 to 2).</li>
+        <li><strong>Delete:</strong> Use <code>pop()</code> to remove the last element or <code>pop(index)</code> to remove an element at a specific index.</li>
+    </ul>
+        
+    <div class="dark-box"><code>listA = []
+    #create items 1 - 10 in listA using for loop
+    for i in range(10):
+        listA.append(i+1)
+
+    #read - find index of 3 in listA
+    print(listA)
+
+    #update - change value at an index in listA
+    listA[0] = 2
+    print(listA)
+
+    #delete - remove a value from the list
+    listA.pop() #deletes last value by default
+    print(listA)
+
+    listA.pop(0) #deletes a value at an index
+    print(listA)</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[2, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[2, 2, 3, 4, 5, 6, 7, 8, 9]
+[2, 3, 4, 5, 6, 7, 8, 9]</code>
+    </div>
+    <br>
+    <h2 id="Array">CRUD Operations on a Fixed-Size Array</h2>
+
+    <ul>
+        <li>In <strong>A-Levels</strong>, we do not use a real array data structure as seen in other programming contexts.</li>
+        <li>Instead, we <strong>simulate arrays</strong> using Python's <code>list</code> data type.</li>
+        <li>The <strong>fixed size</strong> of an array is represented by initializing a list with a specific number of <code>None</code> elements.</li>
+        <li>Operations like <strong>inserting</strong>, <strong>reading</strong>, <strong>updating</strong>, and <strong>deleting</strong> values can be performed on this simulated array.</li>
+        <li>This approach helps in understanding the basic functionality of arrays without relying on external libraries or native array structures.</li>
+    </ul>
+
+    <ul>
+
+        <li><strong>Create:</strong> Initialize an array with a fixed size (5) filled with <code>None</code>.</li>
+        <li><strong>Insert:</strong> Use a <code>for</code> loop to add values 1 to 5 into the array.</li>
+        <li><strong>Read:</strong> Print the array to view its current contents.</li>
+        <li><strong>Update:</strong> Modify the value at a specific index (e.g., set index 0 to <code>99</code>).</li>
+        <li><strong>Delete:</strong> Simulate removal by setting the last or specific index to <code>None</code>.</li>
+    </ul>
+
+    <div class="dark-box"><code># Create an array
+    size = 5  # the array can only store 5 variables
+    arr = [None] * size
+
+    # Create items 1 - 5 in arr using a for loop
+    for i in range(5):
+        arr[i] = i + 1
+
+    # Read - Print the array
+    print(arr)
+
+    # Update - Change value at index 0
+    arr[0] = 99
+    print(arr)
+
+    # Delete - Remove the last element by setting it to None
+    arr[-1] = None
+    print(arr)
+
+    # Delete - Remove the value at index 0
+    arr[0] = None
+    print(arr)</code>
+---------------------------------------
+<code>[1, 2, 3, 4, 5]
+[99, 2, 3, 4, 5]
+[99, 2, 3, 4, None]
+[None, 2, 3, 4, None]</code>
+    </div>
+</div>
+
+    <footer>
+        <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

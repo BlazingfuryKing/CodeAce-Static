@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree</title>
+    <link rel="icon" type="image/x-icon" href="..\static\CodeAce Logo.jpeg">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #E0E0E0; /* Light gray text */
+            background-color: #121212; /* Dark background */
+        }
+
+        h2 {
+            scroll-margin-top: 70px; /* Adjust based on the height of your fixed menu */
+        }
+        
+        /* Main Menu Bar */
+        .main-menu {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1F1F1F;
+            color: #FFD700;
+            padding: 0 20px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .menu-left {
+            flex: 1; /* Pushes the menu button to the far left */
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 40px; /* Adds spacing between links */
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+        
+        .menu-links a:hover {
+            color: #E0E0E0;
+        }
+        
+        .toggle-btn {
+            margin-left: 0; /* Ensures the button stays on the far left */
+        }
+        
+                
+
+        /* Sidebar */
+        .side-menu {
+            position: fixed;
+            top: 60px; /* Below the main menu */
+            left: -250px; /* Hidden off-screen initially */
+            width: 250px;
+            height: calc(100% - 60px); /* Full height below main menu */
+            background-color: #1E1E1E;
+            color: #ffd700;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Keeps it below the main menu */
+        }
+
+        .side-menu.collapsed {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            color: #FFD700;
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #E0E0E0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background-color: #333333;
+            color: #BF9553;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #1F1F1F;
+            color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #333333;
+            color:#e0e0e0
+        }
+
+        /* Content */
+        .content {
+            margin-top: 60px; /* Adjust for the main menu */
+            padding: 20px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 200px;
+            }
+        }
+
+        /*Bullet points*/
+        ul {
+            border-radius: 8px;
+            padding: 0px 20px;
+            list-style-type: disc;
+            max-width: 600px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /*Code Blocks*/
+        .dark-box {
+            background-color: #1E1E1E;
+            border: 1px solid #141414;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            color: #DCDCDC;
+            overflow-x: auto;
+            white-space: pre;
+            width: 50%;
+        }
+
+        table {
+            border-collapse: collapse; /* Ensures single borders */
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: transparent; /* Transparent background */
+        }
+        th, td {
+            border: 1px solid white; /* White grid lines */
+            padding: 8px;
+            color: white; /* Ensures text is visible */
+        }
+        th {
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #1F1F1F; /* Match header background */
+            color: #B0B0B0; /* Muted gray for footer text */
+            margin-top: 2rem;
+        }
+    
+        footer p {
+            color: #B0B0B0; /* Match footer text color */
+        }
+
+    </style>
+
+        <!-- JavaScript for Sidebar Toggle -->
+        <script>
+            function toggleSidebar() {
+                const sideMenu = document.getElementById('sideMenu');
+                sideMenu.classList.toggle('collapsed');
+            }
+        </script>
+        
+    
+</head>
+<body>
+    <div class="main-menu">
+        <div class="menu-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="menu-links">
+            <a href="/">Home</a>
+            <a href="theory.html">Theory</a>
+            <a href="practical.html">Practical</a>
+            <a href="papers.html">Papers</a>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Navigation</h2>
+        <a href="#1" onclick="toggleSidebar()">Iterative</a>
+        <a href="#2" onclick="toggleSidebar()">Recursive</a>
+        <a href="#3" onclick="toggleSidebar()">Array-Based</a>
+        <br>
+    </div>
+<!-- Content -->
+<div class="content">
+
+<h1 id="BST">Binary Search Tree (BST) Implementations</h1>
+
+<h2 id="1">1. Iterative BST Implementation</h2>
+<ul>
+    <li><strong>Node Class:</strong>
+        <ul>
+            <li>Represents a single node in the tree with <code>data</code>, <code>left</code>, and <code>right</code> pointers.</li>
+        </ul>
+    </li>
+    <li><strong>Insertion:</strong>
+        <ul>
+            <li>If the tree is empty, the node becomes the root.</li>
+            <li>Traverse the tree iteratively:
+                <ul>
+                    <li>Move left if the value is smaller than the current node.</li>
+                    <li>Move right if the value is larger.</li>
+                    <li>Insert the value when a <code>None</code> position is found.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Search:</strong>
+        <ul>
+            <li>Traverse the tree iteratively:
+                <ul>
+                    <li>If the value matches the current node, return <code>True</code>.</li>
+                    <li>Move left or right based on comparisons.</li>
+                    <li>Return <code>False</code> if the value isn’t found before reaching a leaf.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Traversals:</strong>
+        <ul>
+            <li><strong>Inorder:</strong> Left → Root → Right.</li>
+            <li><strong>Preorder:</strong> Root → Left → Right.</li>
+            <li><strong>Postorder:</strong> Left → Right → Root.</li>
+            <li><strong>Reverse:</strong> Right → Left → Root.</li>
+        </ul>
+    </li>
+    <li><strong>Maximum/Minimum:</strong>
+        <ul>
+            <li>For maximum, move right until the last node.</li>
+            <li>For minimum, move left until the last node.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+
+<div class="dark-box"><code>class Node:
+def __init__(self, data):
+    self.data = data
+    self.left = None
+    self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        node = Node(data)
+        if self.root is None:
+            self.root = node
+            return
+        else:
+            cur = self.root
+            while cur:
+                if cur.data > data:
+                    if cur.left is None:
+                        cur.left = node
+                        return
+                    else:
+                        cur = cur.left
+                else:
+                    if cur.right is None:
+                        cur.right = node
+                        return
+                    else:
+                        cur = cur.right
+
+    def search(self, data):
+        if self.root is None:
+            return 'empty bst'
+        else:
+            cur = self.root
+            while cur:
+                if cur.data == data:
+                    return True
+                elif cur.data > data:
+                    if cur.left is None:
+                        return False
+                    else:
+                        cur = cur.left
+                else:
+                    if cur.right is None:
+                        return False
+                    else:
+                        cur = cur.right
+
+    def inorder(self):
+        def helper(node):
+            if node:
+                helper(node.left)
+                print(node.data, end=' ')
+                helper(node.right)
+        helper(self.root)
+        print()
+
+    def preorder(self):
+        def helper(node):
+            if node:
+                print(node.data, end=' ')
+                helper(node.left)
+                helper(node.right)
+        helper(self.root)
+        print()
+
+    def postorder(self):
+        def helper(node):
+            if node:
+                helper(node.left)
+                helper(node.right)
+                print(node.data, end=' ')
+        helper(self.root)
+        print()
+
+    def reverse(self):
+        def helper(node):
+            if node:
+                helper(node.right)
+                helper(node.left)
+                print(node.data, end=' ')
+        helper(self.root)
+        print()
+
+    def maximum(self):
+        cur = self.root
+        while cur:
+            if cur.right is None:
+                return cur.data
+            else:
+                cur = cur.right
+
+    def minimum(self):
+        cur = self.root
+        while cur:
+            if cur.left is None:
+                return cur.data
+            else:
+                cur = cur.left
+
+bst = BST()
+values = [50, 30, 80, 10, 40, 90, 60]
+for value in values:
+    bst.insert(value)
+
+print(bst.search(10)) # True
+print(bst.search(70)) # False
+
+bst.inorder()    # 10 30 40 50 60 80 90
+bst.preorder()   # 50 30 10 40 80 60 90
+bst.postorder()  # 10 40 30 60 90 80 50
+bst.reverse()    # 90 80 60 50 40 30 10
+
+print(bst.maximum()) # 90
+print(bst.minimum()) # 10</code>
+---------------------------------------
+<code>True
+False
+10 30 40 50 60 80 90
+50 30 10 40 80 60 90
+10 40 30 60 90 80 50
+90 80 60 50 40 30 10
+90
+10</code></div>
+<br>
+<h2 id="2">2. Recursive BST Implementation</h2>
+<ul>
+    <li><strong>Insertion:</strong>
+        <ul>
+            <li>Compare the value with the root:
+                <ul>
+                    <li>If smaller, recursively insert into the left subtree.</li>
+                    <li>If larger, recursively insert into the right subtree.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Search:</strong>
+        <ul>
+            <li><strong>Base Case 1:</strong> If the target matches the current node, return <code>"Found"</code>.</li>
+            <li><strong>Base Case 2:</strong> If the subtree is <code>None</code>, return <code>"Not found"</code>.</li>
+            <li><strong>Recursive Cases:</strong>
+                <ul>
+                    <li>Go left if the target is smaller.</li>
+                    <li>Go right if the target is larger.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Traversals:</strong>
+        <ul>
+            <li><strong>Inorder:</strong> Recursive left → Print root → Recursive right.</li>
+            <li><strong>Preorder:</strong> Print root → Recursive left → Recursive right.</li>
+            <li><strong>Postorder:</strong> Recursive left → Recursive right → Print root.</li>
+            <li><strong>Reverse:</strong> Recursive right → Print root → Recursive left.</li>
+        </ul>
+    </li>
+    <li><strong>Maximum/Minimum:</strong>
+        <ul>
+            <li>Move right for maximum until no further subtree exists.</li>
+            <li>Move left for minimum until no further subtree exists.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+
+<div class="dark-box"><code>class BST:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+        if value < self.data:
+            if self.left is None:
+                self.left = BST(value)
+            else:
+                self.left.insert(value)
+        else:
+            if self.right is None:
+                self.right = BST(value)
+            else:
+                self.right.insert(value)
+
+    def search(self, target):
+        if self.data == target:
+            return "Found"
+        elif target < self.data:
+            if self.left is None:
+                return "Not found"
+            else:
+                return self.left.search(target)
+        else:
+            if self.right is None:
+                return "Not found"
+            else:
+                return self.right.search(target)
+
+    def inorder(self):
+        if self.left:
+            self.left.inorder()
+        print(self.data, end=' ')
+        if self.right:
+            self.right.inorder()
+
+    def preorder(self):
+        print(self.data, end=' ')
+        if self.left:
+            self.left.preorder()
+        if self.right:
+            self.right.preorder()
+
+    def postorder(self):
+        if self.left:
+            self.left.postorder()
+        if self.right:
+            self.right.postorder()
+        print(self.data, end=' ')
+
+    def minimum(self):
+        if self.left is None:
+            print(self.data)
+        else:
+            self.left.minimum()
+
+    def maximum(self):
+        if self.right is None:
+            print(self.data)
+        else:
+            self.right.maximum()
+
+# main
+bst = BST(50)
+values = [30, 80, 10, 40, 90, 60]
+for value in values:
+    bst.insert(value)
+
+print(bst.search(10)) # Found
+print(bst.search(70)) # Not found
+
+bst.inorder()    # 10 30 40 50 60 80 90
+print()
+bst.preorder()   # 50 30 10 40 80 60 90
+print()
+bst.postorder()  # 10 40 30 60 90 80 50
+print()
+bst.minimum()    # 10
+bst.maximum()    # 90</code>
+---------------------------------------
+<code>Found
+Not found
+10 30 40 50 60 80 90
+50 30 10 40 80 60 90
+10 40 30 60 90 80 50
+10
+90</code></div>
+<br>
+
+<h2 id="3">3. Array-Based BST Implementation</h2>
+<ul>
+    <li><strong>Concept:</strong> Use an array to simulate a BST:
+        <ul>
+            <li>The root is at index 0.</li>
+            <li>The left child of a node at index <code>i</code> is at <code>2*i + 1</code>.</li>
+            <li>The right child of a node at index <code>i</code> is at <code>2*i + 2</code>.</li>
+        </ul>
+    </li>
+    <li><strong>Insertion:</strong>
+        <ul>
+            <li>If the position exceeds the array size, insertion isn’t possible.</li>
+            <li>Recursively decide to go left (<code>2*i + 1</code>) or right (<code>2*i + 2</code>).</li>
+        </ul>
+    </li>
+    <li><strong>Search:</strong>
+        <ul>
+            <li><strong>Base Case 1:</strong> If the index is out of bounds or the slot is <code>None</code>, return <code>"Not found"</code>.</li>
+            <li><strong>Base Case 2:</strong> If the target matches the value at the index, return <code>"Found"</code>.</li>
+            <li><strong>Recursive Cases:</strong>
+                <ul>
+                    <li>Go left (<code>2*i + 1</code>) if the target is smaller.</li>
+                    <li>Go right (<code>2*i + 2</code>) if the target is larger.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Traversals:</strong>
+        <ul>
+            <li><strong>Inorder:</strong> Recursive left → Current node → Recursive right.</li>
+            <li><strong>Preorder:</strong> Current node → Recursive left → Recursive right.</li>
+            <li><strong>Postorder:</strong> Recursive left → Recursive right → Current node.</li>
+        </ul>
+    </li>
+    <li><strong>Maximum/Minimum:</strong>
+        <ul>
+            <li>For maximum, move to the right child (<code>2*i + 2</code>) until no further right exists.</li>
+            <li>For minimum, move to the left child (<code>2*i + 1</code>) until no further left exists.</li>
+        </ul>
+    </li>
+</ul>
+<br>
+
+<div class="dark-box"><code>class BST:
+    def __init__(self, size):
+        self.size = size
+        self.tree = [None] * size
+        self.root = 0
+
+    def insert(self, value, index=0):
+        if index >= self.size:
+            print(f"Cannot insert {value}: Index {index} out of bounds")
+            return
+        if self.tree[index] is None:
+            self.tree[index] = value
+        elif value < self.tree[index]:
+            self.insert(value, 2 * index + 1)
+        else:
+            self.insert(value, 2 * index + 2)
+
+    def search(self, target, index=0):
+        if index >= self.size or self.tree[index] is None:
+            return "Not found"
+        if self.tree[index] == target:
+            return "Found"
+        elif target < self.tree[index]:
+            return self.search(target, 2 * index + 1)
+        else:
+            return self.search(target, 2 * index + 2)
+
+    def inorder(self, index=0):
+        if index < self.size and self.tree[index] is not None:
+            self.inorder(2 * index + 1)
+            print(self.tree[index], end=' ')
+            self.inorder(2 * index + 2)
+
+    def preorder(self, index=0):
+        if index < self.size and self.tree[index] is not None:
+            print(self.tree[index], end=' ')
+            self.preorder(2 * index + 1)
+            self.preorder(2 * index + 2)
+
+# main
+bst = BST(7)
+values = [50, 30, 70, 20, 40, 60, 90]
+
+for value in values:
+    bst.insert(value)
+
+print(bst.search(10)) # Not found
+print(bst.search(70)) # Found
+
+bst.inorder()    # 20 30 40 50 60 70 90
+print()
+bst.preorder()   # 50 30 20 40 70 60 90
+print()</code>
+---------------------------------------
+<code>Not found
+Found
+20 30 40 50 60 70 90
+50 30 20 40 70 60 90</code></div>
+</div>
+<footer>
+    <p>&copy; 2025 Karthikeyan Aakarsha Kannan. All rights reserved.</p>
+</footer>
+</body>
+</html>
